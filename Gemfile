@@ -6,6 +6,22 @@ gem 'rails', '4.0.0'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'guard-rspec'
+end
+
+group :test do
+  gem 'capybara'
+  gem 'cucumber-rails', :require => false
+  gem 'rb-fsevent', :require => false
+  gem 'growl', :require => false
+end
+
+group :production do
+  gem 'pg'
+end
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 
