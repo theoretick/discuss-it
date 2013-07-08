@@ -5,10 +5,24 @@
   <%= stylesheet_link_tag    "application", media: "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="/bootstrap.css" rel="stylesheet" media="screen" />
+  <link href="/bootstrap-responsive.css" rel="stylesheet" media="screen" />
 </head>
-<body>
+  <body>
+    <div class="container">
 
-<%= yield %>
 
-</body>
+      <%= yield %>
+
+      <footer>
+        <p>&copy; Discuss It!</p>
+      </footer>
+    </div>
+
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+  </body>
 </html>
