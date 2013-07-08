@@ -8,10 +8,13 @@
     <div class="control-group">
       <label class="control-label" for="textinput">Article Link</label>
       <div class="controls">
-        <input id="textinput" name="textinput" type="text" placeholder="paste URL here" class="input-xlarge">
+        <%= form_tag static_pages_submit_path do %>
+          <%= label_tag(:q, "Search for:") %>
+          <%= text_field_tag(:q) %>
+          <%= submit_tag("Search", :class => "btn btn-primary btn-large") %>
+        <% end %>
       </div>
     </div>
-    <p><a href="<%= static_pages_submit_path %>" class="btn btn-primary btn-large">Submit &raquo;</a></p>
   </div>
 
   <hr>
