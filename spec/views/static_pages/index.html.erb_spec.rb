@@ -5,8 +5,8 @@ describe "static_pages/index.html.erb" do
 end
 
 describe "Index pages" do
-  it "should have <h1></h1>" do
+  it "should have h1 with content 'Discuss It!'" do
     visit '/index'
-    page.should have_selector('h1', text:'Discuss It!')
+    page.should have_selector('h1', :text => 'Discuss It!')
   end
 end

@@ -30,6 +30,7 @@ class DiscussIt
   end
 
   def fetch(site)
+    # fetches response, then traverses ruby hash
     site_response = get_response(site[:api], @target_link)
 
     return site_response["data"]["children"] if site == SITES[:reddit]
@@ -41,7 +42,7 @@ class DiscussIt
 
     return nil if listings.empty? # nil if no results
 
-    if site == :reddit
+    if site == :reddit      # [TODO] refactor if/else in less-hardcoded way
         data     = "data"
         score    = "score"
         location = "permalink"
@@ -99,6 +100,7 @@ class DiscussIt
   # end
 
   def find_all
+    # fetches url for all sites in SITES, returns array of urls
     results = []
 
     SITES.each_pair do |site_name, site_links|
