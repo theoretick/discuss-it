@@ -7,6 +7,7 @@ gem 'rails', '4.0.0'
 gem 'sqlite3'
 
 group :development, :test do
+  gem 'better_errors'
   gem 'rspec-rails'
   gem 'guard-rspec'
 end
