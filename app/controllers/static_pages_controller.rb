@@ -5,8 +5,12 @@ class StaticPagesController < ApplicationController
   end
 
   def submit
-    @discussit = DiscussItApi.new(params[:query])
-    @results = @discussit.find_all
+    begin
+      @discussit = DiscussItApi.new(params[:query])
+      @results = @discussit.find_all
+    rescue DiscussItUrlError => e
+      redirect_to :root, :flash => { :error => 'Invalid URL' }
+    end
   end
 
 end

@@ -5,6 +5,9 @@
 require 'net/http'
 require 'json'
 
+
+class DiscussItUrlError < Exception; end
+
 class DiscussItApi
 
   SITES = {
@@ -30,9 +33,13 @@ class DiscussItApi
   # [REFACTOR] Fetch responsibility
   # [TODO] change to get_json
   def get_response(site, query_domain)
-    uri = URI(site + query_domain)
-    response = Net::HTTP.get_response(uri)
-    return JSON.parse(response.body)
+    begin
+      uri = URI(site + query_domain)
+      response = Net::HTTP.get_response(uri)
+      return JSON.parse(response.body)
+    rescue URI::InvalidURIError => e
+      raise DiscussItUrlError.new
+    end
   end
 
   # [REFACTOR] Fetch responsibility
