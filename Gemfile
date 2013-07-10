@@ -28,6 +28,9 @@ group :production do
   gem 'pg'
 end
 
+#Add bootstap gem replacing local file use
+gem "twitter-bootstrap-rails"
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 

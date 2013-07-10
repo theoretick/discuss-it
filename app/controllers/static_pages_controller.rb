@@ -5,7 +5,7 @@ class StaticPagesController < ApplicationController
   end
 
   def submit
-    @discussit = DiscussItApi.new(params[:q])
+    @discussit = DiscussItApi.new(params[:query])
     @results = @discussit.find_all
   end
 
