@@ -1,6 +1,7 @@
 #
 #
 
+# [TODO] are these necessary? or does rails already have 'em
 require 'net/http'
 require 'json'
 
@@ -9,31 +10,43 @@ class DiscussItApi
   SITES = {
     :reddit => {
       :base => 'http://www.reddit.com',
-      :api => 'http://www.reddit.com/api/info.json?url='
+      :api => 'http://www.reddit.com/api/info.json?url=',
+      # ':run' returns 'article' obj rather than parsed json obj
+      :run => lambda { |response| return  response["data"]["children"] }
     },
     :hn => {
       :base => 'http://news.ycombinator.com/item?id=',
-      :api => 'http://api.thriftdb.com/api.hnsearch.com/items/_search?filter[fields][url]='
+      :api => 'http://api.thriftdb.com/api.hnsearch.com/items/_search?filter[fields][url]=',
+      # ':run' returns 'article' obj rather than parsed json obj
+      :run => lambda { |response| return response["results"]}
     }
   }
 
+  # [REFACTOR] only initialize articles, which call Fetchers
   def initialize(target_link)
     @target_link = target_link
   end
 
+  # [REFACTOR] Fetch responsibility
+  # [TODO] change to get_json
   def get_response(site, query_domain)
     uri = URI(site + query_domain)
     response = Net::HTTP.get_response(uri)
     return JSON.parse(response.body)
   end
 
+  # [REFACTOR] Fetch responsibility
+  # [TODO] change to get_json
   def fetch(site)
     site_response = get_response(site[:api], @target_link)
 
-    return site_response["data"]["children"] if site == SITES[:reddit]
-    return site_response["results"]          if site == SITES[:hn]
+    # return site_response["data"]["children"] if site == SITES[:reddit]
+    # return site_response["results"]          if site == SITES[:hn]
+    return site[:run].call(site_response)
   end
 
+  # [REFACTOR] {Reddit,HN}Article responsibility
+  # traverses response hash, returns highest scored submission
   def parse_response(site, listings)
 
     return nil if listings.empty? # nil if no results

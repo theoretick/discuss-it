@@ -9,10 +9,13 @@ gem 'sqlite3'
 group :development, :test do
   gem 'better_errors'
   gem 'rspec-rails'
-  gem 'guard-rspec'
+  gem 'guard-rspec', :require => false
+  gem 'guard-spork'
 end
 
 group :test do
+  gem 'spork', '~> 1.0rc'
+  gem 'spork-rails', :require => false, :git => 'git://github.com/sporkrb/spork-rails'
   gem 'capybara'
   gem 'cucumber-rails', :require => false
   gem 'rb-fsevent', :require => false
