@@ -13,6 +13,11 @@
   <body>
     <div class="container-fluid">
 
+      <% if flash[:error] %>
+        <div class="alert alert-error">
+          <%= flash[:error] %>
+        </div>
+      <% end %>
 
       <%= yield %>
 
