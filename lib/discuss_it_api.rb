@@ -89,7 +89,7 @@ class DiscussItApi
     return top_permalink.to_s
   end
 
-  def find_all
+  def find_all_top
     # fetches url for all sites in SITES, returns array of urls
     results = []
 
@@ -105,5 +105,5 @@ class DiscussItApi
 end
 
 # d = DiscussItApi.new('http://jmoiron.net/blog/japanese-peer-peer/')
-# puts d.find_all
+# puts d.find_all_top
 
