@@ -5,4 +5,4 @@
 
 Website for locating online discussions about a given article.
 
-Check it out at [Heroku](https://young-river-6329.herokuapp.com/)
+Check it out on Heroku at [discuss-it.herokuapp.com](https://discuss-it.herokuapp.com/)
