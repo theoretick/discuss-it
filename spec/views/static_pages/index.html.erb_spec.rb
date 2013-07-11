@@ -9,7 +9,7 @@ describe "Index pages" do
 
   it "should have p with proper text" do
     visit '/'
-    page.should have_selector("p", text: "Discuss-it – Online article discussion tracker website for locating online discussions about a given article.")
+    page.should have_selector("p", text: "Online article discussion tracker website for locating online discussions about a given article.")
   end
 
   it "should have css bootstrap loaded" do

@@ -1,6 +1,0 @@
-
-# Discuss-it -- Online article discussion tracker
-
-Website for locating online discussions about a given article.
-
-Check it out at [Heroku](https://young-river-6329.herokuapp.com/)
