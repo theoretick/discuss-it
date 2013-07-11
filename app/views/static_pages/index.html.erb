@@ -5,10 +5,12 @@
   <div class="control-group">
     <label class="control-label" for="textinput"></label>
     <div class="controls">
+        <div class="span11">
+        </div>
       <%= form_tag static_pages_submit_path do %>
-        <%= label_tag(:query, "Paste Here:") %>
-       <input type="text" name="query" placeholder="http"/>
-        <%= submit_tag("Search", :class => "btn btn-primary btn-large") %>
+      <%= label_tag(:query, "Paste Here:") %>
+      <input type="text" name="query" placeholder="http://example.com/article.html"/>
+      <%= submit_tag("Search", :class => "btn btn-primary btn-large") %>
       <% end %>
     </div>
   </div>

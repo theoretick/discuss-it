@@ -1,14 +1,18 @@
-
 <div class="hero-unit">
   <h1>Discuss It!</h1>
   <p>Online article discussion tracker website for locating online discussions about a given article.</p>
   <div class="row-fluid">
     <div class="columnA pull-center">
-         <h2>RESULTS!!!</h2>
-          <% @results.each do |result| %>
-          <%= link_to result, result %>
-          <% end %>
+      <h2>RESULTS!!!</h2>
+      <% if @results.empty? %>
+        <!-- [TODO] need to make do something -->
+        <%= puts "no results" %>
+      <% else %>
+        <% @results.each do |result| %>
+        <%= link_to result, result %>
+        <% end %>
+      <% end %>
     </div>
-</div>
-  <!-- Text input-->
-  <hr>
+  </div>
+
+    <hr>
