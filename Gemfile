@@ -6,6 +6,7 @@ gem 'rails', '4.0.0'
 group :development do
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3'
+  # gem 'execjs' ### SHOULD THIS GO HERE??
 end
 
 group :development, :test do

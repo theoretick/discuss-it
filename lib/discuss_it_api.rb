@@ -26,17 +26,25 @@ class DiscussItApi
   }
 
   # [REFACTOR] only initialize articles, which call Fetchers
+  # initializes new Api object with target url parameter
   def initialize(target_link)
     @target_link = target_link
   end
+
 
   # [REFACTOR] Fetch responsibility
   # [TODO] change to get_json
   def get_response(site, query_domain)
     begin
+      # if no trailing forward-slash, add one
+      query_domain + '/' unless query_domain[-1] =~ /\//
+      # if no prefixed http protocol, add one
+      'http://' + query_domain unless query_domain[0..7] =~ /(http|https):\/\//
+
       uri = URI(site + query_domain)
       response = Net::HTTP.get_response(uri)
       return JSON.parse(response.body)
+    # if http://xxx/ is invalid url content, raise error
     rescue URI::InvalidURIError => e
       raise DiscussItUrlError.new
     end
