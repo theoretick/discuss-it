@@ -1,11 +1,14 @@
 #
+# DiscussItApi class
+#
+# fetches url responses from Reddit and HN
 #
 
 # [TODO] are these necessary? or does rails already have 'em
 require 'net/http'
 require 'json'
 
-
+# Exception class to catch invalid URL Errors
 class DiscussItUrlError < Exception; end
 
 class DiscussItApi
@@ -25,42 +28,46 @@ class DiscussItApi
     }
   }
 
-  # [REFACTOR] only initialize articles, which call Fetchers
+  # [REFACTOR] only initialize on Article instances, which call Fetchers
   # initializes new Api object with target url parameter
   def initialize(target_link)
     @target_link = target_link
   end
 
+  # checks or adds 'http://' prefix and trailing '/' to query string
+  def format_url(query)
+    query += '/' unless query.end_with?('/')
+    query = 'http://' + query unless query.match(/(http|https):\/\//)
 
-  # [REFACTOR] Fetch responsibility
+    return query
+  end
+
+  # [REFACTOR] should be Fetch responsibility
   # [TODO] change to get_json
-  def get_response(site, query_domain)
+  # builds URL w/ siteAPI+query, fetches URI obj, returns parsed json
+  def get_json(site, user_string)
     begin
-      # if no trailing forward-slash, add one
-      query_domain + '/' unless query_domain[-1] =~ /\//
-      # if no prefixed http protocol, add one
-      'http://' + query_domain unless query_domain[0..7] =~ /(http|https):\/\//
+      query_domain = format_url(user_string)
 
       uri = URI(site + query_domain)
       response = Net::HTTP.get_response(uri)
       return JSON.parse(response.body)
-    # if http://xxx/ is invalid url content, raise error
+
+    # if http://xxx/ is still invalid url content, raise error
     rescue URI::InvalidURIError => e
       raise DiscussItUrlError.new
     end
   end
 
-  # [REFACTOR] Fetch responsibility
+  # [REFACTOR] should be Fetch responsibility
   # [TODO] change to get_json
   def fetch(site)
-    site_response = get_response(site[:api], @target_link)
+    site_response = get_json(site[:api], @target_link)
 
-    # return site_response["data"]["children"] if site == SITES[:reddit]
-    # return site_response["results"]          if site == SITES[:hn]
     return site[:run].call(site_response)
   end
 
-  # [REFACTOR] {Reddit,HN}Article responsibility
+  # [REFACTOR] should be {Reddit,HN}Article responsibility
   # traverses response hash, returns highest scored submission
   def parse_response(site, listings)
 
@@ -106,4 +113,3 @@ end
 
 # d = DiscussItApi.new('http://jmoiron.net/blog/japanese-peer-peer/')
 # puts d.find_all_top
-
