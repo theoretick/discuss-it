@@ -26,16 +26,18 @@ describe "discuss it api" do
 
   describe "get_json" do
 
-    # it "should raise error if given malformed URL" do
-    #   expect(@discussit.get_json(
-    #     'http://www.reddit.com/api/info.json?url=',
-    #     '/example.')).to raise_error(DiscussItUrlError)
-    # end
-
-    it "should return parsed JSON if given valid URL" do
-      expect(@discussit.get_json('http://www.reddit.com/api/info.json?url=',
-        'example.com')).to eq(MOCK_RESPONSE)
+    it "should raise error if given malformed URL" do
+      expect {
+        @discussit.get_json(
+        'http://www.reddit.com/api/info.json?url=',
+        '%')
+      }.to raise_error(DiscussItUrlError)
     end
+
+    # it "should return parsed JSON if given valid URL" do
+    #   expect(@discussit.get_json('http://www.reddit.com/api/info.json?url=',
+    #     'example.com')).to eq(MOCK_RESPONSE)
+    # end
 
   end
 
@@ -57,10 +59,12 @@ describe "discuss it api" do
       expect(@discussit.parse_response(:reddit,{})).to be_nil
     end
 
-    it "should get a correct substring from @discussit" do
-      # expect(@discussit.parse_response(:reddit)).to eql(
-      #   '/r/technology/comments/1hxl84/japans_anonymous_decentralized_p2p_networks_2008/')
-    end
+    # mocha this shit
+    #
+    # it "should get a correct substring from @discussit" do
+    #   expect(@discussit.parse_response(:reddit,)).to eql(
+    #     '/r/technology/comments/1hxl84/japans_anonymous_decentralized_p2p_networks_2008/')
+    # end
   end
 
   describe "find_all_top" do
