@@ -4,6 +4,9 @@ DiscussIt::Application.routes.draw do
 
   get 'index' => 'static_pages/index'
 
+  get 'about' => 'static_pages/about'
+  get 'static_pages/about'
+
   get 'static_pages/submit'
   post 'static_pages/submit'
 
