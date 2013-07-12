@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Index pages" do
+describe "static_pages/index.html.erb" do
 
   it "should have h1 with content 'Discuss It!'" do
     visit '/'
@@ -11,15 +11,4 @@ describe "Index pages" do
     visit '/'
     page.should have_selector("p", text: "Online article discussion tracker website for locating online discussions about a given article.")
   end
-
-  it "should have css bootstrap loaded" do
-    # [TODO] this doesn't actually test anything... fix or delete
-    visit '/'
-    page.should have_selector("div.controls")
-  end
-
-  it '' do
-
-  end
-
 end
