@@ -111,5 +111,5 @@ class DiscussItApi
 
 end
 
-# d = DiscussItApi.new('http://jmoiron.net/blog/japanese-peer-peer/')
+# d = DiscussItApi.new('test')
 # puts d.find_all_top
