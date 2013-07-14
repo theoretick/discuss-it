@@ -14,4 +14,3 @@ describe "static_pages/submit.html.erb" do
 
 end
 
-end
