@@ -51,6 +51,8 @@ ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
+require 'capybara/rails'
+require 'capybara/rspec'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -71,7 +73,7 @@ RSpec.configure do |config|
   config.mock_with :rspec
 
   config.include Capybara::DSL
-  # config.include 'discuss_it_api'
+  config.include RSpec::Rails::RequestExampleGroup, type: :feature
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
