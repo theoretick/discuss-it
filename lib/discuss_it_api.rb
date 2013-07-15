@@ -17,7 +17,7 @@ class DiscussItApi
       :base => 'http://www.reddit.com',
       :api => 'http://www.reddit.com/api/info.json?url=',
       # ':run' returns 'article' obj rather than parsed json obj
-      :run => lambda { |response| return  response["data"]["children"] }
+      :run => lambda { |response| return response["data"]["children"] }
     },
     :hn => {
       :base => 'http://news.ycombinator.com/item?id=',
@@ -47,8 +47,10 @@ class DiscussItApi
   end
 
   # checks or adds either 'http://' prefix and trailing '/'
-  def format_url(query)
-    query += '/' unless query.end_with?('/')
+  def format_url(sitename, query)
+    if sitename == :hn
+      query += '/' unless query.end_with?('/')
+    end
     query = 'http://' + query unless query.match(/(http|https):\/\//)
 
     return query
@@ -58,7 +60,7 @@ class DiscussItApi
   # builds URL w/ siteAPI+query, fetches URI obj, returns parsed json
   def get_json(site, user_string)
     begin
-      query_domain = format_url(user_string)
+      query_domain = format_url(site, user_string)
 
       uri = URI(site + query_domain)
       response = Net::HTTP.get_response(uri)
@@ -141,6 +143,8 @@ class DiscussItApi
 end
 
 # d = DiscussItApi.new('http://jmoiron.net/blog/japanese-peer-peer/')
-# puts d.find_top
+d = DiscussItApi.new('www.restorethefourth.net/')
+# d = DiscussItApi.new('http://www.washingtonpost.com/world/national-security/for-nsa-chief-terrorist-threat-drives-passion-to-collect-it-all/2013/07/14/3d26ef80-ea49-11e2-a301-ea5a8116d211_story.html')
+puts d.find_top
 # puts
 # puts d.find_all
