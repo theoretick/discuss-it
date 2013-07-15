@@ -27,6 +27,19 @@ class DiscussItApi
     }
   }
 
+  SITE_KEYWORDS = {
+    :reddit => {
+      :data => "data",
+      :score => "score",
+      :location => "permalink",
+    },
+    :hn => {
+      :data => "item",
+      :score => "points",
+      :location => "id",
+    }
+  }
+
   # [REFACTOR] only initialize on Article instances, which call Fetchers
   # initializes new Api object with target url parameter
   def initialize(target_link)
@@ -66,28 +79,30 @@ class DiscussItApi
 
   # [REFACTOR] should be {Reddit,HN}Article responsibility
   # traverses response hash, returns highest scored submission
-  def parse_response(site, listings)
+  def parse_response(type='all', site, listings)
 
     return nil if listings.empty? # nil if no results
 
-    if site == :reddit      # [TODO] refactor if/else in less-hardcoded way
-        data     = "data"
-        score    = "score"
-        location = "permalink"
-    elsif site == :hn
-        data     = "item"
-        score    = "points"
-        location = "id"
-    end
+    data     = SITE_KEYWORDS[site][:data]
+    score    = SITE_KEYWORDS[site][:score]
+    location = SITE_KEYWORDS[site][:location]
 
     top_score     = listings.first[data][score]
     top_permalink = listings.first[data][location]
 
-    listings.each do |posting|
-      if posting[data][score] > top_score
-        top_score     = posting[data][score]
-        top_permalink = posting[data][location]
+    if type == 'top'
+      listings.each do |posting|
+        if posting[data][score] > top_score
+          top_score     = posting[data][score]
+          top_permalink = posting[data][location]
+        end
       end
+    else
+      postings = []
+      listings.each do |posting|
+        postings << posting[data][location].to_s
+      end
+      return postings
     end
 
     return top_permalink.to_s
@@ -99,8 +114,12 @@ class DiscussItApi
 
     SITES.each_pair do |site_name, site_links|
       site_response = fetch(site_links)
-      top = parse_response(site_name, site_response)
-      results.push(site_links[:base] + top) unless top.nil?
+      all_posts = parse_response(site_name, site_response)
+      if all_posts
+        all_posts.each do |post|
+          results.push(site_links[:base] + post) unless post.nil?
+        end
+      end
     end
 
     return results
@@ -112,7 +131,7 @@ class DiscussItApi
 
     SITES.each_pair do |site_name, site_links|
       site_response = fetch(site_links)
-      top = parse_response(site_name, site_response)
+      top = parse_response('top', site_name, site_response)
       results.push(site_links[:base] + top) unless top.nil?
     end
 
