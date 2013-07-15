@@ -1,0 +1,16 @@
+.hero-unit
+  %h1 Discuss It!
+  %p Online article discussion tracker website for locating online discussions about a given article.
+  .row-fluid
+    .columnA.pull-center
+      %h3 TOP RESULTS
+      - if @results.empty?
+        - # make it do something
+        %p
+          Sorry, no discussions found.
+          = link_to 'Try again?', root_path
+      - else
+        = @results.each do |results|
+          = link_to result, result
+
+%hr

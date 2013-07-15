@@ -1,0 +1,13 @@
+.hero-unit
+  %h1 Discuss It!
+  %p Online article discussion tracker website for locating online discussions about a given article.
+  .row-fluid
+    .control-group
+      %label.control-label{:for => "textinput"}
+    .controls
+      = form_tag static_pages_submit_path do
+        = label_tag(:query, "Paste Here:")
+        %input{:name => "query", :placeholder => "http://example.com/article.html", :type => "text"}/
+        = submit_tag("Search", :class => "btn btn-primary btn-large")
+
+%hr
