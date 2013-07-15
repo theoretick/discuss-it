@@ -67,10 +67,10 @@ describe "discuss it api" do
     # end
   end
 
-  describe "find_all_top" do
+  describe "find_all" do
 
-    it "should get back correct 2-item array from @discussit" do
-      expect(@discussit.find_all_top).to eq(
+    it "should get back correct n-item array from find_all" do
+      expect(@discussit.find_all).to eq(
         [
           'http://www.reddit.com/r/technology/comments/1hxl84/japans_anonymous_decentralized_p2p_networks_2008/',
           'http://news.ycombinator.com/item?id=6012405'
@@ -78,5 +78,16 @@ describe "discuss it api" do
     end
   end
 
+  describe "find_top" do
+
+    it "should get back correct 2-item array from find_top" do
+      expect(@discussit.find_top).to eq(
+        [
+          'http://www.reddit.com/r/technology/comments/1hxl84/japans_anonymous_decentralized_p2p_networks_2008/',
+          'http://news.ycombinator.com/item?id=6012405'
+        ])
+    end
+  end
 
 end
+

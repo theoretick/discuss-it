@@ -2,14 +2,13 @@
 # DiscussItApi class
 #
 # fetches url responses from Reddit and HN
-#
 
-# [TODO] are these necessary? or does rails already have 'em
 require 'net/http'
 require 'json'
 
 # Exception class to catch invalid URL Errors
 class DiscussItUrlError < Exception; end
+
 
 class DiscussItApi
 
@@ -34,7 +33,7 @@ class DiscussItApi
     @target_link = target_link
   end
 
-  # checks or adds 'http://' prefix and trailing '/' to query string
+  # checks or adds either 'http://' prefix and trailing '/'
   def format_url(query)
     query += '/' unless query.end_with?('/')
     query = 'http://' + query unless query.match(/(http|https):\/\//)
@@ -43,7 +42,6 @@ class DiscussItApi
   end
 
   # [REFACTOR] should be Fetch responsibility
-  # [TODO] change to get_json
   # builds URL w/ siteAPI+query, fetches URI obj, returns parsed json
   def get_json(site, user_string)
     begin
@@ -60,7 +58,6 @@ class DiscussItApi
   end
 
   # [REFACTOR] should be Fetch responsibility
-  # [TODO] change to get_json
   def fetch(site)
     site_response = get_json(site[:api], @target_link)
 
@@ -96,8 +93,21 @@ class DiscussItApi
     return top_permalink.to_s
   end
 
-  def find_all_top
-    # fetches url for all sites in SITES, returns array of urls
+  # fetches all urls for all sites in SITES, returns array of urls
+  def find_all
+    results = []
+
+    SITES.each_pair do |site_name, site_links|
+      site_response = fetch(site_links)
+      top = parse_response(site_name, site_response)
+      results.push(site_links[:base] + top) unless top.nil?
+    end
+
+    return results
+  end
+
+  # fetches top urls for all sites in SITES, returns array of urls
+  def find_top
     results = []
 
     SITES.each_pair do |site_name, site_links|
@@ -112,4 +122,6 @@ class DiscussItApi
 end
 
 # d = DiscussItApi.new('http://jmoiron.net/blog/japanese-peer-peer/')
-# puts d.find_all_top
+# puts d.find_top
+# puts
+# puts d.find_all
