@@ -14,9 +14,11 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'guard-rspec', :require => false
   gem 'guard-spork'
+  # gem 'guard-zeus'
 end
 
 group :test do
+  # gem 'zeus'
   gem 'spork', '~> 1.0rc'
   gem 'spork-rails', :require => false, :git => 'git://github.com/sporkrb/spork-rails'
   gem 'capybara'
@@ -30,8 +32,10 @@ group :production do
   gem 'pg'
 end
 
+gem 'haml-rails'
+
 #Add bootstap gem replacing local file use
-gem "twitter-bootstrap-rails"
+gem 'twitter-bootstrap-rails'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
