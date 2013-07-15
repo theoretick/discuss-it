@@ -10,7 +10,7 @@
           Sorry, no discussions found.
           = link_to 'Try again?', root_path
       - else
-        = @results.each do |results|
-          = link_to result, result
+        - @results.each do |results|
+          = link_to results, results
 
 %hr
