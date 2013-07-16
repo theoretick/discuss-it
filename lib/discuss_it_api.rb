@@ -143,8 +143,8 @@ class DiscussItApi
 end
 
 # d = DiscussItApi.new('http://jmoiron.net/blog/japanese-peer-peer/')
-d = DiscussItApi.new('www.restorethefourth.net/')
+# d = DiscussItApi.new('www.restorethefourth.net/')
 # d = DiscussItApi.new('http://www.washingtonpost.com/world/national-security/for-nsa-chief-terrorist-threat-drives-passion-to-collect-it-all/2013/07/14/3d26ef80-ea49-11e2-a301-ea5a8116d211_story.html')
-puts d.find_top
+# puts d.find_top
 # puts
 # puts d.find_all
