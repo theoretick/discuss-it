@@ -1,0 +1,773 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://www.reddit.com/api/info.json?url=http://www.restorethefourth.net/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Ruby
+      Host:
+      - www.reddit.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Server:
+      - '''; DROP TABLE servertypes; --'
+      Vary:
+      - accept-encoding
+      Date:
+      - Tue, 16 Jul 2013 21:48:50 GMT
+      Content-Length:
+      - '23373'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"kind": "Listing", "data": {"modhash": "", "children": [{"kind": "t3",
+        "data": {"domain": "restorethefourth.net", "banned_by": null, "media_embed":
+        {}, "subreddit": "news", "selftext_html": null, "selftext": "", "likes": null,
+        "link_flair_text": "Use /r/inthenews ", "id": "1hn4cv", "clicked": false,
+        "title": "Restore the Fourth", "media": null, "score": 1, "approved_by": null,
+        "over_18": false, "hidden": false, "thumbnail": "", "subreddit_id": "t5_2qh3l",
+        "edited": false, "link_flair_css_class": "", "author_flair_css_class": null,
+        "downs": 1, "saved": false, "is_self": false, "permalink": "/r/news/comments/1hn4cv/restore_the_fourth/",
+        "name": "t3_1hn4cv", "created": 1372985548.0, "url": "http://www.restorethefourth.net/",
+        "author_flair_text": null, "author": "mtlion", "created_utc": 1372956748.0,
+        "ups": 2, "num_comments": 0, "num_reports": null, "distinguished": null}},
+        {"kind": "t3", "data": {"domain": "restorethefourth.net", "banned_by": null,
+        "media_embed": {}, "subreddit": "technology", "selftext_html": null, "selftext":
+        "", "likes": null, "link_flair_text": null, "id": "1hn4aq", "clicked": false,
+        "title": "Restore the Fourth", "media": null, "score": 0, "approved_by": null,
+        "over_18": false, "hidden": false, "thumbnail": "", "subreddit_id": "t5_2qh16",
+        "edited": false, "link_flair_css_class": null, "author_flair_css_class": null,
+        "downs": 9, "saved": false, "is_self": false, "permalink": "/r/technology/comments/1hn4aq/restore_the_fourth/",
+        "name": "t3_1hn4aq", "created": 1372985502.0, "url": "http://www.restorethefourth.net/",
+        "author_flair_text": null, "author": "mtlion", "created_utc": 1372956702.0,
+        "ups": 9, "num_comments": 0, "num_reports": null, "distinguished": null}},
+        {"kind": "t3", "data": {"domain": "restorethefourth.net", "banned_by": null,
+        "media_embed": {}, "subreddit": "news", "selftext_html": null, "selftext":
+        "", "likes": null, "link_flair_text": "Try /r/restorethefourth", "id": "1hl3w4",
+        "clicked": false, "title": "West Virginia is the only state without a restore
+        the 4th protest event...", "media": null, "score": 1, "approved_by": null,
+        "over_18": false, "hidden": false, "thumbnail": "", "subreddit_id": "t5_2qh3l",
+        "edited": false, "link_flair_css_class": "", "author_flair_css_class": null,
+        "downs": 1, "saved": false, "is_self": false, "permalink": "/r/news/comments/1hl3w4/west_virginia_is_the_only_state_without_a_restore/",
+        "name": "t3_1hl3w4", "created": 1372908291.0, "url": "http://www.restorethefourth.net/",
+        "author_flair_text": null, "author": "TheRealJonahHill", "created_utc": 1372879491.0,
+        "ups": 2, "num_comments": 0, "num_reports": null, "distinguished": null}},
+        {"kind": "t3", "data": {"domain": "restorethefourth.net", "banned_by": null,
+        "media_embed": {}, "subreddit": "politics", "selftext_html": null, "selftext":
+        "", "likes": null, "link_flair_text": "Editorialized Title", "id": "1hhbzu",
+        "clicked": false, "title": "Upset about the NSA scandal and feel as though
+        your fourth amendment is being infringed upon? This is a list of all of the
+        protests about restoring the fourth amendment (in America) which will occur
+        on July 4th, 2013.", "media": null, "score": 597, "approved_by": null, "over_18":
+        false, "hidden": false, "thumbnail": "", "subreddit_id": "t5_2cneq", "edited":
+        false, "link_flair_css_class": "", "author_flair_css_class": null, "downs":
+        172, "saved": false, "is_self": false, "permalink": "/r/politics/comments/1hhbzu/upset_about_the_nsa_scandal_and_feel_as_though/",
+        "name": "t3_1hhbzu", "created": 1372773575.0, "url": "http://www.restorethefourth.net/",
+        "author_flair_text": null, "author": "nomim814", "created_utc": 1372744775.0,
+        "ups": 769, "num_comments": 86, "num_reports": null, "distinguished": null}},
+        {"kind": "t3", "data": {"domain": "restorethefourth.net", "banned_by": null,
+        "media_embed": {}, "subreddit": "news", "selftext_html": null, "selftext":
+        "", "likes": null, "link_flair_text": null, "id": "1hd0t1", "clicked": false,
+        "title": "If the NSA listening in on you unnerves you join a protest on the
+        4th in your area...Restore the Fourth!!", "media": null, "score": 229, "approved_by":
+        null, "over_18": false, "hidden": false, "thumbnail": "", "subreddit_id":
+        "t5_2qh3l", "edited": false, "link_flair_css_class": null, "author_flair_css_class":
+        null, "downs": 96, "saved": false, "is_self": false, "permalink": "/r/news/comments/1hd0t1/if_the_nsa_listening_in_on_you_unnerves_you_join/",
+        "name": "t3_1hd0t1", "created": 1372622987.0, "url": "http://www.restorethefourth.net/",
+        "author_flair_text": null, "author": "sedatedworld", "created_utc": 1372594187.0,
+        "ups": 325, "num_comments": 51, "num_reports": null, "distinguished": null}},
+        {"kind": "t3", "data": {"domain": "restorethefourth.net", "banned_by": null,
+        "media_embed": {}, "subreddit": "r4links", "selftext_html": null, "selftext":
+        "", "likes": null, "link_flair_text": null, "id": "1i3abd", "clicked": false,
+        "title": "Test Post", "media": null, "score": 2, "approved_by": null, "over_18":
+        false, "hidden": false, "thumbnail": "default", "subreddit_id": "t5_2xu4v",
+        "edited": false, "link_flair_css_class": null, "author_flair_css_class": null,
+        "downs": 1, "saved": false, "is_self": false, "permalink": "/r/r4links/comments/1i3abd/test_post/",
+        "name": "t3_1i3abd", "created": 1373591104.0, "url": "http://www.restorethefourth.net/",
+        "author_flair_text": null, "author": "veryoriginal78", "created_utc": 1373562304.0,
+        "ups": 3, "num_comments": 1, "num_reports": null, "distinguished": null}},
+        {"kind": "t3", "data": {"domain": "restorethefourth.net", "banned_by": null,
+        "media_embed": {}, "subreddit": "Libertarian", "selftext_html": null, "selftext":
+        "", "likes": null, "link_flair_text": null, "id": "1hn4dq", "clicked": false,
+        "title": "Restore the Fourth", "media": null, "score": 4, "approved_by": null,
+        "over_18": false, "hidden": false, "thumbnail": "http://e.thumbs.redditmedia.com/Co-mS_jKcU20kMK4.jpg",
+        "subreddit_id": "t5_2qh63", "edited": false, "link_flair_css_class": null,
+        "author_flair_css_class": null, "downs": 3, "saved": false, "is_self": false,
+        "permalink": "/r/Libertarian/comments/1hn4dq/restore_the_fourth/", "name":
+        "t3_1hn4dq", "created": 1372985568.0, "url": "http://www.restorethefourth.net/",
+        "author_flair_text": null, "author": "mtlion", "created_utc": 1372956768.0,
+        "ups": 7, "num_comments": 0, "num_reports": null, "distinguished": null}},
+        {"kind": "t3", "data": {"domain": "restorethefourth.net", "banned_by": null,
+        "media_embed": {}, "subreddit": "Campaigns", "selftext_html": null, "selftext":
+        "", "likes": null, "link_flair_text": null, "id": "1hmp38", "clicked": false,
+        "title": "Restore the Fourth is down ATM. Load, DDoS or what?", "media": null,
+        "score": 1, "approved_by": null, "over_18": false, "hidden": false, "thumbnail":
+        "", "subreddit_id": "t5_2rp9z", "edited": false, "link_flair_css_class": null,
+        "author_flair_css_class": null, "downs": 0, "saved": false, "is_self": false,
+        "permalink": "/r/Campaigns/comments/1hmp38/restore_the_fourth_is_down_atm_load_ddos_or_what/",
+        "name": "t3_1hmp38", "created": 1372969762.0, "url": "http://www.restorethefourth.net/",
+        "author_flair_text": null, "author": "The__Explainer", "created_utc": 1372940962.0,
+        "ups": 1, "num_comments": 0, "num_reports": null, "distinguished": null}},
+        {"kind": "t3", "data": {"domain": "restorethefourth.net", "banned_by": null,
+        "media_embed": {}, "subreddit": "alaska", "selftext_html": null, "selftext":
+        "", "likes": null, "link_flair_text": null, "id": "1hl0u5", "clicked": false,
+        "title": "Restore the Fourth in Alaska? None planned so far.", "media": null,
+        "score": 18, "approved_by": null, "over_18": false, "hidden": false, "thumbnail":
+        "", "subreddit_id": "t5_2qhft", "edited": false, "link_flair_css_class": null,
+        "author_flair_css_class": null, "downs": 5, "saved": false, "is_self": false,
+        "permalink": "/r/alaska/comments/1hl0u5/restore_the_fourth_in_alaska_none_planned_so_far/",
+        "name": "t3_1hl0u5", "created": 1372906104.0, "url": "http://www.restorethefourth.net/",
+        "author_flair_text": null, "author": "OlfactoriusRex", "created_utc": 1372877304.0,
+        "ups": 23, "num_comments": 23, "num_reports": null, "distinguished": null}},
+        {"kind": "t3", "data": {"domain": "restorethefourth.net", "banned_by": null,
+        "media_embed": {}, "subreddit": "misc", "selftext_html": null, "selftext":
+        "", "likes": null, "link_flair_text": null, "id": "1hlews", "clicked": false,
+        "title": "An interactive map of restore the fourth protest locations for those
+        who care", "media": null, "score": 6, "approved_by": null, "over_18": false,
+        "hidden": false, "thumbnail": "http://e.thumbs.redditmedia.com/Co-mS_jKcU20kMK4.jpg",
+        "subreddit_id": "t5_2qjbr", "edited": false, "link_flair_css_class": null,
+        "author_flair_css_class": null, "downs": 5, "saved": false, "is_self": false,
+        "permalink": "/r/misc/comments/1hlews/an_interactive_map_of_restore_the_fourth_protest/",
+        "name": "t3_1hlews", "created": 1372916654.0, "url": "http://www.restorethefourth.net/",
+        "author_flair_text": null, "author": "Slyydog", "created_utc": 1372887854.0,
+        "ups": 11, "num_comments": 0, "num_reports": null, "distinguished": null}},
+        {"kind": "t3", "data": {"domain": "restorethefourth.net", "banned_by": null,
+        "media_embed": {}, "subreddit": "PuertoRico", "selftext_html": null, "selftext":
+        "", "likes": null, "link_flair_text": null, "id": "1hlbv0", "clicked": false,
+        "title": "Hey Puerto Rico, we dont seem to have anything planned, What gives?",
+        "media": null, "score": 5, "approved_by": null, "over_18": false, "hidden":
+        false, "thumbnail": "http://e.thumbs.redditmedia.com/Co-mS_jKcU20kMK4.jpg",
+        "subreddit_id": "t5_2qjyb", "edited": false, "link_flair_css_class": null,
+        "author_flair_css_class": null, "downs": 5, "saved": false, "is_self": false,
+        "permalink": "/r/PuertoRico/comments/1hlbv0/hey_puerto_rico_we_dont_seem_to_have_anything/",
+        "name": "t3_1hlbv0", "created": 1372914232.0, "url": "http://www.restorethefourth.net/",
+        "author_flair_text": null, "author": "Offensive_Brute", "created_utc": 1372885432.0,
+        "ups": 10, "num_comments": 13, "num_reports": null, "distinguished": null}},
+        {"kind": "t3", "data": {"domain": "restorethefourth.net", "banned_by": null,
+        "media_embed": {}, "subreddit": "allentown", "selftext_html": null, "selftext":
+        "", "likes": null, "link_flair_text": null, "id": "1hll2k", "clicked": false,
+        "title": "why no Allentown or Lehigh Valley?", "media": null, "score": 1,
+        "approved_by": null, "over_18": false, "hidden": false, "thumbnail": "", "subreddit_id":
+        "t5_2xl8p", "edited": false, "link_flair_css_class": null, "author_flair_css_class":
+        null, "downs": 1, "saved": false, "is_self": false, "permalink": "/r/allentown/comments/1hll2k/why_no_allentown_or_lehigh_valley/",
+        "name": "t3_1hll2k", "created": 1372921747.0, "url": "http://www.restorethefourth.net/",
+        "author_flair_text": null, "author": "androidbitcoin", "created_utc": 1372892947.0,
+        "ups": 2, "num_comments": 0, "num_reports": null, "distinguished": null}},
+        {"kind": "t3", "data": {"domain": "restorethefourth.net", "banned_by": null,
+        "media_embed": {}, "subreddit": "StLouis", "selftext_html": null, "selftext":
+        "", "likes": null, "link_flair_text": null, "id": "1hjton", "clicked": false,
+        "title": "Hey r/StLouis, tired of the NSA''s recent antics? Then come on out
+        and Restore the 4th this Thursday Downtown!", "media": null, "score": 17,
+        "approved_by": null, "over_18": false, "hidden": false, "thumbnail": "http://b.thumbs.redditmedia.com/r8WzWkFp75_pWyXU.jpg",
+        "subreddit_id": "t5_2qpnm", "edited": false, "link_flair_css_class": null,
+        "author_flair_css_class": null, "downs": 9, "saved": false, "is_self": false,
+        "permalink": "/r/StLouis/comments/1hjton/hey_rstlouis_tired_of_the_nsas_recent_antics_then/",
+        "name": "t3_1hjton", "created": 1372858260.0, "url": "http://www.restorethefourth.net/",
+        "author_flair_text": null, "author": "currentheswell", "created_utc": 1372829460.0,
+        "ups": 26, "num_comments": 1, "num_reports": null, "distinguished": null}},
+        {"kind": "t3", "data": {"domain": "restorethefourth.net", "banned_by": null,
+        "media_embed": {}, "subreddit": "CitizensActionNet", "selftext_html": null,
+        "selftext": "", "likes": null, "link_flair_text": null, "id": "1hkjg3", "clicked":
+        false, "title": "Restore the Fourth Rally. In a City Near You!", "media":
+        null, "score": 2, "approved_by": null, "over_18": false, "hidden": false,
+        "thumbnail": "http://b.thumbs.redditmedia.com/r8WzWkFp75_pWyXU.jpg", "subreddit_id":
+        "t5_2xoo9", "edited": false, "link_flair_css_class": null, "author_flair_css_class":
+        null, "downs": 1, "saved": false, "is_self": false, "permalink": "/r/CitizensActionNet/comments/1hkjg3/restore_the_fourth_rally_in_a_city_near_you/",
+        "name": "t3_1hkjg3", "created": 1372892861.0, "url": "http://www.restorethefourth.net/",
+        "author_flair_text": null, "author": "FaithLyss", "created_utc": 1372864061.0,
+        "ups": 3, "num_comments": 0, "num_reports": null, "distinguished": null}},
+        {"kind": "t3", "data": {"domain": "restorethefourth.net", "banned_by": null,
+        "media_embed": {}, "subreddit": "cincinnati", "selftext_html": null, "selftext":
+        "", "likes": null, "link_flair_text": null, "id": "1hijy1", "clicked": false,
+        "title": "Cincinnati needs a Restore The Fourth rally.", "media": null, "score":
+        39, "approved_by": null, "over_18": false, "hidden": false, "thumbnail": "",
+        "subreddit_id": "t5_2qt1k", "edited": false, "link_flair_css_class": null,
+        "author_flair_css_class": null, "downs": 16, "saved": false, "is_self": false,
+        "permalink": "/r/cincinnati/comments/1hijy1/cincinnati_needs_a_restore_the_fourth_rally/",
+        "name": "t3_1hijy1", "created": 1372820794.0, "url": "http://www.restorethefourth.net/",
+        "author_flair_text": null, "author": "Aimin4ya", "created_utc": 1372791994.0,
+        "ups": 55, "num_comments": 15, "num_reports": null, "distinguished": null}},
+        {"kind": "t3", "data": {"domain": "restorethefourth.net", "banned_by": null,
+        "media_embed": {}, "subreddit": "Tucson", "selftext_html": null, "selftext":
+        "", "likes": null, "link_flair_text": null, "id": "1hilgg", "clicked": false,
+        "title": "Restore the Fourth Protest --&gt; Tempe, July 4th, 4pm. Who''s with
+        me?!", "media": null, "score": 15, "approved_by": null, "over_18": false,
+        "hidden": false, "thumbnail": "http://b.thumbs.redditmedia.com/r8WzWkFp75_pWyXU.jpg",
+        "subreddit_id": "t5_2qmno", "edited": false, "link_flair_css_class": null,
+        "author_flair_css_class": null, "downs": 9, "saved": false, "is_self": false,
+        "permalink": "/r/Tucson/comments/1hilgg/restore_the_fourth_protest_tempe_july_4th_4pm/",
+        "name": "t3_1hilgg", "created": 1372821876.0, "url": "http://www.restorethefourth.net/",
+        "author_flair_text": null, "author": "MajorMuffinCakes", "created_utc": 1372793076.0,
+        "ups": 24, "num_comments": 7, "num_reports": null, "distinguished": null}},
+        {"kind": "t3", "data": {"domain": "restorethefourth.net", "banned_by": null,
+        "media_embed": {}, "subreddit": "Omaha", "selftext_html": null, "selftext":
+        "", "likes": null, "link_flair_text": null, "id": "1hipym", "clicked": false,
+        "title": "Restore the Fourth, anybody wanna get this going in Omaha? I might
+        be able to go, might not but it''s still something worth going for guys!",
+        "media": null, "score": 7, "approved_by": null, "over_18": false, "hidden":
+        false, "thumbnail": "http://b.thumbs.redditmedia.com/r8WzWkFp75_pWyXU.jpg",
+        "subreddit_id": "t5_2qihb", "edited": false, "link_flair_css_class": null,
+        "author_flair_css_class": "selfassign", "downs": 13, "saved": false, "is_self":
+        false, "permalink": "/r/Omaha/comments/1hipym/restore_the_fourth_anybody_wanna_get_this_going/",
+        "name": "t3_1hipym", "created": 1372825045.0, "url": "http://www.restorethefourth.net/",
+        "author_flair_text": "Born and Raised", "author": "Ninjew333", "created_utc":
+        1372796245.0, "ups": 20, "num_comments": 6, "num_reports": null, "distinguished":
+        null}}, {"kind": "t3", "data": {"domain": "restorethefourth.net", "banned_by":
+        null, "media_embed": {}, "subreddit": "orangecounty", "selftext_html": null,
+        "selftext": "", "likes": null, "link_flair_text": null, "id": "1hg1lr", "clicked":
+        false, "title": "Restore the 4th!", "media": null, "score": 9, "approved_by":
+        null, "over_18": false, "hidden": false, "thumbnail": "http://b.thumbs.redditmedia.com/r8WzWkFp75_pWyXU.jpg",
+        "subreddit_id": "t5_2rd9x", "edited": false, "link_flair_css_class": null,
+        "author_flair_css_class": "", "downs": 7, "saved": false, "is_self": false,
+        "permalink": "/r/orangecounty/comments/1hg1lr/restore_the_4th/", "name": "t3_1hg1lr",
+        "created": 1372735853.0, "url": "http://www.restorethefourth.net/", "author_flair_text":
+        "Irvine", "author": "javajakeco", "created_utc": 1372707053.0, "ups": 16,
+        "num_comments": 20, "num_reports": null, "distinguished": null}}, {"kind":
+        "t3", "data": {"domain": "restorethefourth.net", "banned_by": null, "media_embed":
+        {}, "subreddit": "Seattle", "selftext_html": null, "selftext": "", "likes":
+        null, "link_flair_text": null, "id": "1hdqws", "clicked": false, "title":
+        "Protest the NSA Spying! Saturday July 6th, Westlake Center @ Noon", "media":
+        null, "score": 7, "approved_by": null, "over_18": false, "hidden": false,
+        "thumbnail": "default", "subreddit_id": "t5_2qhad", "edited": false, "link_flair_css_class":
+        null, "author_flair_css_class": null, "downs": 5, "saved": false, "is_self":
+        false, "permalink": "/r/Seattle/comments/1hdqws/protest_the_nsa_spying_saturday_july_6th_westlake/",
+        "name": "t3_1hdqws", "created": 1372651608.0, "url": "http://www.restorethefourth.net/",
+        "author_flair_text": null, "author": "lukekarasa", "created_utc": 1372622808.0,
+        "ups": 12, "num_comments": 12, "num_reports": null, "distinguished": null}},
+        {"kind": "t3", "data": {"domain": "restorethefourth.net", "banned_by": null,
+        "media_embed": {}, "subreddit": "ModerationLog", "selftext_html": null, "selftext":
+        "", "likes": null, "link_flair_text": null, "id": "1hefaz", "clicked": false,
+        "title": "/r/politics [spam filtered] National Protest Link for 4th of July",
+        "media": null, "score": 1, "approved_by": null, "over_18": false, "hidden":
+        false, "thumbnail": "", "subreddit_id": "t5_2tqat", "edited": false, "link_flair_css_class":
+        null, "author_flair_css_class": null, "downs": 1, "saved": false, "is_self":
+        false, "permalink": "/r/ModerationLog/comments/1hefaz/rpolitics_spam_filtered_national_protest_link_for/",
+        "name": "t3_1hefaz", "created": 1372673466.0, "url": "http://www.restorethefourth.net/",
+        "author_flair_text": null, "author": "ModerationLog", "created_utc": 1372644666.0,
+        "ups": 2, "num_comments": 1, "num_reports": null, "distinguished": null}},
+        {"kind": "t3", "data": {"domain": "restorethefourth.net", "banned_by": null,
+        "media_embed": {}, "subreddit": "AsburyPark", "selftext_html": null, "selftext":
+        "", "likes": null, "link_flair_text": null, "id": "1hc44h", "clicked": false,
+        "title": "Can we get one of these protests going on the boardwalk or nearby?
+        This is important.", "media": null, "score": 10, "approved_by": null, "over_18":
+        false, "hidden": false, "thumbnail": "http://b.thumbs.redditmedia.com/r8WzWkFp75_pWyXU.jpg",
+        "subreddit_id": "t5_2thb1", "edited": false, "link_flair_css_class": null,
+        "author_flair_css_class": null, "downs": 3, "saved": false, "is_self": false,
+        "permalink": "/r/AsburyPark/comments/1hc44h/can_we_get_one_of_these_protests_going_on_the/",
+        "name": "t3_1hc44h", "created": 1372577422.0, "url": "http://www.restorethefourth.net/",
+        "author_flair_text": null, "author": "failspy", "created_utc": 1372548622.0,
+        "ups": 13, "num_comments": 11, "num_reports": null, "distinguished": null}},
+        {"kind": "t3", "data": {"domain": "restorethefourth.net", "banned_by": null,
+        "media_embed": {}, "subreddit": "AnnArbor", "selftext_html": null, "selftext":
+        "", "likes": null, "link_flair_text": null, "id": "1gv8sb", "clicked": false,
+        "title": "Just letting A2 know about the NSA protests on July 4th. Who is
+        going?", "media": null, "score": 27, "approved_by": null, "over_18": false,
+        "hidden": false, "thumbnail": "http://b.thumbs.redditmedia.com/r8WzWkFp75_pWyXU.jpg",
+        "subreddit_id": "t5_2r5tm", "edited": false, "link_flair_css_class": null,
+        "author_flair_css_class": null, "downs": 6, "saved": false, "is_self": false,
+        "permalink": "/r/AnnArbor/comments/1gv8sb/just_letting_a2_know_about_the_nsa_protests_on/",
+        "name": "t3_1gv8sb", "created": 1371955462.0, "url": "http://www.restorethefourth.net/",
+        "author_flair_text": null, "author": "Police_Telephone_Box", "created_utc":
+        1371926662.0, "ups": 33, "num_comments": 6, "num_reports": null, "distinguished":
+        null}}, {"kind": "t3", "data": {"domain": "restorethefourth.net", "banned_by":
+        null, "media_embed": {}, "subreddit": "POLITIC", "selftext_html": null, "selftext":
+        "", "likes": null, "link_flair_text": "politics|cowbob", "id": "1gt0o3", "clicked":
+        false, "title": "July 4th Protest (Brazil cant have all the fun) Are we doing
+        this? I have the 4th off work so I am in.", "media": null, "score": 1, "approved_by":
+        null, "over_18": false, "hidden": false, "thumbnail": "http://b.thumbs.redditmedia.com/r8WzWkFp75_pWyXU.jpg",
+        "subreddit_id": "t5_2r84s", "edited": false, "link_flair_css_class": "meta",
+        "author_flair_css_class": null, "downs": 1, "saved": false, "is_self": false,
+        "permalink": "/r/POLITIC/comments/1gt0o3/july_4th_protest_brazil_cant_have_all_the_fun_are/",
+        "name": "t3_1gt0o3", "created": 1371864601.0, "url": "http://www.restorethefourth.net/",
+        "author_flair_text": null, "author": "PoliticBot", "created_utc": 1371835801.0,
+        "ups": 2, "num_comments": 2, "num_reports": null, "distinguished": null}},
+        {"kind": "t3", "data": {"domain": "restorethefourth.net", "banned_by": null,
+        "media_embed": {}, "subreddit": "restorethefourth", "selftext_html": null,
+        "selftext": "", "likes": null, "link_flair_text": null, "id": "1hlctl", "clicked":
+        false, "title": "An interactive map of the restore the fourth protests", "media":
+        null, "score": 0, "approved_by": null, "over_18": false, "hidden": false,
+        "thumbnail": "default", "subreddit_id": "t5_2xhsu", "edited": false, "link_flair_css_class":
+        null, "author_flair_css_class": null, "downs": 2, "saved": false, "is_self":
+        false, "permalink": "/r/restorethefourth/comments/1hlctl/an_interactive_map_of_the_restore_the_fourth/",
+        "name": "t3_1hlctl", "created": 1372914972.0, "url": "http://www.restorethefourth.net/",
+        "author_flair_text": null, "author": "Slyydog", "created_utc": 1372886172.0,
+        "ups": 2, "num_comments": 0, "num_reports": null, "distinguished": null}},
+        {"kind": "t3", "data": {"domain": "restorethefourth.net", "banned_by": null,
+        "media_embed": {}, "subreddit": "Denver", "selftext_html": null, "selftext":
+        "", "likes": null, "link_flair_text": null, "id": "1hia3g", "clicked": false,
+        "title": "On July 4th, people will be protesting the NSA in cities across
+        the nation for violating our 4th amendment rights. Unfortunately, Denver won''t
+        be one of those cities :(", "media": null, "score": 0, "approved_by": null,
+        "over_18": false, "hidden": false, "thumbnail": "", "subreddit_id": "t5_2qn3i",
+        "edited": false, "link_flair_css_class": null, "author_flair_css_class": null,
+        "downs": 11, "saved": false, "is_self": false, "permalink": "/r/Denver/comments/1hia3g/on_july_4th_people_will_be_protesting_the_nsa_in/",
+        "name": "t3_1hia3g", "created": 1372813683.0, "url": "http://www.restorethefourth.net/",
+        "author_flair_text": null, "author": "mondragonjoe", "created_utc": 1372784883.0,
+        "ups": 10, "num_comments": 5, "num_reports": null, "distinguished": null}}],
+        "after": null, "before": null}}'
+    http_version: 
+  recorded_at: Tue, 16 Jul 2013 21:48:50 GMT
+- request:
+    method: get
+    uri: http://api.thriftdb.com/api.hnsearch.com/items/_search?filter%5Bfields%5D%5Burl%5D=http://www.restorethefourth.net/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Ruby
+      Host:
+      - api.thriftdb.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Application:
+      - thriftdbweb
+      Application-Tag:
+      - master
+      Cache-Control:
+      - no-cache
+      Content-Type:
+      - text/plain; charset=utf-8
+      Date:
+      - Tue, 16 Jul 2013 21:48:48 GMT
+      Pragma:
+      - no-cache
+      Content-Length:
+      - '857'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"hits": 2, "facet_results": {"fields": {}, "queries": {}}, "warnings":
+        [], "request": {"facet": {"fields": {}, "queries": []}, "stats": {}, "match_stopwords":
+        false, "q": "", "start": 0, "limit": 10, "sortby": "score desc", "highlight":
+        {"include_matches": false, "fragments": {"maxchars": 100, "include": false,
+        "markup_text": false}, "markup_items": false}, "weights": {"username": 1.0,
+        "parent_sigid": 1.0, "domain": 1.0, "title": 1.0, "url": 1.0, "text": 1.0,
+        "discussion.sigid": 1.0, "type": 1.0}, "filter": {"fields": {"url": ["http://www.restorethefourth.net/"]},
+        "queries": []}, "boosts": {"fields": {}, "functions": {}, "filters": {}}},
+        "results": [{"item": {"username": "godgod", "parent_sigid": null, "domain":
+        "restorethefourth.net", "title": "Restore The Fourth - Nationwide Protests
+        against NSA Spy Program", "url": "http://www.restorethefourth.net/", "text":
+        "\u201cThe right of the people to be secure in their persons, houses, papers,
+        and effects, against unreasonable searches and seizures...\u201d<p>Find a
+        Protest in Your Area and help Secure YOUR Privacy<p>Spread the word. It&#x27;s
+        started. #RESTORETHEFOURTH", "discussion": null, "id": 5913146, "parent_id":
+        null, "points": 2, "create_ts": "2013-06-20T16:56:12Z", "num_comments": 0,
+        "cache_ts": "2013-06-27T07:41:30Z", "_id": "5913146-e22b7", "type": "submission",
+        "_noindex": false, "_update_ts": 1372318932127747}, "score": 1.0}, {"item":
+        {"username": "iProject", "parent_sigid": null, "domain": "restorethefourth.net",
+        "title": "Restore the Fourth: Find a Protest in Your Area", "url": "http://www.restorethefourth.net/",
+        "text": null, "discussion": null, "id": 5983835, "parent_id": null, "points":
+        2, "create_ts": "2013-07-03T11:40:11Z", "num_comments": 0, "cache_ts": "2013-07-10T07:51:27Z",
+        "_id": "5983835-09118", "type": "submission", "_noindex": false, "_update_ts":
+        1373469023359644}, "score": 1.0}], "time": 0.007272005081176758}'
+    http_version: 
+  recorded_at: Tue, 16 Jul 2013 21:48:50 GMT
+- request:
+    method: get
+    uri: http://www.reddit.com/api/info.json?url=http://www.restorethefourth.net/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Ruby
+      Host:
+      - www.reddit.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Server:
+      - '''; DROP TABLE servertypes; --'
+      Vary:
+      - accept-encoding
+      Date:
+      - Tue, 16 Jul 2013 21:48:50 GMT
+      Content-Length:
+      - '23373'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"kind": "Listing", "data": {"modhash": "", "children": [{"kind": "t3",
+        "data": {"domain": "restorethefourth.net", "banned_by": null, "media_embed":
+        {}, "subreddit": "news", "selftext_html": null, "selftext": "", "likes": null,
+        "link_flair_text": "Use /r/inthenews ", "id": "1hn4cv", "clicked": false,
+        "title": "Restore the Fourth", "media": null, "score": 1, "approved_by": null,
+        "over_18": false, "hidden": false, "thumbnail": "", "subreddit_id": "t5_2qh3l",
+        "edited": false, "link_flair_css_class": "", "author_flair_css_class": null,
+        "downs": 1, "saved": false, "is_self": false, "permalink": "/r/news/comments/1hn4cv/restore_the_fourth/",
+        "name": "t3_1hn4cv", "created": 1372985548.0, "url": "http://www.restorethefourth.net/",
+        "author_flair_text": null, "author": "mtlion", "created_utc": 1372956748.0,
+        "ups": 2, "num_comments": 0, "num_reports": null, "distinguished": null}},
+        {"kind": "t3", "data": {"domain": "restorethefourth.net", "banned_by": null,
+        "media_embed": {}, "subreddit": "technology", "selftext_html": null, "selftext":
+        "", "likes": null, "link_flair_text": null, "id": "1hn4aq", "clicked": false,
+        "title": "Restore the Fourth", "media": null, "score": 0, "approved_by": null,
+        "over_18": false, "hidden": false, "thumbnail": "", "subreddit_id": "t5_2qh16",
+        "edited": false, "link_flair_css_class": null, "author_flair_css_class": null,
+        "downs": 9, "saved": false, "is_self": false, "permalink": "/r/technology/comments/1hn4aq/restore_the_fourth/",
+        "name": "t3_1hn4aq", "created": 1372985502.0, "url": "http://www.restorethefourth.net/",
+        "author_flair_text": null, "author": "mtlion", "created_utc": 1372956702.0,
+        "ups": 9, "num_comments": 0, "num_reports": null, "distinguished": null}},
+        {"kind": "t3", "data": {"domain": "restorethefourth.net", "banned_by": null,
+        "media_embed": {}, "subreddit": "news", "selftext_html": null, "selftext":
+        "", "likes": null, "link_flair_text": "Try /r/restorethefourth", "id": "1hl3w4",
+        "clicked": false, "title": "West Virginia is the only state without a restore
+        the 4th protest event...", "media": null, "score": 1, "approved_by": null,
+        "over_18": false, "hidden": false, "thumbnail": "", "subreddit_id": "t5_2qh3l",
+        "edited": false, "link_flair_css_class": "", "author_flair_css_class": null,
+        "downs": 1, "saved": false, "is_self": false, "permalink": "/r/news/comments/1hl3w4/west_virginia_is_the_only_state_without_a_restore/",
+        "name": "t3_1hl3w4", "created": 1372908291.0, "url": "http://www.restorethefourth.net/",
+        "author_flair_text": null, "author": "TheRealJonahHill", "created_utc": 1372879491.0,
+        "ups": 2, "num_comments": 0, "num_reports": null, "distinguished": null}},
+        {"kind": "t3", "data": {"domain": "restorethefourth.net", "banned_by": null,
+        "media_embed": {}, "subreddit": "politics", "selftext_html": null, "selftext":
+        "", "likes": null, "link_flair_text": "Editorialized Title", "id": "1hhbzu",
+        "clicked": false, "title": "Upset about the NSA scandal and feel as though
+        your fourth amendment is being infringed upon? This is a list of all of the
+        protests about restoring the fourth amendment (in America) which will occur
+        on July 4th, 2013.", "media": null, "score": 597, "approved_by": null, "over_18":
+        false, "hidden": false, "thumbnail": "", "subreddit_id": "t5_2cneq", "edited":
+        false, "link_flair_css_class": "", "author_flair_css_class": null, "downs":
+        172, "saved": false, "is_self": false, "permalink": "/r/politics/comments/1hhbzu/upset_about_the_nsa_scandal_and_feel_as_though/",
+        "name": "t3_1hhbzu", "created": 1372773575.0, "url": "http://www.restorethefourth.net/",
+        "author_flair_text": null, "author": "nomim814", "created_utc": 1372744775.0,
+        "ups": 769, "num_comments": 86, "num_reports": null, "distinguished": null}},
+        {"kind": "t3", "data": {"domain": "restorethefourth.net", "banned_by": null,
+        "media_embed": {}, "subreddit": "news", "selftext_html": null, "selftext":
+        "", "likes": null, "link_flair_text": null, "id": "1hd0t1", "clicked": false,
+        "title": "If the NSA listening in on you unnerves you join a protest on the
+        4th in your area...Restore the Fourth!!", "media": null, "score": 229, "approved_by":
+        null, "over_18": false, "hidden": false, "thumbnail": "", "subreddit_id":
+        "t5_2qh3l", "edited": false, "link_flair_css_class": null, "author_flair_css_class":
+        null, "downs": 96, "saved": false, "is_self": false, "permalink": "/r/news/comments/1hd0t1/if_the_nsa_listening_in_on_you_unnerves_you_join/",
+        "name": "t3_1hd0t1", "created": 1372622987.0, "url": "http://www.restorethefourth.net/",
+        "author_flair_text": null, "author": "sedatedworld", "created_utc": 1372594187.0,
+        "ups": 325, "num_comments": 51, "num_reports": null, "distinguished": null}},
+        {"kind": "t3", "data": {"domain": "restorethefourth.net", "banned_by": null,
+        "media_embed": {}, "subreddit": "r4links", "selftext_html": null, "selftext":
+        "", "likes": null, "link_flair_text": null, "id": "1i3abd", "clicked": false,
+        "title": "Test Post", "media": null, "score": 2, "approved_by": null, "over_18":
+        false, "hidden": false, "thumbnail": "default", "subreddit_id": "t5_2xu4v",
+        "edited": false, "link_flair_css_class": null, "author_flair_css_class": null,
+        "downs": 1, "saved": false, "is_self": false, "permalink": "/r/r4links/comments/1i3abd/test_post/",
+        "name": "t3_1i3abd", "created": 1373591104.0, "url": "http://www.restorethefourth.net/",
+        "author_flair_text": null, "author": "veryoriginal78", "created_utc": 1373562304.0,
+        "ups": 3, "num_comments": 1, "num_reports": null, "distinguished": null}},
+        {"kind": "t3", "data": {"domain": "restorethefourth.net", "banned_by": null,
+        "media_embed": {}, "subreddit": "Libertarian", "selftext_html": null, "selftext":
+        "", "likes": null, "link_flair_text": null, "id": "1hn4dq", "clicked": false,
+        "title": "Restore the Fourth", "media": null, "score": 4, "approved_by": null,
+        "over_18": false, "hidden": false, "thumbnail": "http://e.thumbs.redditmedia.com/Co-mS_jKcU20kMK4.jpg",
+        "subreddit_id": "t5_2qh63", "edited": false, "link_flair_css_class": null,
+        "author_flair_css_class": null, "downs": 3, "saved": false, "is_self": false,
+        "permalink": "/r/Libertarian/comments/1hn4dq/restore_the_fourth/", "name":
+        "t3_1hn4dq", "created": 1372985568.0, "url": "http://www.restorethefourth.net/",
+        "author_flair_text": null, "author": "mtlion", "created_utc": 1372956768.0,
+        "ups": 7, "num_comments": 0, "num_reports": null, "distinguished": null}},
+        {"kind": "t3", "data": {"domain": "restorethefourth.net", "banned_by": null,
+        "media_embed": {}, "subreddit": "Campaigns", "selftext_html": null, "selftext":
+        "", "likes": null, "link_flair_text": null, "id": "1hmp38", "clicked": false,
+        "title": "Restore the Fourth is down ATM. Load, DDoS or what?", "media": null,
+        "score": 1, "approved_by": null, "over_18": false, "hidden": false, "thumbnail":
+        "", "subreddit_id": "t5_2rp9z", "edited": false, "link_flair_css_class": null,
+        "author_flair_css_class": null, "downs": 0, "saved": false, "is_self": false,
+        "permalink": "/r/Campaigns/comments/1hmp38/restore_the_fourth_is_down_atm_load_ddos_or_what/",
+        "name": "t3_1hmp38", "created": 1372969762.0, "url": "http://www.restorethefourth.net/",
+        "author_flair_text": null, "author": "The__Explainer", "created_utc": 1372940962.0,
+        "ups": 1, "num_comments": 0, "num_reports": null, "distinguished": null}},
+        {"kind": "t3", "data": {"domain": "restorethefourth.net", "banned_by": null,
+        "media_embed": {}, "subreddit": "alaska", "selftext_html": null, "selftext":
+        "", "likes": null, "link_flair_text": null, "id": "1hl0u5", "clicked": false,
+        "title": "Restore the Fourth in Alaska? None planned so far.", "media": null,
+        "score": 18, "approved_by": null, "over_18": false, "hidden": false, "thumbnail":
+        "", "subreddit_id": "t5_2qhft", "edited": false, "link_flair_css_class": null,
+        "author_flair_css_class": null, "downs": 5, "saved": false, "is_self": false,
+        "permalink": "/r/alaska/comments/1hl0u5/restore_the_fourth_in_alaska_none_planned_so_far/",
+        "name": "t3_1hl0u5", "created": 1372906104.0, "url": "http://www.restorethefourth.net/",
+        "author_flair_text": null, "author": "OlfactoriusRex", "created_utc": 1372877304.0,
+        "ups": 23, "num_comments": 23, "num_reports": null, "distinguished": null}},
+        {"kind": "t3", "data": {"domain": "restorethefourth.net", "banned_by": null,
+        "media_embed": {}, "subreddit": "misc", "selftext_html": null, "selftext":
+        "", "likes": null, "link_flair_text": null, "id": "1hlews", "clicked": false,
+        "title": "An interactive map of restore the fourth protest locations for those
+        who care", "media": null, "score": 6, "approved_by": null, "over_18": false,
+        "hidden": false, "thumbnail": "http://e.thumbs.redditmedia.com/Co-mS_jKcU20kMK4.jpg",
+        "subreddit_id": "t5_2qjbr", "edited": false, "link_flair_css_class": null,
+        "author_flair_css_class": null, "downs": 5, "saved": false, "is_self": false,
+        "permalink": "/r/misc/comments/1hlews/an_interactive_map_of_restore_the_fourth_protest/",
+        "name": "t3_1hlews", "created": 1372916654.0, "url": "http://www.restorethefourth.net/",
+        "author_flair_text": null, "author": "Slyydog", "created_utc": 1372887854.0,
+        "ups": 11, "num_comments": 0, "num_reports": null, "distinguished": null}},
+        {"kind": "t3", "data": {"domain": "restorethefourth.net", "banned_by": null,
+        "media_embed": {}, "subreddit": "PuertoRico", "selftext_html": null, "selftext":
+        "", "likes": null, "link_flair_text": null, "id": "1hlbv0", "clicked": false,
+        "title": "Hey Puerto Rico, we dont seem to have anything planned, What gives?",
+        "media": null, "score": 5, "approved_by": null, "over_18": false, "hidden":
+        false, "thumbnail": "http://e.thumbs.redditmedia.com/Co-mS_jKcU20kMK4.jpg",
+        "subreddit_id": "t5_2qjyb", "edited": false, "link_flair_css_class": null,
+        "author_flair_css_class": null, "downs": 5, "saved": false, "is_self": false,
+        "permalink": "/r/PuertoRico/comments/1hlbv0/hey_puerto_rico_we_dont_seem_to_have_anything/",
+        "name": "t3_1hlbv0", "created": 1372914232.0, "url": "http://www.restorethefourth.net/",
+        "author_flair_text": null, "author": "Offensive_Brute", "created_utc": 1372885432.0,
+        "ups": 10, "num_comments": 13, "num_reports": null, "distinguished": null}},
+        {"kind": "t3", "data": {"domain": "restorethefourth.net", "banned_by": null,
+        "media_embed": {}, "subreddit": "allentown", "selftext_html": null, "selftext":
+        "", "likes": null, "link_flair_text": null, "id": "1hll2k", "clicked": false,
+        "title": "why no Allentown or Lehigh Valley?", "media": null, "score": 1,
+        "approved_by": null, "over_18": false, "hidden": false, "thumbnail": "", "subreddit_id":
+        "t5_2xl8p", "edited": false, "link_flair_css_class": null, "author_flair_css_class":
+        null, "downs": 1, "saved": false, "is_self": false, "permalink": "/r/allentown/comments/1hll2k/why_no_allentown_or_lehigh_valley/",
+        "name": "t3_1hll2k", "created": 1372921747.0, "url": "http://www.restorethefourth.net/",
+        "author_flair_text": null, "author": "androidbitcoin", "created_utc": 1372892947.0,
+        "ups": 2, "num_comments": 0, "num_reports": null, "distinguished": null}},
+        {"kind": "t3", "data": {"domain": "restorethefourth.net", "banned_by": null,
+        "media_embed": {}, "subreddit": "StLouis", "selftext_html": null, "selftext":
+        "", "likes": null, "link_flair_text": null, "id": "1hjton", "clicked": false,
+        "title": "Hey r/StLouis, tired of the NSA''s recent antics? Then come on out
+        and Restore the 4th this Thursday Downtown!", "media": null, "score": 17,
+        "approved_by": null, "over_18": false, "hidden": false, "thumbnail": "http://b.thumbs.redditmedia.com/r8WzWkFp75_pWyXU.jpg",
+        "subreddit_id": "t5_2qpnm", "edited": false, "link_flair_css_class": null,
+        "author_flair_css_class": null, "downs": 9, "saved": false, "is_self": false,
+        "permalink": "/r/StLouis/comments/1hjton/hey_rstlouis_tired_of_the_nsas_recent_antics_then/",
+        "name": "t3_1hjton", "created": 1372858260.0, "url": "http://www.restorethefourth.net/",
+        "author_flair_text": null, "author": "currentheswell", "created_utc": 1372829460.0,
+        "ups": 26, "num_comments": 1, "num_reports": null, "distinguished": null}},
+        {"kind": "t3", "data": {"domain": "restorethefourth.net", "banned_by": null,
+        "media_embed": {}, "subreddit": "CitizensActionNet", "selftext_html": null,
+        "selftext": "", "likes": null, "link_flair_text": null, "id": "1hkjg3", "clicked":
+        false, "title": "Restore the Fourth Rally. In a City Near You!", "media":
+        null, "score": 2, "approved_by": null, "over_18": false, "hidden": false,
+        "thumbnail": "http://b.thumbs.redditmedia.com/r8WzWkFp75_pWyXU.jpg", "subreddit_id":
+        "t5_2xoo9", "edited": false, "link_flair_css_class": null, "author_flair_css_class":
+        null, "downs": 1, "saved": false, "is_self": false, "permalink": "/r/CitizensActionNet/comments/1hkjg3/restore_the_fourth_rally_in_a_city_near_you/",
+        "name": "t3_1hkjg3", "created": 1372892861.0, "url": "http://www.restorethefourth.net/",
+        "author_flair_text": null, "author": "FaithLyss", "created_utc": 1372864061.0,
+        "ups": 3, "num_comments": 0, "num_reports": null, "distinguished": null}},
+        {"kind": "t3", "data": {"domain": "restorethefourth.net", "banned_by": null,
+        "media_embed": {}, "subreddit": "cincinnati", "selftext_html": null, "selftext":
+        "", "likes": null, "link_flair_text": null, "id": "1hijy1", "clicked": false,
+        "title": "Cincinnati needs a Restore The Fourth rally.", "media": null, "score":
+        39, "approved_by": null, "over_18": false, "hidden": false, "thumbnail": "",
+        "subreddit_id": "t5_2qt1k", "edited": false, "link_flair_css_class": null,
+        "author_flair_css_class": null, "downs": 16, "saved": false, "is_self": false,
+        "permalink": "/r/cincinnati/comments/1hijy1/cincinnati_needs_a_restore_the_fourth_rally/",
+        "name": "t3_1hijy1", "created": 1372820794.0, "url": "http://www.restorethefourth.net/",
+        "author_flair_text": null, "author": "Aimin4ya", "created_utc": 1372791994.0,
+        "ups": 55, "num_comments": 15, "num_reports": null, "distinguished": null}},
+        {"kind": "t3", "data": {"domain": "restorethefourth.net", "banned_by": null,
+        "media_embed": {}, "subreddit": "Tucson", "selftext_html": null, "selftext":
+        "", "likes": null, "link_flair_text": null, "id": "1hilgg", "clicked": false,
+        "title": "Restore the Fourth Protest --&gt; Tempe, July 4th, 4pm. Who''s with
+        me?!", "media": null, "score": 15, "approved_by": null, "over_18": false,
+        "hidden": false, "thumbnail": "http://b.thumbs.redditmedia.com/r8WzWkFp75_pWyXU.jpg",
+        "subreddit_id": "t5_2qmno", "edited": false, "link_flair_css_class": null,
+        "author_flair_css_class": null, "downs": 9, "saved": false, "is_self": false,
+        "permalink": "/r/Tucson/comments/1hilgg/restore_the_fourth_protest_tempe_july_4th_4pm/",
+        "name": "t3_1hilgg", "created": 1372821876.0, "url": "http://www.restorethefourth.net/",
+        "author_flair_text": null, "author": "MajorMuffinCakes", "created_utc": 1372793076.0,
+        "ups": 24, "num_comments": 7, "num_reports": null, "distinguished": null}},
+        {"kind": "t3", "data": {"domain": "restorethefourth.net", "banned_by": null,
+        "media_embed": {}, "subreddit": "Omaha", "selftext_html": null, "selftext":
+        "", "likes": null, "link_flair_text": null, "id": "1hipym", "clicked": false,
+        "title": "Restore the Fourth, anybody wanna get this going in Omaha? I might
+        be able to go, might not but it''s still something worth going for guys!",
+        "media": null, "score": 7, "approved_by": null, "over_18": false, "hidden":
+        false, "thumbnail": "http://b.thumbs.redditmedia.com/r8WzWkFp75_pWyXU.jpg",
+        "subreddit_id": "t5_2qihb", "edited": false, "link_flair_css_class": null,
+        "author_flair_css_class": "selfassign", "downs": 13, "saved": false, "is_self":
+        false, "permalink": "/r/Omaha/comments/1hipym/restore_the_fourth_anybody_wanna_get_this_going/",
+        "name": "t3_1hipym", "created": 1372825045.0, "url": "http://www.restorethefourth.net/",
+        "author_flair_text": "Born and Raised", "author": "Ninjew333", "created_utc":
+        1372796245.0, "ups": 20, "num_comments": 6, "num_reports": null, "distinguished":
+        null}}, {"kind": "t3", "data": {"domain": "restorethefourth.net", "banned_by":
+        null, "media_embed": {}, "subreddit": "orangecounty", "selftext_html": null,
+        "selftext": "", "likes": null, "link_flair_text": null, "id": "1hg1lr", "clicked":
+        false, "title": "Restore the 4th!", "media": null, "score": 9, "approved_by":
+        null, "over_18": false, "hidden": false, "thumbnail": "http://b.thumbs.redditmedia.com/r8WzWkFp75_pWyXU.jpg",
+        "subreddit_id": "t5_2rd9x", "edited": false, "link_flair_css_class": null,
+        "author_flair_css_class": "", "downs": 7, "saved": false, "is_self": false,
+        "permalink": "/r/orangecounty/comments/1hg1lr/restore_the_4th/", "name": "t3_1hg1lr",
+        "created": 1372735853.0, "url": "http://www.restorethefourth.net/", "author_flair_text":
+        "Irvine", "author": "javajakeco", "created_utc": 1372707053.0, "ups": 16,
+        "num_comments": 20, "num_reports": null, "distinguished": null}}, {"kind":
+        "t3", "data": {"domain": "restorethefourth.net", "banned_by": null, "media_embed":
+        {}, "subreddit": "Seattle", "selftext_html": null, "selftext": "", "likes":
+        null, "link_flair_text": null, "id": "1hdqws", "clicked": false, "title":
+        "Protest the NSA Spying! Saturday July 6th, Westlake Center @ Noon", "media":
+        null, "score": 7, "approved_by": null, "over_18": false, "hidden": false,
+        "thumbnail": "default", "subreddit_id": "t5_2qhad", "edited": false, "link_flair_css_class":
+        null, "author_flair_css_class": null, "downs": 5, "saved": false, "is_self":
+        false, "permalink": "/r/Seattle/comments/1hdqws/protest_the_nsa_spying_saturday_july_6th_westlake/",
+        "name": "t3_1hdqws", "created": 1372651608.0, "url": "http://www.restorethefourth.net/",
+        "author_flair_text": null, "author": "lukekarasa", "created_utc": 1372622808.0,
+        "ups": 12, "num_comments": 12, "num_reports": null, "distinguished": null}},
+        {"kind": "t3", "data": {"domain": "restorethefourth.net", "banned_by": null,
+        "media_embed": {}, "subreddit": "ModerationLog", "selftext_html": null, "selftext":
+        "", "likes": null, "link_flair_text": null, "id": "1hefaz", "clicked": false,
+        "title": "/r/politics [spam filtered] National Protest Link for 4th of July",
+        "media": null, "score": 1, "approved_by": null, "over_18": false, "hidden":
+        false, "thumbnail": "", "subreddit_id": "t5_2tqat", "edited": false, "link_flair_css_class":
+        null, "author_flair_css_class": null, "downs": 1, "saved": false, "is_self":
+        false, "permalink": "/r/ModerationLog/comments/1hefaz/rpolitics_spam_filtered_national_protest_link_for/",
+        "name": "t3_1hefaz", "created": 1372673466.0, "url": "http://www.restorethefourth.net/",
+        "author_flair_text": null, "author": "ModerationLog", "created_utc": 1372644666.0,
+        "ups": 2, "num_comments": 1, "num_reports": null, "distinguished": null}},
+        {"kind": "t3", "data": {"domain": "restorethefourth.net", "banned_by": null,
+        "media_embed": {}, "subreddit": "AsburyPark", "selftext_html": null, "selftext":
+        "", "likes": null, "link_flair_text": null, "id": "1hc44h", "clicked": false,
+        "title": "Can we get one of these protests going on the boardwalk or nearby?
+        This is important.", "media": null, "score": 10, "approved_by": null, "over_18":
+        false, "hidden": false, "thumbnail": "http://b.thumbs.redditmedia.com/r8WzWkFp75_pWyXU.jpg",
+        "subreddit_id": "t5_2thb1", "edited": false, "link_flair_css_class": null,
+        "author_flair_css_class": null, "downs": 3, "saved": false, "is_self": false,
+        "permalink": "/r/AsburyPark/comments/1hc44h/can_we_get_one_of_these_protests_going_on_the/",
+        "name": "t3_1hc44h", "created": 1372577422.0, "url": "http://www.restorethefourth.net/",
+        "author_flair_text": null, "author": "failspy", "created_utc": 1372548622.0,
+        "ups": 13, "num_comments": 11, "num_reports": null, "distinguished": null}},
+        {"kind": "t3", "data": {"domain": "restorethefourth.net", "banned_by": null,
+        "media_embed": {}, "subreddit": "AnnArbor", "selftext_html": null, "selftext":
+        "", "likes": null, "link_flair_text": null, "id": "1gv8sb", "clicked": false,
+        "title": "Just letting A2 know about the NSA protests on July 4th. Who is
+        going?", "media": null, "score": 27, "approved_by": null, "over_18": false,
+        "hidden": false, "thumbnail": "http://b.thumbs.redditmedia.com/r8WzWkFp75_pWyXU.jpg",
+        "subreddit_id": "t5_2r5tm", "edited": false, "link_flair_css_class": null,
+        "author_flair_css_class": null, "downs": 6, "saved": false, "is_self": false,
+        "permalink": "/r/AnnArbor/comments/1gv8sb/just_letting_a2_know_about_the_nsa_protests_on/",
+        "name": "t3_1gv8sb", "created": 1371955462.0, "url": "http://www.restorethefourth.net/",
+        "author_flair_text": null, "author": "Police_Telephone_Box", "created_utc":
+        1371926662.0, "ups": 33, "num_comments": 6, "num_reports": null, "distinguished":
+        null}}, {"kind": "t3", "data": {"domain": "restorethefourth.net", "banned_by":
+        null, "media_embed": {}, "subreddit": "POLITIC", "selftext_html": null, "selftext":
+        "", "likes": null, "link_flair_text": "politics|cowbob", "id": "1gt0o3", "clicked":
+        false, "title": "July 4th Protest (Brazil cant have all the fun) Are we doing
+        this? I have the 4th off work so I am in.", "media": null, "score": 1, "approved_by":
+        null, "over_18": false, "hidden": false, "thumbnail": "http://b.thumbs.redditmedia.com/r8WzWkFp75_pWyXU.jpg",
+        "subreddit_id": "t5_2r84s", "edited": false, "link_flair_css_class": "meta",
+        "author_flair_css_class": null, "downs": 1, "saved": false, "is_self": false,
+        "permalink": "/r/POLITIC/comments/1gt0o3/july_4th_protest_brazil_cant_have_all_the_fun_are/",
+        "name": "t3_1gt0o3", "created": 1371864601.0, "url": "http://www.restorethefourth.net/",
+        "author_flair_text": null, "author": "PoliticBot", "created_utc": 1371835801.0,
+        "ups": 2, "num_comments": 2, "num_reports": null, "distinguished": null}},
+        {"kind": "t3", "data": {"domain": "restorethefourth.net", "banned_by": null,
+        "media_embed": {}, "subreddit": "restorethefourth", "selftext_html": null,
+        "selftext": "", "likes": null, "link_flair_text": null, "id": "1hlctl", "clicked":
+        false, "title": "An interactive map of the restore the fourth protests", "media":
+        null, "score": 0, "approved_by": null, "over_18": false, "hidden": false,
+        "thumbnail": "default", "subreddit_id": "t5_2xhsu", "edited": false, "link_flair_css_class":
+        null, "author_flair_css_class": null, "downs": 2, "saved": false, "is_self":
+        false, "permalink": "/r/restorethefourth/comments/1hlctl/an_interactive_map_of_the_restore_the_fourth/",
+        "name": "t3_1hlctl", "created": 1372914972.0, "url": "http://www.restorethefourth.net/",
+        "author_flair_text": null, "author": "Slyydog", "created_utc": 1372886172.0,
+        "ups": 2, "num_comments": 0, "num_reports": null, "distinguished": null}},
+        {"kind": "t3", "data": {"domain": "restorethefourth.net", "banned_by": null,
+        "media_embed": {}, "subreddit": "Denver", "selftext_html": null, "selftext":
+        "", "likes": null, "link_flair_text": null, "id": "1hia3g", "clicked": false,
+        "title": "On July 4th, people will be protesting the NSA in cities across
+        the nation for violating our 4th amendment rights. Unfortunately, Denver won''t
+        be one of those cities :(", "media": null, "score": 0, "approved_by": null,
+        "over_18": false, "hidden": false, "thumbnail": "", "subreddit_id": "t5_2qn3i",
+        "edited": false, "link_flair_css_class": null, "author_flair_css_class": null,
+        "downs": 11, "saved": false, "is_self": false, "permalink": "/r/Denver/comments/1hia3g/on_july_4th_people_will_be_protesting_the_nsa_in/",
+        "name": "t3_1hia3g", "created": 1372813683.0, "url": "http://www.restorethefourth.net/",
+        "author_flair_text": null, "author": "mondragonjoe", "created_utc": 1372784883.0,
+        "ups": 10, "num_comments": 5, "num_reports": null, "distinguished": null}}],
+        "after": null, "before": null}}'
+    http_version: 
+  recorded_at: Tue, 16 Jul 2013 21:48:50 GMT
+- request:
+    method: get
+    uri: http://api.thriftdb.com/api.hnsearch.com/items/_search?filter%5Bfields%5D%5Burl%5D=http://www.restorethefourth.net/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Ruby
+      Host:
+      - api.thriftdb.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Application:
+      - thriftdbweb
+      Application-Tag:
+      - master
+      Cache-Control:
+      - no-cache
+      Content-Type:
+      - text/plain; charset=utf-8
+      Date:
+      - Tue, 16 Jul 2013 21:48:48 GMT
+      Pragma:
+      - no-cache
+      Content-Length:
+      - '855'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"hits": 2, "facet_results": {"fields": {}, "queries": {}}, "warnings":
+        [], "request": {"facet": {"fields": {}, "queries": []}, "stats": {}, "match_stopwords":
+        false, "q": "", "start": 0, "limit": 10, "sortby": "score desc", "highlight":
+        {"include_matches": false, "fragments": {"maxchars": 100, "include": false,
+        "markup_text": false}, "markup_items": false}, "weights": {"username": 1.0,
+        "parent_sigid": 1.0, "domain": 1.0, "title": 1.0, "url": 1.0, "text": 1.0,
+        "discussion.sigid": 1.0, "type": 1.0}, "filter": {"fields": {"url": ["http://www.restorethefourth.net/"]},
+        "queries": []}, "boosts": {"fields": {}, "functions": {}, "filters": {}}},
+        "results": [{"item": {"username": "godgod", "parent_sigid": null, "domain":
+        "restorethefourth.net", "title": "Restore The Fourth - Nationwide Protests
+        against NSA Spy Program", "url": "http://www.restorethefourth.net/", "text":
+        "\u201cThe right of the people to be secure in their persons, houses, papers,
+        and effects, against unreasonable searches and seizures...\u201d<p>Find a
+        Protest in Your Area and help Secure YOUR Privacy<p>Spread the word. It&#x27;s
+        started. #RESTORETHEFOURTH", "discussion": null, "id": 5913146, "parent_id":
+        null, "points": 2, "create_ts": "2013-06-20T16:56:12Z", "num_comments": 0,
+        "cache_ts": "2013-06-27T07:41:30Z", "_id": "5913146-e22b7", "type": "submission",
+        "_noindex": false, "_update_ts": 1372318932127747}, "score": 1.0}, {"item":
+        {"username": "iProject", "parent_sigid": null, "domain": "restorethefourth.net",
+        "title": "Restore the Fourth: Find a Protest in Your Area", "url": "http://www.restorethefourth.net/",
+        "text": null, "discussion": null, "id": 5983835, "parent_id": null, "points":
+        2, "create_ts": "2013-07-03T11:40:11Z", "num_comments": 0, "cache_ts": "2013-07-10T07:51:27Z",
+        "_id": "5983835-09118", "type": "submission", "_noindex": false, "_update_ts":
+        1373469023359644}, "score": 1.0}], "time": 0.007019996643066406}'
+    http_version: 
+  recorded_at: Tue, 16 Jul 2013 21:48:50 GMT
+recorded_with: VCR 2.5.0

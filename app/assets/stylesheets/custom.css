@@ -1,8 +1,9 @@
 div.columnA{
-/*height: 20px;
-width:  200px;
-*/
-background-color: white;
-padding: 10px;
+  background-color: white;
+  padding: 10px;
 }
 
+body {
+  background-color: ghostwhite;
+  font-family: "Futura", "Lato", sans-serif;
+}

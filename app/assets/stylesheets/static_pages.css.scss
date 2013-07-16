@@ -1,3 +1,26 @@
 // Place all the styles related to the StaticPages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+/* index page */
+
+/* no decoration on brand link 'discuss it' */
+a.brand {
+  text-decoration: none;
+}
+
+/* centers 'about' link on navbar */
+.nav > li {
+  margin-top: 4%;
+}
+
+/* centers text search box on index*/
+input[name=query] {
+  margin-top: 1%;
+  width: 55%;
+}
+
+footer {
+  background-color: inherit;
+}

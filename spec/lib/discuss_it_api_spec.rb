@@ -3,7 +3,8 @@ require 'discuss_it_api'
 
 describe "discuss it api" do
 
-  before(:each) do
+  before(:all) do
+    VCR.turn_on!
     @discussit = DiscussItApi.new('http://jmoiron.net/blog/japanese-peer-peer/')
     @washpo_nsachief = DiscussItApi.new('http://www.washingtonpost.com/world/national-security/for-nsa-chief-terrorist-threat-drives-passion-to-collect-it-all/2013/07/14/3d26ef80-ea49-11e2-a301-ea5a8116d211_story.html')
     @restorefourth = DiscussItApi.new('www.restorethefourth.net/')
