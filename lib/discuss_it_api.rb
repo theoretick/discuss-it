@@ -48,6 +48,9 @@ class DiscussItApi
 
   # checks or adds either 'http://' prefix and trailing '/'
   def format_url(sitename, query)
+    if query.empty?
+      query = '%%%%'
+    end
     if sitename == :hn
       query += '/' unless query.end_with?('/')
     end

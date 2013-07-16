@@ -24,6 +24,7 @@ Spork.prefork do
 
   VCR.configure do |c|
     c.cassette_library_dir = 'spec/cassettes'
+    c.ignore_hosts 'localhost', '127.0.0.1', '0.0.0.0'
     c.hook_into :webmock
     c.configure_rspec_metadata!
   end
@@ -36,7 +37,8 @@ Spork.prefork do
     # config.mock_with :mocha
     # config.mock_with :flexmock
     # config.mock_with :rr
-    # config.mock_with :rspec
+    config.mock_with :rspec
+
     config.treat_symbols_as_metadata_keys_with_true_values = true
 
     config.include Capybara::DSL
