@@ -7,7 +7,7 @@
     .controls
       = form_tag static_pages_submit_path do
         = label_tag(:query, "Paste Here:")
-        %input{:name => "query", :placeholder => "http://example.com/article.html", :type => "text"}/
+        %input{:name => "query", :placeholder => "http://example.com/article.html", :type => "text", :required => true}/
         = submit_tag("Search", :class => "btn btn-primary btn-large")
 
 %hr
