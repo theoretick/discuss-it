@@ -6,25 +6,24 @@ gem 'rails', '4.0.0'
 group :development do
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3'
-  # gem 'execjs' ### SHOULD THIS GO HERE??
+  gem 'better_errors'
 end
 
 group :development, :test do
-  gem 'better_errors'
   gem 'rspec-rails'
   gem 'guard-rspec', :require => false
   gem 'guard-spork', :require => false
-  # gem 'guard-zeus'
 end
 
 group :test do
-  # gem 'zeus'
   gem 'spork', '~> 1.0rc'
   gem 'spork-rails', :require => false, :git => 'git://github.com/sporkrb/spork-rails'
   gem 'capybara'
   gem 'cucumber-rails', :require => false
   gem 'rb-fsevent', :require => false
   gem 'growl', :require => false
+  gem 'vcr'
+  gem 'webmock'
 end
 
 group :production do
@@ -33,8 +32,6 @@ group :production do
 end
 
 gem 'haml-rails'
-
-#Add bootstap gem replacing local file use
 gem 'twitter-bootstrap-rails'
 
 # Use SCSS for stylesheets
