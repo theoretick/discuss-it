@@ -13,7 +13,7 @@ group :development, :test do
   gem 'better_errors'
   gem 'rspec-rails'
   gem 'guard-rspec', :require => false
-  gem 'guard-spork'
+  gem 'guard-spork', :require => false
   # gem 'guard-zeus'
 end
 
