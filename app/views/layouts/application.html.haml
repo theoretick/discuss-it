@@ -34,7 +34,6 @@
             %span.icon-bar
             %span.icon-bar
           = link_to "Discuss It", root_path, class:"brand"
-          / <a class="brand" href=>Discuss It</a>
           .container-fluid.nav-collapse
             %ul.nav
               %li= link_to "About", static_pages_about_path
@@ -44,9 +43,10 @@
         .span3
         / /.well
       / /span
-      .span11
-        = bootstrap_flash
-        = yield
+      .row-fluid
+        .span8.offset1
+          = bootstrap_flash
+          = yield
     / /row
     / /container
     %footer.span3
