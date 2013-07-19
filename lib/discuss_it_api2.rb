@@ -1,17 +1,23 @@
 require 'json'
+require 'httparty'
+require 'pry'
 
 #Formats url, gets response and returns parsed json
 class Fetch
 
+  #  adds http prefix if not found
   def self.http_add(url)
+    valid_url = url
     valid_url = "http://" + url unless url.match(/(http|https):\/\//)
     return valid_url
   end
 
+  # returns ruby hash of parsed json object
   def self.parse_json(json)
     return JSON.parse(json)
   end
 
+  #  makes http call with query and returns ruby hash
   def self.get_response(query_string)
     valid_uri = self.http_add(query_string)
     response = HTTParty.get(valid_uri)
@@ -23,19 +29,22 @@ end
 # traverses hash, standardizes variables and misc and stuff
 class RedditFetch < Fetch
 
-  KEYWORDS = {
-    :score => "score",
-    :permalink => "location"
-  }
-
+  #  returns big has of all reddit listings for a query
   def initialize(query_url)
-    reddit_raw_a = super.get_response(query_url)
-    if query_url.end_with?('/')
-      reddit_raw_b = super.get_response(query_url)
+
+    formatted_url = api_url(query_url)
+
+    reddit_raw_a = Fetch.get_response(formatted_url)
+    if formatted_url.end_with?('/')
+      reddit_raw_b = Fetch.get_response(formatted_url)
     else
-      reddit_raw_b = super.get_response(query_url + '/')
+      reddit_raw_b = Fetch.get_response(formatted_url + '/')
     end
     @raw_master = pull_out(reddit_raw_a) + pull_out(reddit_raw_b)
+  end
+
+  def api_url(url)
+    return 'http://www.reddit.com/api/info.json?url='+ url
   end
 
   # returns an array of raw hash listings
@@ -45,15 +54,14 @@ class RedditFetch < Fetch
 
   # standardizes hash keys for site response listings
   def standardize(raw_hash)
+
     standardized_hash = {}
 
     raw_hash.each_pair do |k,v|
-      KEYWORDS.keys do |old_key|
-        if old_key.to_s == k
-          standardized_hash[KEYWORDS[old_key]] = v
-        else
-          standardized_hash[k] = v
-        end
+      if k == "permalink"
+        standardized_hash["location"] = v
+      else
+        standardized_hash[k] = v
       end
     end
     return standardized_hash
