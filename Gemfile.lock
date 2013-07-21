@@ -114,6 +114,7 @@ GEM
       activesupport (>= 3.1, < 4.1)
       haml (>= 3.1, < 4.1)
       railties (>= 3.1, < 4.1)
+    hashie (2.0.5)
     hike (1.2.3)
     hirb (0.7.1)
     httparty (0.11.0)
@@ -283,6 +284,7 @@ DEPENDENCIES
   guard-rspec
   guard-spork
   haml-rails
+  hashie
   httparty
   jazz_hands
   jbuilder (~> 1.2)
