@@ -48,7 +48,7 @@ describe "DiscussItApi" do
   describe "find_top", :vcr do
 
     it "should return 2 results" do
-      @one_result = (DiscussItApi.new('yorickpeterse.com/articles/debugging-with-pry/'))
+      @one_result = DiscussItApi.new('yorickpeterse.com/articles/debugging-with-pry/')
       expect(@one_result.find_top.length).to eq(2)
     end
   end
@@ -80,23 +80,23 @@ describe "Fetch" do
 
   describe "get_response" do
 
-    MOCK_HN_RESPONSE = {"hits"=>0, "facet_results"=>{"fields"=>{}, "queries"=>{}}, "warnings"=>[], "request"=>{"facet"=>{"fields"=>{}, "queries"=>[]}, "stats"=>{}, "match_stopwords"=>false, "q"=>"", "start"=>0, "limit"=>10, "sortby"=>"score desc", "highlight"=>{"include_matches"=>false, "fragments"=>{"maxchars"=>100, "include"=>false, "markup_text"=>false}, "markup_items"=>false}, "weights"=>{"username"=>1.0, "parent_sigid"=>1.0, "domain"=>1.0, "title"=>1.0, "url"=>1.0, "text"=>1.0, "discussion.sigid"=>1.0, "type"=>1.0}, "filter"=>{"fields"=>{"url"=>["http://"]}, "queries"=>[]}, "boosts"=>{"fields"=>{}, "functions"=>{}, "filters"=>{}}}, "results"=>[], "time"=>0.005897998809814453}
+    MOCK_NIL_HN_RESPONSE = {"hits"=>0, "facet_results"=>{"fields"=>{}, "queries"=>{}}, "warnings"=>[], "request"=>{"facet"=>{"fields"=>{}, "queries"=>[]}, "stats"=>{}, "match_stopwords"=>false, "q"=>"", "start"=>0, "limit"=>10, "sortby"=>"score desc", "highlight"=>{"include_matches"=>false, "fragments"=>{"maxchars"=>100, "include"=>false, "markup_text"=>false}, "markup_items"=>false}, "weights"=>{"username"=>1.0, "parent_sigid"=>1.0, "domain"=>1.0, "title"=>1.0, "url"=>1.0, "text"=>1.0, "discussion.sigid"=>1.0, "type"=>1.0}, "filter"=>{"fields"=>{"url"=>["http://"]}, "queries"=>[]}, "boosts"=>{"fields"=>{}, "functions"=>{}, "filters"=>{}}}, "results"=>[], "time"=>0.005897998809814453}
 
     it "should return ruby hash from reddit string", :vcr do
-      expect(Fetch.get_response('restorethefourth.net', 'http://www.reddit.com/api/info.json?url=')).to be_an_instance_of(Hash)
+      expect(Fetch.get_response('http://www.reddit.com/api/info.json?url=', 'restorethefourth.net')).to be_an_instance_of(Hash)
     end
 
     it "should not return ruby hash from a nil reddit string", :vcr do
-      expect(Fetch.get_response('', 'http://www.reddit.com/api/info.json?url=')).to eq({"kind"=>"Listing", "data"=>{"modhash"=>"", "children"=>[], "after"=>nil, "before"=>nil}})
+      expect(Fetch.get_response('http://www.reddit.com/api/info.json?url=', '')).to eq({"kind"=>"Listing", "data"=>{"modhash"=>"", "children"=>[], "after"=>nil, "before"=>nil}})
     end
 
     it "should return ruby hash from hn string", :vcr do
-      expect(Fetch.get_response('restorethefourth.net', 'http://api.thriftdb.com/api.hnsearch.com/items/_search?filter[fields][url]=')).to be_an_instance_of(Hash)
+      expect(Fetch.get_response('http://api.thriftdb.com/api.hnsearch.com/items/_search?filter[fields][url]=', 'restorethefourth.net')).to be_an_instance_of(Hash)
     end
 
     # FIXME: make this test better, it currently checks length, is invalidated by time marker on api response
     it "should return ruby hash from a nil hn string", :vcr do
-      expect(Fetch.get_response('', 'http://api.thriftdb.com/api.hnsearch.com/items/_search?filter[fields][url]=').length).to eq(MOCK_HN_RESPONSE.length)
+      expect(Fetch.get_response('http://api.thriftdb.com/api.hnsearch.com/items/_search?filter[fields][url]=', '').length).to eq(MOCK_NIL_HN_RESPONSE.length)
     end
 
   end
@@ -113,7 +113,7 @@ describe "RedditFetch" do
         "children" => ['b', 'a', 'r']
         }
       }
-    @std_mock_hash = {
+    @standardized_mock_hash = {
       "foo" => "stringy",
       "location" => "beer",
       "score" => 7,
@@ -139,7 +139,7 @@ describe "RedditFetch" do
     end
 
     it "should not init with 1+ args" do
-      expect{ RedditFetch.new("restorethefourth.net", "bob.com") }.not_to be_an_instance_of(RedditFetch)
+      expect{ RedditFetch.new("restorethefourth.net", "example.com") }.not_to be_an_instance_of(RedditFetch)
     end
   end
 
@@ -153,36 +153,42 @@ describe "RedditFetch" do
   describe "standardize" do
 
     it "should change hash key 'permalink' to 'location'" do
-      expect(@reddit_fetch.standardize(@raw_mock_hash)).to eq(@std_mock_hash)
+      expect(@reddit_fetch.standardize(@raw_mock_hash)).to eq(@standardized_mock_hash)
     end
 
     it "should not change hash key 'score'" do
-      expect(@reddit_fetch.standardize(@raw_mock_hash)).to eq(@std_mock_hash)
+      expect(@reddit_fetch.standardize(@raw_mock_hash)).to eq(@standardized_mock_hash)
     end
 
     it "should not change hash key 'foo'" do
-      expect(@reddit_fetch.standardize(@raw_mock_hash)).to eq(@std_mock_hash)
+      expect(@reddit_fetch.standardize(@raw_mock_hash)).to eq(@standardized_mock_hash)
     end
 
   end
 
-  # describe "build_listing" do
+  describe "build_listing" do
 
-  #   it "should return a listing object" do
-  #   end
-  # end
+    it "should return a Listing object"
+  end
 
-  # describe "build_all_listings" do
+  describe "build_all_listings" do
 
-  #   it "should return an array of listing objects" do
-  #   end
-  # end
+    it "should return an array of Listing objects"
+  end
 
-# end
+end
 
-# describe "HnFetch" do
-# end
+describe "HnFetch" do
 
-# describe "Listing" do
 
+end
+
+describe "Listing" do
+
+  it 'should have values accessible as keys'
+  it 'should have values accessible as attributes'
+  it 'should contain key "location"'
+  it 'should contain key "score"'
+  it 'should not contain key "permalink"'
+  it 'should not be writeable'
 end

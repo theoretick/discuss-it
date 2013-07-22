@@ -1,11 +1,10 @@
 require 'json'
 require 'httparty'
-require 'pry'
 
 #Formats url, gets response and returns parsed json
 class Fetch
 
-  #  adds http prefix if not found
+  # adds http prefix if not found
   def self.http_add(url)
     valid_url = url
     valid_url = "http://" + url unless url.match(/(http|https):\/\//)
@@ -17,8 +16,8 @@ class Fetch
     return JSON.parse(json)
   end
 
-  #  makes http call with query and returns ruby hash
-  def self.get_response(query_string, api_url)
+  #  makes http call with query_string and returns ruby hash
+  def self.get_response(api_url, query_string)
     valid_uri = self.http_add(query_string)
     response = HTTParty.get(api_url + valid_uri)
     return self.parse_json(response.body)
@@ -37,27 +36,28 @@ class RedditFetch # < Fetch
   #  returns big has of all reddit listings for a query
   def initialize(query_url)
 
-    # formatted_url = api_url(query_url)
-
-    reddit_raw_a = Fetch.get_response(query_url, API_URL)
+    reddit_raw_a = Fetch.get_response(API_URL, query_url)
     if query_url.end_with?('/')
-      reddit_raw_b = Fetch.get_response(query_url, API_URL)
+      # FIXME: needs to trim trailing slash, else identical call as raw_a
+      reddit_raw_b = Fetch.get_response(API_URL, query_url)
     else
-      reddit_raw_b = Fetch.get_response(query_url + '/', API_URL)
+      reddit_raw_b = Fetch.get_response(API_URL, query_url + '/')
     end
+    # return master hash of both combined API calls
     @raw_master = pull_out(reddit_raw_a) + pull_out(reddit_raw_b)
   end
 
-  # returns an array of raw hash listings
+  # returns relevant subarray of raw hash listings
   def pull_out(parent_hash)
     return parent_hash["data"]["children"]
   end
 
-  # standardizes hash keys for site response listings
+  # standardizes hash keys for site listings
   def standardize(raw_hash)
     standardized_hash = {}
 
     raw_hash.each_pair do |k,v|
+      # finds key 'permalink' and changes keyname to 'location', else copies
       if k == "permalink"
         standardized_hash["location"] = v
       else
@@ -67,16 +67,16 @@ class RedditFetch # < Fetch
     return standardized_hash
   end
 
-  # creates listing with standardized keys
+  # creates Listing instance from standardized keys
   def build_listing(in_hash)
     listing = standardize(in_hash['data'])
-    reddit_listing = Listing.new(listing)
-    return reddit_listing
+    return Listing.new(listing)
   end
 
   # creates array of listing objects for all responses
   def build_all_listings
     all_listings = []
+    # FIXME: should this be switched to a map() call?
     @raw_master.each do |listing|
       all_listings << build_listing(listing)
     end
@@ -92,22 +92,20 @@ class HnFetch # FIXME: < Fetch
   #  returns a hash of HN listings for a query
   def initialize(query_url)
 
-    # formatted_url = api_url(query_url)
-
     if query_url.end_with?('/')
-      hn_raw = Fetch.get_response(query_url, API_URL)
+      hn_raw = Fetch.get_response(API_URL, query_url)
     else
-      hn_raw = Fetch.get_response(query_url + '/', API_URL)
+      hn_raw = Fetch.get_response(API_URL, query_url + '/')
     end
     @raw_master = pull_out(hn_raw)
   end
 
-  # returns an array of raw hash listings
+  # returns relevant subarray of raw hash listings
   def pull_out(parent_hash)
     return parent_hash["results"]
   end
 
-  # standardizes hash keys for site response listings
+  # standardizes hash keys for site listings
   def standardize(raw_hash)
     standardized_hash = {}
 
@@ -125,9 +123,9 @@ class HnFetch # FIXME: < Fetch
 
   # creates listing with standardized keys
   def build_listing(in_hash)
-    listing = standardize(in_hash['item']) # FIXME: up one level in the hash is weighting data for HN
-    reddit_listing = Listing.new(listing)
-    return reddit_listing
+    # FIXME: up one level in the hash is weighting data for HN
+    listing        = standardize(in_hash['item'])
+    return Listing.new(listing)
   end
 
   # creates array of listing objects for all responses
@@ -145,31 +143,35 @@ end
 class Listing < Hashie::Mash; end
 
 
-# FIXME: implement site key value in def standardize to sort listings
+# FIXME: implement site key/val in def standardize() to sort listings (i.e. site:'reddit')
 class DiscussItApi
-  attr_accessor :reddit_listings
+
+  # attr_accessor :reddit_listings
+  # attr_accessor :hn_listings
+
   # initializes fetchers and calls listing builders
   def initialize(query_string)
-    erddit = RedditFetch.new(query_string)
-    @reddit_listings = erddit.build_all_listings
 
-    ahcker = HnFetch.new(query_string)
-    @hacker_listings = ahcker.build_all_listings
+    reddit_fetch = RedditFetch.new(query_string)
+    hn_fetch     = HnFetch.new(query_string)
+
+    @reddit_listings = reddit_fetch.build_all_listings
+    @hn_listings     = hn_fetch.build_all_listings
   end
 
   # returns an array of all listing urls for each site
   def find_all
 
     base_reddit = 'http://www.reddit.com'
-    base_hn = 'http://news.ycombinator.com/item?id='
-    results = []
+    base_hn     = 'http://news.ycombinator.com/item?id='
+    results     = []
 
     @reddit_listings.each do |listing|
-      results << base_reddit + listing.location.to_s
+      results << base_reddit + listing.location
     end
 
-    @hacker_listings.each do |listing|
-      results << base_hn + listing.location.to_s
+    @hn_listings.each do |listing|
+      results << base_hn + listing.location.to_s # hn location from id num
     end
 
     return results
@@ -179,13 +181,15 @@ class DiscussItApi
   def find_top
 
     base_reddit = 'http://www.reddit.com'
-    base_hn = 'http://news.ycombinator.com/item?id='
-    results = []
+    base_hn     = 'http://news.ycombinator.com/item?id='
+    results     = []
+    # reddit_result = nil
+    # hn_result = nil
 
-    reddit_top_url = @reddit_listings.first.location
+    reddit_top_url   = @reddit_listings.first.location
     reddit_top_score = @reddit_listings.first.score
-    hn_top_url = @hacker_listings.first.location
-    hn_top_score = @hacker_listings.first.score
+    hn_top_url       = @hn_listings.first.location
+    hn_top_score     = @hn_listings.first.score
 
     @reddit_listings.each do |listing|
       if listing.score > reddit_top_score
@@ -193,13 +197,12 @@ class DiscussItApi
       end
     end
 
-    @hacker_listings.each do |listing|
+    @hn_listings.each do |listing|
       if listing.score > hn_top_score
         results << base_hn + listing.location
       end
     end
 
-    return [reddit_top_url] + [hn_top_url]
-
+    return results
   end
 end
