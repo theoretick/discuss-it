@@ -7,6 +7,7 @@ group :development do
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3'
   gem 'better_errors'
+  gem 'jazz_hands'
 end
 
 group :development, :test do
@@ -33,7 +34,9 @@ end
 
 gem 'haml-rails'
 gem 'twitter-bootstrap-rails'
-gem "flat-ui-rails"
+gem 'flat-ui-rails'
+gem 'httparty'
+gem 'hashie'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
