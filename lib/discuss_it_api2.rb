@@ -29,7 +29,7 @@ end
 #######################################################################
 # FIXME: need to figure out how to call get_response without calling Fetch class
 # super. does not work - we need inheritance with class methods
-class RedditFetch # < Fetch
+class RedditFetch # FIXME: < Fetch
 
   API_URL = 'http://www.reddit.com/api/info.json?url='
 
@@ -146,8 +146,8 @@ class Listing < Hashie::Mash; end
 # FIXME: implement site key/val in def standardize() to sort listings (i.e. site:'reddit')
 class DiscussItApi
 
-  # attr_accessor :reddit_listings
-  # attr_accessor :hn_listings
+  attr_accessor :reddit_listings
+  attr_accessor :hn_listings
 
   # initializes fetchers and calls listing builders
   def initialize(query_string)
