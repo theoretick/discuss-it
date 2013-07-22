@@ -69,11 +69,11 @@ describe "Fetch" do
 
   end
 
-  describe "parse_json" do
+  describe "parse" do
 
     it "should return a ruby hash" do
       fake_json = {"name" => "discussit"}.to_json
-      expect(Fetch.parse_json(fake_json)).to be_an_instance_of(Hash)
+      expect(Fetch.parse(fake_json)).to be_an_instance_of(Hash)
     end
 
   end
@@ -180,7 +180,142 @@ end
 
 describe "HnFetch" do
 
+  before(:all) do
+    @raw_mock_hash = {
+      "foo" => "stringy",
+      "id" => "beer",
+      "points" => 7,
+      "data" => {
+        "children" => ['b', 'a', 'r']
+        }
+      }
+    @standardized_mock_hash = {
+      "foo" => "stringy",
+      "location" => "beer",
+      "score" => 7,
+      "data" => {
+        "children" => ['b', 'a', 'r']
+        }
+      }
 
+    VCR.use_cassette("hn should init with 1 arg", :record => :new_episodes) do
+      @hn_fetch = HnFetch.new("restorethefourth.net")
+    end
+  end
+
+  describe "initialize" do
+
+    it "should init with 1 arg" do
+      expect(@hn_fetch).to be_an_instance_of(HnFetch)
+    end
+
+    it "should not init with 0 arg" do
+      expect{ HnFetch.new() }.not_to be_an_instance_of(HnFetch)
+    end
+
+    it "should not init with 1+ args" do
+      expect{ HnFetch.new("restorethefourth.net", "example.com") }.not_to be_an_instance_of(HnFetch)
+    end
+  end
+
+  describe "pull_out" do
+
+    it "should return [results] from parent hash" do
+      expect(@hn_fetch.pull_out(@raw_mock_hash)).to eq(@raw_mock_hash["results"])
+    end
+  end
+
+  describe "standardize" do
+
+    it "should change hash key 'permalink' to 'location'" do
+      expect(@hn_fetch.standardize(@raw_mock_hash)).to eq(@standardized_mock_hash)
+    end
+
+    it "should not change hash key 'score'" do
+      expect(@hn_fetch.standardize(@raw_mock_hash)).to eq(@standardized_mock_hash)
+    end
+
+    it "should not change hash key 'foo'" do
+      expect(@hn_fetch.standardize(@raw_mock_hash)).to eq(@standardized_mock_hash)
+    end
+
+  end
+
+  describe "build_listing" do
+
+    TEST_IN_HASH = {"item"=>
+      {"username"=>"YorickPeterse",
+       "parent_sigid"=>nil,
+       "domain"=>"yorickpeterse.com",
+       "title"=>"Debugging With Pry",
+       "url"=>"http://yorickpeterse.com/articles/debugging-with-pry/",
+       "text"=>nil,
+       "discussion"=>nil,
+       "id"=>3282367,
+       "parent_id"=>nil,
+       "points"=>2,
+       "create_ts"=>"2011-11-27T13:18:01Z",
+       "num_comments"=>0,
+       "cache_ts"=>"2011-12-15T06:31:59Z",
+       "_id"=>"3282367-595b6",
+       "type"=>"submission",
+       "_noindex"=>false,
+       "_update_ts"=>1323930764688130},
+       "score"=>1.0}
+
+    TEST_LISTING = {"username"=>"YorickPeterse",
+      "parent_sigid"=>nil,
+      "domain"=>"yorickpeterse.com",
+      "title"=>"Debugging With Pry",
+      "url"=>"http://yorickpeterse.com/articles/debugging-with-pry/",
+      "text"=>nil,
+      "discussion"=>nil,
+      "location"=>3282367,
+      "parent_id"=>nil,
+      "score"=>2,
+      "create_ts"=>"2011-11-27T13:18:01Z",
+      "num_comments"=>0,
+      "cache_ts"=>"2011-12-15T06:31:59Z",
+      "_id"=>"3282367-595b6",
+      "type"=>"submission",
+      "_noindex"=>false,
+      "_update_ts"=>1323930764688130}
+
+    it "should return a Listing object" do
+      expect(@hn_fetch.build_listing(TEST_IN_HASH)).to be_an_instance_of(Listing)
+    end
+
+    it "Listing.new should return a Listing object" do
+      expect(Listing.new(TEST_LISTING)).to be_an_instance_of(Listing)
+    end
+
+    it "should not return a Listing object with no arg" do
+      expect{ @hn_fetch.build_listing() }.not_to be_an_instance_of(Listing)
+    end
+
+    it "should not return a Listing object with 1 + args" do
+      expect{ @hn_fetch.build_listing(1,2) }.not_to be_an_instance_of(Listing)
+    end
+
+  end
+
+  describe "build_all_listings", :vcr do
+
+    it "should return an array of Listing objects" do
+      expect(@hn_fetch.build_all_listings).to be_an_instance_of(Array)
+    end
+
+    it "should return an array of Listing objects" do
+      expect(@hn_fetch.build_all_listings.first).to be_an_instance_of(Listing)
+    end
+
+    # expect(@hn_fetch.build_all_listings).to contain(Listing)
+
+    it "should not return an array of Listing objects with no args"
+
+    it "should not return an array of Listing objects with no args"
+
+  end
 end
 
 describe "Listing" do
