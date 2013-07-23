@@ -25,6 +25,7 @@ group :test do
   gem 'growl', :require => false
   gem 'vcr'
   gem 'webmock'
+  gem 'meta_request'
 end
 
 group :production do

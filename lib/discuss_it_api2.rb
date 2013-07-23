@@ -1,6 +1,9 @@
 require 'json'
 require 'httparty'
-require 'pry'
+
+
+# Exception class to catch invalid URL Errors
+class DiscussItUrlError < Exception; end
 
 #Formats url, gets response and returns parsed json
 class Fetch
@@ -19,17 +22,21 @@ class Fetch
 
   #  makes http call with query_string and returns ruby hash
   def self.get_response(api_url, query_string)
-    valid_uri = self.http_add(query_string)
-    response = HTTParty.get(api_url + valid_uri)
-    return self.parse(response.body)
+    begin
+      valid_uri = self.http_add(query_string)
+      response = HTTParty.get(api_url + valid_uri)
+      return self.parse(response.body)
+
+    # if http://xxx/ is still invalid url content, raise error
+    rescue URI::InvalidURIError => e
+      raise DiscussItUrlError.new
+    end
   end
 
 end
 
 # traverses hash, standardizes variables and misc and stuff
 #######################################################################
-# FIXME: need to figure out how to call get_response without calling Fetch class
-# super. does not work - we need inheritance with class methods
 class RedditFetch < Fetch
 
   API_URL = 'http://www.reddit.com/api/info.json?url='
@@ -37,12 +44,12 @@ class RedditFetch < Fetch
   #  returns big has of all reddit listings for a query
   def initialize(query_url)
 
-    reddit_raw_a = self.class.get_response(API_URL, query_url)
+    reddit_raw_a = Fetch.get_response(API_URL, query_url)
     if query_url.end_with?('/')
       # FIXME: needs to trim trailing slash, else identical call as raw_a
-      reddit_raw_b = self.class.get_response(API_URL, query_url)
+      reddit_raw_b = Fetch.get_response(API_URL, query_url)
     else
-      reddit_raw_b = self.class.get_response(API_URL, query_url + '/')
+      reddit_raw_b = Fetch.get_response(API_URL, query_url + '/')
     end
     # return master hash of both combined API calls
     @raw_master = pull_out(reddit_raw_a) + pull_out(reddit_raw_b)
@@ -94,9 +101,9 @@ class HnFetch < Fetch
   def initialize(query_url)
 
     if query_url.end_with?('/')
-      hn_raw = self.class.get_response(API_URL, query_url)
+      hn_raw = Fetch.get_response(API_URL, query_url)
     else
-      hn_raw = self.class.get_response(API_URL, query_url + '/')
+      hn_raw = Fetch.get_response(API_URL, query_url + '/')
     end
     @raw_master = pull_out(hn_raw)
   end
@@ -167,56 +174,69 @@ class DiscussItApi
     base_hn     = 'http://news.ycombinator.com/item?id='
     results     = []
 
-    @reddit_listings.each do |listing|
-      results << base_reddit + listing.location
+    unless @reddit_listings.empty?
+      @reddit_listings.each do |listing|
+        results << base_reddit + listing.location
+      end
     end
 
-    @hn_listings.each do |listing|
-      results << base_hn + listing.location.to_s # hn location from id num
+    unless @hn_listings.empty?
+      @hn_listings.each do |listing|
+        results << base_hn + listing.location.to_s # hn location from id num
+      end
     end
 
     return results
   end
 
-  # FIXME: KILL ME returns an array of one listing url with the highest score for each site
+  # returns an array of one listing url with the highest score for each site
   def find_top
 
     base_reddit = 'http://www.reddit.com'
     base_hn     = 'http://news.ycombinator.com/item?id='
-    results     = {
-      :reddit => {},
-      :hn => {}
-    }
+    top_results     = {}
 
-    reddit_top_score = @reddit_listings.first.score
-    reddit_top_location = @reddit_listings.first.location
+    unless @reddit_listings.empty?
 
-    hn_top_score = @hn_listings.first.score
-    hn_top_location = @hn_listings.first.location
+      reddit_top_score = @reddit_listings.first.score
+      reddit_top_location = @reddit_listings.first.location
 
-    @reddit_listings.each do |listing|
-      results[:reddit] = case (listing.score <=> reddit_top_score)
-                         when -1
-                           {listing.title.to_sym => reddit_top_location}
-                         when 0
-                           {listing.title.to_sym => reddit_top_location}
-                         when 1
-                           {listing.title.to_sym => listing.score}
+      @reddit_listings.each do |listing|
+        if (listing.score <=> reddit_top_score) == 1
+          top_results[:reddit] = {
+            :title => listing.title,
+            :location => base_reddit + listing.location
+          }
+        else
+          top_results[:reddit] = {
+            :title => listing.title,
+            :location => base_reddit + reddit_top_location
+          }
+        end
       end
     end
 
-    @hn_listings.each do |listing|
-      results[:hn] = case (listing.score <=> hn_top_score)
-                     when -1
-                       {listing.title.to_sym => hn_top_location}
-                     when 0
-                       {listing.title.to_sym => hn_top_location}
-                     when 1
-                       {listing.title.to_sym => listing.score}
+    unless @hn_listings.empty?
+
+      hn_top_score = @hn_listings.first.score
+      hn_top_location = @hn_listings.first.location.to_s
+
+      @hn_listings.each do |listing|
+        if (listing.score <=> hn_top_score) == 1
+          top_results[:hn] = {
+            :title => listing.title,
+            :location => base_hn + listing.location
+          }
+        else
+          top_results[:hn] = {
+            :title => listing.title,
+            :location => base_hn + hn_top_location
+          }
+        end
       end
     end
 
-    return results
+    return top_results
   end
 end
 
