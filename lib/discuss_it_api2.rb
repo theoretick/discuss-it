@@ -59,30 +59,14 @@ class RedditFetch < Fetch
     return parent_hash["data"]["children"]
   end
 
-  # standardizes hash keys for site listings
-  def standardize(raw_hash)
-    standardized_hash = {}
-
-    raw_hash.each_pair do |k,v|
-      # finds key 'permalink' and changes keyname to 'location', else copies
-      if k == "permalink"
-        standardized_hash["location"] = v
-      else
-        standardized_hash[k] = v
-      end
-    end
-    return standardized_hash
-  end
-
   # gets called in DiscussItApi to build reddit listings
   #   if not already built
   def listings
     return @listings ||= build_all_listings
   end
 
-  # creates Listing instance from standardized keys
   def build_listing(parent_hash)
-    listing = standardize(parent_hash['data'])
+    listing = parent_hash['data']
     return RedditListing.new(listing)
   end
 
@@ -118,35 +102,15 @@ class HnFetch < Fetch
     return parent_hash["results"]
   end
 
-  # standardizes hash keys for site listings
-  def standardize(raw_hash)
-    standardized_hash = {}
-
-    raw_hash.each_pair do |k,v|
-      if k == "id"
-        standardized_hash["location"] = v
-      elsif k == "points"
-        standardized_hash["score"] = v
-      else
-        standardized_hash[k] = v
-      end
-    end
-    return standardized_hash
-  end
-
   # gets called in DiscussItApi to build reddit listings
   #   if not already built
   def listings
     return @listings ||= build_all_listings
   end
 
-
-  # creates listing with standardized keys
   def build_listing(parent_hash)
     # FIXME: up one level in the hash is weighting data for HN
-
-    # listing        = standardize(parent_hash['item'])
-    listing        = parent_hash['item']
+    listing = parent_hash['item']
     return HnListing.new(listing)
   end
 
@@ -196,8 +160,7 @@ class RedditListing < Listing
   end
 
   def location
-    # return base_url + self["permalink"]
-    return base_url + self["location"]
+    return base_url + self["permalink"]
   end
 
   def score
@@ -223,12 +186,12 @@ class DiscussItApi
     @all_listings.all += hn_fetch.listings
   end
 
-  # returns an array of all listing urls for each site
+  # returns a ListingCollection of all listing urls for each site
   def find_all
-    return @all_listings.locations
+    return @all_listings.listings
   end
 
-  # returns an array of one listing url with the highest score for each site
+  # returns a HASH of listings w/ highest score for each site
   def find_top
     return @all_listings.tops
   end

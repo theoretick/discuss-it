@@ -8,8 +8,9 @@ class StaticPagesController < ApplicationController
     begin
       @query_text = params[:query]
       @discussit = DiscussItApi.new(params[:query])
-      @top_results = @discussit.find_top
       @all_results = @discussit.find_all
+      @top_results = @discussit.find_top
+      binding.pry
     rescue DiscussItUrlError => e
       redirect_to :root, :flash => { :error => 'Invalid URL' }
     end

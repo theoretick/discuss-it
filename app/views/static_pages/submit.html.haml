@@ -11,18 +11,26 @@
           Sorry, no discussions found.
           = link_to 'Try again?', root_path
       - else
-        - @top_results.each_pair do |k, v|
-          - unless v.nil?
-            %p
-              = "#{k.to_s.upcase} :: "
-              = link_to v.title, v.location
+        %table.table
+          - @top_results.each_pair do |k, v|
+            - unless v.nil?
+              %tr
+                %td{style: "width: 50%;"}
+                  = "#{v.title}"
+                %td{style: "word-break: break-all; word-break: break-word; hyphens: auto;"}
+                  = link_to v.location, v.location
     .columnA.pull-center
       %h3 ALL RESULTS
-      - if @all_results.empty?
+      - if @all_results.all.empty?
         %p
           No additional results found
       - else
-        - @all_results.each do |results|
-          = link_to results, results
+        %table.table
+          - @all_results.all.each do |listing|
+            %tr
+              %td{style: "width: 50%;"}
+                = listing.title
+              %td{style: "word-break: break-all; word-break: break-word; hyphens: auto;"}
+                = link_to listing.location, listing.location
 
 %hr
