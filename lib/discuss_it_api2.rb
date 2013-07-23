@@ -188,7 +188,7 @@ class DiscussItApi
 
   # returns a ListingCollection of all listing urls for each site
   def find_all
-    return @all_listings.listings
+    return @all_listings
   end
 
   # returns a HASH of listings w/ highest score for each site
