@@ -83,20 +83,20 @@ describe "Fetch" do
     MOCK_NIL_HN_RESPONSE = {"hits"=>0, "facet_results"=>{"fields"=>{}, "queries"=>{}}, "warnings"=>[], "request"=>{"facet"=>{"fields"=>{}, "queries"=>[]}, "stats"=>{}, "match_stopwords"=>false, "q"=>"", "start"=>0, "limit"=>10, "sortby"=>"score desc", "highlight"=>{"include_matches"=>false, "fragments"=>{"maxchars"=>100, "include"=>false, "markup_text"=>false}, "markup_items"=>false}, "weights"=>{"username"=>1.0, "parent_sigid"=>1.0, "domain"=>1.0, "title"=>1.0, "url"=>1.0, "text"=>1.0, "discussion.sigid"=>1.0, "type"=>1.0}, "filter"=>{"fields"=>{"url"=>["http://"]}, "queries"=>[]}, "boosts"=>{"fields"=>{}, "functions"=>{}, "filters"=>{}}}, "results"=>[], "time"=>0.005897998809814453}
 
     it "should return ruby hash from reddit string", :vcr do
-      expect(Fetch.get_response('http://www.reddit.com/api/info.json?url=', 'restorethefourth.net')).to be_an_instance_of(Hash)
+      expect(Fetch.get_response('restorethefourth.net')).to be_an_instance_of(Hash)
     end
 
     it "should not return ruby hash from a nil reddit string", :vcr do
-      expect(Fetch.get_response('http://www.reddit.com/api/info.json?url=', '')).to eq({"kind"=>"Listing", "data"=>{"modhash"=>"", "children"=>[], "after"=>nil, "before"=>nil}})
+      expect(Fetch.get_response('')).to eq({"kind"=>"Listing", "data"=>{"modhash"=>"", "children"=>[], "after"=>nil, "before"=>nil}})
     end
 
     it "should return ruby hash from hn string", :vcr do
-      expect(Fetch.get_response('http://api.thriftdb.com/api.hnsearch.com/items/_search?filter[fields][url]=', 'restorethefourth.net')).to be_an_instance_of(Hash)
+      expect(Fetch.get_response('restorethefourth.net')).to be_an_instance_of(Hash)
     end
 
     # FIXME: make this test better, it currently checks length, is invalidated by time marker on api response
     it "should return ruby hash from a nil hn string", :vcr do
-      expect(Fetch.get_response('http://api.thriftdb.com/api.hnsearch.com/items/_search?filter[fields][url]=', '').length).to eq(MOCK_NIL_HN_RESPONSE.length)
+      expect(Fetch.get_response('').length).to eq(MOCK_NIL_HN_RESPONSE.length)
     end
 
   end

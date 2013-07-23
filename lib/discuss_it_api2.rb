@@ -1,7 +1,6 @@
 require 'json'
 require 'httparty'
 
-
 # Exception class to catch invalid URL Errors
 class DiscussItUrlError < Exception; end
 
@@ -75,10 +74,16 @@ class RedditFetch < Fetch
     return standardized_hash
   end
 
+  # gets called in DiscussItApi to build reddit listings
+  #   if not already built
+  def listings
+    return @listings ||= build_all_listings
+  end
+
   # creates Listing instance from standardized keys
-  def build_listing(in_hash)
-    listing = standardize(in_hash['data'])
-    return Listing.new(listing)
+  def build_listing(parent_hash)
+    listing = standardize(parent_hash['data'])
+    return RedditListing.new(listing)
   end
 
   # creates array of listing objects for all responses
@@ -129,11 +134,20 @@ class HnFetch < Fetch
     return standardized_hash
   end
 
+  # gets called in DiscussItApi to build reddit listings
+  #   if not already built
+  def listings
+    return @listings ||= build_all_listings
+  end
+
+
   # creates listing with standardized keys
-  def build_listing(in_hash)
+  def build_listing(parent_hash)
     # FIXME: up one level in the hash is weighting data for HN
-    listing        = standardize(in_hash['item'])
-    return Listing.new(listing)
+
+    # listing        = standardize(parent_hash['item'])
+    listing        = parent_hash['item']
+    return HnListing.new(listing)
   end
 
   # creates array of listing objects for all responses
@@ -148,95 +162,112 @@ end
 
 # takes listing hash and creates a listing array of objects
 # FIXME: consider using just Hashie::Extension::MethodReader or MethodQuery
-class Listing < Hashie::Mash; end
+class Listing < Hashie::Mash
+  # provides sort method
+  include Comparable
 
+  def <=>(a)
+    return self.score <=> a.score
+  end
+
+end
+
+
+class HnListing < Listing
+
+  def base_url
+    return 'http://news.ycombinator.com/item?id='
+  end
+
+  def location
+    return base_url + self["id"].to_s
+  end
+
+  def score
+    return self["points"]
+  end
+
+end
+
+class RedditListing < Listing
+
+  def base_url
+    return 'http://www.reddit.com'
+  end
+
+  def location
+    # return base_url + self["permalink"]
+    return base_url + self["location"]
+  end
+
+  def score
+    return self["score"]
+  end
+
+end
 
 # FIXME: implement site key/val in def standardize() to sort listings (i.e. site:'reddit')
 class DiscussItApi
 
-  attr_accessor :reddit_listings
-  attr_accessor :hn_listings
+  attr_accessor :all_listings
 
   # initializes fetchers and calls listing builders
   def initialize(query_string)
 
     reddit_fetch = RedditFetch.new(query_string)
     hn_fetch     = HnFetch.new(query_string)
+    @all_listings    = ListingCollection.new
 
-    @reddit_listings = reddit_fetch.build_all_listings
-    @hn_listings     = hn_fetch.build_all_listings
+    @all_listings.all = reddit_fetch.listings
+    # shovel creates a nested array item
+    @all_listings.all += hn_fetch.listings
   end
 
   # returns an array of all listing urls for each site
   def find_all
-
-    base_reddit = 'http://www.reddit.com'
-    base_hn     = 'http://news.ycombinator.com/item?id='
-    results     = []
-
-    unless @reddit_listings.empty?
-      @reddit_listings.each do |listing|
-        results << base_reddit + listing.location
-      end
-    end
-
-    unless @hn_listings.empty?
-      @hn_listings.each do |listing|
-        results << base_hn + listing.location.to_s # hn location from id num
-      end
-    end
-
-    return results
+    return @all_listings.locations
   end
 
   # returns an array of one listing url with the highest score for each site
   def find_top
-
-    base_reddit = 'http://www.reddit.com'
-    base_hn     = 'http://news.ycombinator.com/item?id='
-    top_results     = {}
-
-    unless @reddit_listings.empty?
-
-      reddit_top_score = @reddit_listings.first.score
-      reddit_top_location = @reddit_listings.first.location
-
-      @reddit_listings.each do |listing|
-        if (listing.score <=> reddit_top_score) == 1
-          top_results[:reddit] = {
-            :title => listing.title,
-            :location => base_reddit + listing.location
-          }
-        else
-          top_results[:reddit] = {
-            :title => listing.title,
-            :location => base_reddit + reddit_top_location
-          }
-        end
-      end
-    end
-
-    unless @hn_listings.empty?
-
-      hn_top_score = @hn_listings.first.score
-      hn_top_location = @hn_listings.first.location.to_s
-
-      @hn_listings.each do |listing|
-        if (listing.score <=> hn_top_score) == 1
-          top_results[:hn] = {
-            :title => listing.title,
-            :location => base_hn + listing.location
-          }
-        else
-          top_results[:hn] = {
-            :title => listing.title,
-            :location => base_hn + hn_top_location
-          }
-        end
-      end
-    end
-
-    return top_results
+    return @all_listings.tops
   end
 end
+
+class ListingCollection
+
+  # access ALL listings
+  attr_accessor :all
+
+  def initialize
+  end
+
+  # sorts listings per site and returns the one with the top score
+  def tops
+    results = {}
+
+    results[:hn] = hn.sort.first unless hn.empty?
+    results[:reddit] = reddit.sort.first unless reddit.empty?
+
+    return results
+  end
+
+  # returns all HN listing objects
+  def hn
+    all.select {|listing| listing.class == HnListing }
+  end
+
+  # returns all reddit listing objects
+  def reddit
+    all.select {|listing| listing.class == RedditListing }
+  end
+
+  # returns all listings for Reddit and HN
+  def locations
+    return all.map {|listing| listing.location}
+  end
+
+end
+
+
 

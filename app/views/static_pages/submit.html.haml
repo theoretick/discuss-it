@@ -4,15 +4,18 @@
   .row-fluid
     .columnA.pull-center
       %h3 TOP RESULTS
-      - if @results.empty?
+
+      - if @top_results.values.empty?
         %p
+          / FIXME: add suggestion if empty
           Sorry, no discussions found.
           = link_to 'Try again?', root_path
       - else
-        - @results.each_pair do |k, v|
-          %p
-            = "#{k.to_s.upcase} :: "
-            = link_to v[:title], v[:location] unless v.nil?
+        - @top_results.each_pair do |k, v|
+          - unless v.nil?
+            %p
+              = "#{k.to_s.upcase} :: "
+              = link_to v.title, v.location
     .columnA.pull-center
       %h3 ALL RESULTS
       - if @all_results.empty?
