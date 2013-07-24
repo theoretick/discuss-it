@@ -12,6 +12,13 @@ class Fetch
     return JSON.parse(response)
   end
 
+  # adds http prefix if not found
+  def self.ensure_http(user_string)
+    valid_url = user_string
+    valid_url = "http://" + user_string unless user_string.match(/(http|https):\/\//)
+    return valid_url
+  end
+
   #  makes http call with query_string and returns ruby hash
   def self.get_response(api_url, query_string)
     begin
@@ -25,20 +32,11 @@ class Fetch
     end
   end
 
-  # adds http prefix if not found
-  def self.ensure_http(user_string)
-    valid_url = user_string
-    valid_url = "http://" + user_string unless user_string.match(/(http|https):\/\//)
-    return valid_url
-  end
-
 end
 
 # traverses hash, standardizes variables and misc and stuff
 #######################################################################
 class RedditFetch < Fetch
-
-  API_URL = 'http://www.reddit.com/api/info.json?url='
 
   #  returns big has of all reddit listings for a query
   def initialize(query_string)
@@ -49,11 +47,15 @@ class RedditFetch < Fetch
       query_url = query_string
     end
 
-    reddit_raw_a = Fetch.get_response(API_URL, query_url)
-    reddit_raw_b = Fetch.get_response(API_URL, query_url + '/')
+    reddit_raw_a = Fetch.get_response(api_url, query_url)
+    reddit_raw_b = Fetch.get_response(api_url, query_url + '/')
 
     # return master hash of both combined API calls
     @raw_master = pull_out(reddit_raw_a) + pull_out(reddit_raw_b)
+  end
+
+  def api_url
+    return 'http://www.reddit.com/api/info.json?url='
   end
 
   # returns relevant subarray of raw hash listings
@@ -86,8 +88,6 @@ end
 
 class HnFetch < Fetch
 
-  API_URL = 'http://api.thriftdb.com/api.hnsearch.com/items/_search?filter[fields][url]='
-
   #  returns a hash of HN listings for a query
   def initialize(query_string)
 
@@ -97,8 +97,12 @@ class HnFetch < Fetch
       query_url = query_string
     end
 
-    hn_raw = Fetch.get_response(API_URL, query_url + '/')
+    hn_raw = Fetch.get_response(api_url, query_url + '/')
     @raw_master = pull_out(hn_raw)
+  end
+
+  def api_url
+    return 'http://api.thriftdb.com/api.hnsearch.com/items/_search?filter[fields][url]='
   end
 
   # returns relevant subarray of raw hash listings
