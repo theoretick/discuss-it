@@ -2,7 +2,12 @@
   %h1 Discuss It!
   %p Online article discussion tracker website for locating online discussions about a given article.
   .row-fluid
-    .columnA.pull-center
+    .columnA
+      %p.pagination-centered
+        / FIXME: this looks stupid
+        ** Discussions about
+        = link_to @query_text, @query_text
+        **
       %h3 TOP RESULTS
 
       - if @top_results.values.empty?
@@ -16,7 +21,7 @@
             %p{style: "word-break: break-all; word-break: break-word; hyphens: auto;"}
               = "[#{k.to_s.capitalize}] - "
               =  link_to v.title, v.location
-    .columnA.pull-center
+    .columnA
       %h3 ALL RESULTS
       - if @all_results.all.empty?
         %p

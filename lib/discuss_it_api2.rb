@@ -7,14 +7,6 @@ class DiscussItUrlError < Exception; end
 #Formats url, gets response and returns parsed json
 class Fetch
 
-  # adds http prefix and '/' postfix if not found
-  def self.http_add(url)
-    valid_url = url
-    valid_url = "http://" + url unless url.match(/(http|https):\/\//)
-    valid_url = url + '/' unless url.ends_with?('/')
-    return valid_url
-  end
-
   # returns ruby hash of parsed json object
   def self.parse(response)
     return JSON.parse(response)
@@ -23,14 +15,21 @@ class Fetch
   #  makes http call with query_string and returns ruby hash
   def self.get_response(api_url, query_string)
     begin
-      valid_uri = self.http_add(query_string)
-      response = HTTParty.get(api_url + valid_uri)
+      query_url = ensure_http(query_string)
+      response = HTTParty.get(api_url + query_url)
       return self.parse(response.body)
 
-    # if http://xxx/ is still invalid url content, raise error
+    # if http://xxx is still invalid url content, raise error
     rescue URI::InvalidURIError => e
       raise DiscussItUrlError.new
     end
+  end
+
+  # adds http prefix if not found
+  def self.ensure_http(user_string)
+    valid_url = user_string
+    valid_url = "http://" + user_string unless user_string.match(/(http|https):\/\//)
+    return valid_url
   end
 
 end
@@ -42,7 +41,13 @@ class RedditFetch < Fetch
   API_URL = 'http://www.reddit.com/api/info.json?url='
 
   #  returns big has of all reddit listings for a query
-  def initialize(query_url)
+  def initialize(query_string)
+
+    if query_string.end_with?('/')
+      query_url = query_string.chop
+    else
+      query_url = query_string
+    end
 
     reddit_raw_a = Fetch.get_response(API_URL, query_url)
     reddit_raw_b = Fetch.get_response(API_URL, query_url + '/')
@@ -84,7 +89,14 @@ class HnFetch < Fetch
   API_URL = 'http://api.thriftdb.com/api.hnsearch.com/items/_search?filter[fields][url]='
 
   #  returns a hash of HN listings for a query
-  def initialize(query_url)
+  def initialize(query_string)
+
+    if query_string.end_with?('/')
+      query_url = query_string.chop
+    else
+      query_url = query_string
+    end
+
     hn_raw = Fetch.get_response(API_URL, query_url + '/')
     @raw_master = pull_out(hn_raw)
   end
@@ -117,7 +129,6 @@ class HnFetch < Fetch
 end
 
 # takes listing hash and creates a listing array of objects
-# FIXME: consider using just Hashie::Extension::MethodReader or MethodQuery
 class Listing < Hashie::Mash
   # provides sort method
   include Comparable
@@ -127,7 +138,6 @@ class Listing < Hashie::Mash
   end
 
 end
-
 
 class HnListing < Listing
 
@@ -191,6 +201,7 @@ end
 class ListingCollection
 
   # access ALL listings
+  # FIXME: should this be attr_reader only?
   attr_accessor :all
 
   def initialize
