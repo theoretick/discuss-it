@@ -6,6 +6,6 @@ div.columnA{
 }
 
 body {
-  background-color: ghostwhite;
-  font-family: "Futura", "Lato", sans-serif;
+  background: url('6.jpg') ghostwhite fixed;
+  font-family: Futura, Lato, sans-serif;
 }

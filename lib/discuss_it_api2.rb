@@ -7,10 +7,11 @@ class DiscussItUrlError < Exception; end
 #Formats url, gets response and returns parsed json
 class Fetch
 
-  # adds http prefix if not found
+  # adds http prefix and '/' postfix if not found
   def self.http_add(url)
     valid_url = url
     valid_url = "http://" + url unless url.match(/(http|https):\/\//)
+    valid_url = url + '/' unless url.ends_with?('/')
     return valid_url
   end
 
@@ -44,12 +45,8 @@ class RedditFetch < Fetch
   def initialize(query_url)
 
     reddit_raw_a = Fetch.get_response(API_URL, query_url)
-    if query_url.end_with?('/')
-      # FIXME: needs to trim trailing slash, else identical call as raw_a
-      reddit_raw_b = Fetch.get_response(API_URL, query_url)
-    else
-      reddit_raw_b = Fetch.get_response(API_URL, query_url + '/')
-    end
+    reddit_raw_b = Fetch.get_response(API_URL, query_url + '/')
+
     # return master hash of both combined API calls
     @raw_master = pull_out(reddit_raw_a) + pull_out(reddit_raw_b)
   end
@@ -88,12 +85,7 @@ class HnFetch < Fetch
 
   #  returns a hash of HN listings for a query
   def initialize(query_url)
-
-    if query_url.end_with?('/')
-      hn_raw = Fetch.get_response(API_URL, query_url)
-    else
-      hn_raw = Fetch.get_response(API_URL, query_url + '/')
-    end
+    hn_raw = Fetch.get_response(API_URL, query_url + '/')
     @raw_master = pull_out(hn_raw)
   end
 
@@ -169,7 +161,6 @@ class RedditListing < Listing
 
 end
 
-# FIXME: implement site key/val in def standardize() to sort listings (i.e. site:'reddit')
 class DiscussItApi
 
   attr_accessor :all_listings
