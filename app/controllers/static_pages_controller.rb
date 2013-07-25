@@ -1,4 +1,3 @@
-require 'discuss_it_api_v3'
 
 class StaticPagesController < ApplicationController
   def index
@@ -7,7 +6,7 @@ class StaticPagesController < ApplicationController
   def submit
     begin
       @query_text = params[:query]
-      @discussit = DiscussItApi.new(params[:query])
+      @discussit = DiscussItApi.new(@query_text)
       @all_results = @discussit.find_all
       @top_results = @discussit.find_top
     rescue DiscussItUrlError => e

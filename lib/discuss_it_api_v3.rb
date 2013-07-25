@@ -1,14 +1,13 @@
 #----------------------------------------------------------------------
-# DiscussItApi v3
+# DiscussItApi v3.5
 #
-# - interfaces with Reddit and HackerNews to create sortable listings
+# - interfaces with Reddit, HackerNews (and Slashdot) to create sortable listings
 # by URL.
 #
 # http://github.com/theoretick/discussit
 #----------------------------------------------------------------------
 require 'json'
 require 'httparty'
-
 
 #----------------------------------------------------------------------
 # Exception class to catch invalid URL Errors
@@ -17,13 +16,13 @@ class DiscussItUrlError < Exception; end
 
 
 #----------------------------------------------------------------------
-#Formats url, gets response and returns parsed json
+# Formats url, gets response and returns parsed json
 # ABSTRACT ONLY, called w/ RedditFetch and HnFetch
 #----------------------------------------------------------------------
 class Fetch
 
   # returns ruby hash of parsed json object
-  # currently only JSON, possible XML for future
+  # FIXME: currently only JSON, possible XML for future
   def self.parse(response)
     return JSON.parse(response)
   end
@@ -53,12 +52,12 @@ end
 
 
 #----------------------------------------------------------------------
-# fetches API response from HackerNews
+# fetches API response from Reddit
 # provides site-specific details: key-names and urls
 #----------------------------------------------------------------------
 class RedditFetch < Fetch
 
-  #  returns big has of all reddit listings for a query
+  #  returns big hash of all reddit listings for a query
   def initialize(query_string)
 
     # ALWAYS remove trailing slash before get_response calls
@@ -161,6 +160,57 @@ end
 
 
 #----------------------------------------------------------------------
+# fetches persistentlistings locally from (Slashdot) Listing controllers
+# provides site-specific details: key-names and urls
+#----------------------------------------------------------------------
+class SlashdotFetch < Fetch
+
+  #  returns big hash of all slashdot listings for a query
+  def initialize(query_string)
+    # @slashdot_listings = Fetch.get_response(api_url, query_string)
+    @slashdot_listings =  {
+         "hits" => 2,
+      "results" => []
+    }
+    @raw_master = pull_out(@slashdot_listings)
+  end
+
+  def api_url
+    # FIXME: this work?
+    return 'listings/find_by_url/'
+  end
+
+  # returns relevant subarray of raw hash listings
+  def pull_out(parent_hash)
+    return parent_hash["results"]
+  end
+
+  # gets called in DiscussItApi to build Slashdot listings
+  # if not already built
+  def listings
+    return @listings ||= build_all_listings
+  end
+
+  def build_listing(parent_hash)
+    # FIXME: up one level in the hash is weighting data for HN
+    listing = parent_hash
+    return SlashdotListing.new(listing)
+  end
+
+  # creates array of listing objects for all responses
+  def build_all_listings
+    all_listings = []
+    # FIXME: should this be switched to a map() call?
+    @raw_master.each do |listing|
+      all_listings << build_listing(listing)
+    end
+    return all_listings
+  end
+
+end
+
+
+#----------------------------------------------------------------------
 # takes listing hash and creates a listing obj
 # with sort & dot-notation accessors
 # ABSTRACT ONLY, instantiated w/ HnListing and RedditListing
@@ -217,7 +267,32 @@ end
 
 
 #----------------------------------------------------------------------
+# Listing class for Slashdot with custom accessors
+# FIXME: should be moved to raketask?
+#----------------------------------------------------------------------
+class SlashdotListing < Listing
+end
+
+#----------------------------------------------------------------------
 # collects listing objects and provides site and sort selectors
+  #  - sorts listings per site and returns 1 per site
+  #  - with top score.
+  #  - key is sitename
+#
+  # example_results = {
+  #       hn: {
+  #           ...
+  #           points: 3,
+  #              id: 3934943,
+  #           ...
+  #          }
+  #   reddit: {
+  #           ...
+  #           score: 7,
+  #       permalink: "/r/foo/fake_url_permalink",
+  #           ...
+  #          }
+  # }
 #----------------------------------------------------------------------
 class ListingCollection
 
@@ -227,27 +302,12 @@ class ListingCollection
   def initialize
   end
 
-  # sorts listings per site and returns 1 per site
-  # with top score.
-  # key is sitename
-  # val is 1 HnListing or 1 RedditListing
-  #
-  # results = {
-  #       hn: {
-  #           points: 3,
-  #              id: 3934943,
-  #          }
-  #   reddit: {
-  #           score: 7,
-  #       permalink: "/r/foo/fake_url_permalink",
-  #          }
-  # }
-  #
   def tops
     results = {}
 
     results[:hn] = hn.sort.first unless hn.empty?
     results[:reddit] = reddit.sort.first unless reddit.empty?
+    results[:slashdot] = slashdot.sort.first unless slashdot.empty?
 
     return results
   end
@@ -262,30 +322,36 @@ class ListingCollection
     all.select {|listing| listing.class == RedditListing }
   end
 
+  # returns array of all SlashdotListing objects
+  def slashdot
+    all.select {|listing| listing.class == SlashdotListing }
+  end
+
 end
 
 
 #----------------------------------------------------------------------
 # public interface
+  # - initializes site fetchers
+  # - calls listing builders
+  # - finds all listings
+  # - finds top listings (1 per site)
 #----------------------------------------------------------------------
 class DiscussItApi
 
   attr_accessor :all_listings
 
-  # - initializes site fetchers
-  # - calls listing builders
-  # - finds all listings
-  # - finds top listings (1 per site)
-  #
   def initialize(query_string)
 
     reddit_fetch = RedditFetch.new(query_string)
     hn_fetch     = HnFetch.new(query_string)
+    slashdot_fetch = SlashdotFetch.new(query_string)
     @all_listings    = ListingCollection.new
 
     @all_listings.all = reddit_fetch.listings
     # shovel creates a nested array item, use += instead
     @all_listings.all += hn_fetch.listings
+    @all_listings.all += slashdot_fetch.listings
   end
 
   # returns a ListingCollection of all listing urls for each site

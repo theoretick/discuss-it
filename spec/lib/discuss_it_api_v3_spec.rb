@@ -197,7 +197,7 @@ describe "Listing" do
     end
 
     it "should have a score accessor on RedditListing" do
-      expect(@reddit_listing.score).to eq(18)
+      expect(@reddit_listing.score).to eq(17)
     end
 
     it "should have a location accessor on HnListing" do
@@ -222,6 +222,9 @@ describe "ListingCollection" do
     VCR.use_cassette("one_result_each", :record => :new_episodes) do
       @one_result_each = DiscussItApi.new('yorickpeterse.com/articles/debugging-with-pry/')
     end
+
+    @reddit_listing = @one_result_each.all_listings.reddit
+    @hn_listing = @one_result_each.all_listings.hn
   end
 
   describe "initialization" do
@@ -236,12 +239,12 @@ describe "ListingCollection" do
 
     it "should return only HnListings from hn method" do
       # FIXME: iterate through each instead of just first
-      expect(@one_result_each.all_listings.hn.first).not_to be_an_instance_of(RedditListing)
+      expect(@hn_listing.all?{|listing| listing.is_a?(HnListing) } ).to be_true
     end
 
     it "should return only RedditListings from reddit method" do
       # FIXME: iterate through each instead of just first
-      expect(@one_result_each.all_listings.reddit.first).not_to be_an_instance_of(HnListing)
+      expect(@reddit_listing.all?{|listing| listing.is_a?(RedditListing) }).to be_true
     end
 
   end
@@ -289,7 +292,7 @@ describe "DiscussItApi" do
       expect(@one_result_each.find_all.all.length).to eq(2)
     end
 
-    it "should return 25 results for singlesite large listings" do
+    it "should return 28 results for singlesite large listings" do
       expect(@many_results_reddit.find_all.all.length).to eq(28)
     end
 
