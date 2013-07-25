@@ -9,3 +9,9 @@ body {
   background: url('6.jpg') ghostwhite fixed;
   font-family: Futura, Lato, sans-serif;
 }
+
+p.suggested {
+  font-size: 14px;
+  margin-top: -5px;
+  margin-bottom: -5px;
+}
