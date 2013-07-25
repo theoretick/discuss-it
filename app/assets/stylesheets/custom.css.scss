@@ -6,7 +6,9 @@ div.columnA{
 }
 
 body {
-  background: url('6.jpg') ghostwhite fixed;
+  background-image:asset-data-url('6.jpg');
+  background-position: fixed;
+  background-color:  ghostwhite;
   font-family: Futura, Lato, sans-serif;
 }
 
