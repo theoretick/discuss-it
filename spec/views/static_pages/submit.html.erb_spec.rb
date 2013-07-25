@@ -21,13 +21,14 @@ describe "static_pages/submit.html.erb", :vcr do
   #   visit '/static_pages/submit'
   # end
 
-  it "Should have an anchor tag 'a' after a valid search" do
-    visit '/'
-    fill_in 'query', :with => 'www.restorethefourth.net/'
-    click_button 'Search'
-    expect(page).to have_selector("a")
-  end
+  # it "Should have an anchor tag 'a' after a valid search" do
+  #   visit '/'
+  #   fill_in 'query', :with => 'www.restorethefourth.net/'
+  #   click_button 'Search'
+  #   expect(page).to have_selector("a")
+  # end
 
+<<<<<<< HEAD
 <<<<<<< HEAD
   it "should not load from index search button" do
 =======
@@ -42,6 +43,14 @@ describe "static_pages/submit.html.erb", :vcr do
     expect(page).to have_selector('div.alert')
 >>>>>>> dev
   end
+=======
+  # it "should display alert div with empty doublequoted str", :locals => true do
+  #   visit '/'
+  #   fill_in 'query', :with => '""'
+  #   click_button 'Search'
+  #   expect(page).to have_selector('div.alert')
+  # end
+>>>>>>> dev
 
   it "should display alert div with empty singlequote str", :locals => true
 

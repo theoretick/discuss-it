@@ -1,13 +1,25 @@
+#----------------------------------------------------------------------
+# DiscussItApi v3
+#
+# - interfaces with Reddit and HackerNews to create sortable listings
+# by URL.
+#
+# http://github.com/theoretick/discussit
+#----------------------------------------------------------------------
 require 'json'
 require 'httparty'
 
 
+#----------------------------------------------------------------------
 # Exception class to catch invalid URL Errors
+#----------------------------------------------------------------------
 class DiscussItUrlError < Exception; end
 
 
+#----------------------------------------------------------------------
 #Formats url, gets response and returns parsed json
 # ABSTRACT ONLY, called w/ RedditFetch and HnFetch
+#----------------------------------------------------------------------
 class Fetch
 
   # returns ruby hash of parsed json object
@@ -39,8 +51,11 @@ class Fetch
 
 end
 
+
+#----------------------------------------------------------------------
 # fetches API response from HackerNews
 # provides site-specific details: key-names and urls
+#----------------------------------------------------------------------
 class RedditFetch < Fetch
 
   #  returns big has of all reddit listings for a query
@@ -92,8 +107,10 @@ class RedditFetch < Fetch
 end
 
 
+#----------------------------------------------------------------------
 # fetches API response from HackerNews
 # provides site-specific details: key-names and urls
+#----------------------------------------------------------------------
 class HnFetch < Fetch
 
   #  returns a hash of HN listings for a query
@@ -143,9 +160,11 @@ class HnFetch < Fetch
 end
 
 
+#----------------------------------------------------------------------
 # takes listing hash and creates a listing obj
 # with sort & dot-notation accessors
 # ABSTRACT ONLY, instantiated w/ HnListing and RedditListing
+#----------------------------------------------------------------------
 class Listing < Hashie::Mash
   # provides sort method
   include Comparable
@@ -157,7 +176,9 @@ class Listing < Hashie::Mash
 end
 
 
+#----------------------------------------------------------------------
 # Listing class for HN with custom accessors
+#----------------------------------------------------------------------
 class HnListing < Listing
 
   def base_url
@@ -174,7 +195,10 @@ class HnListing < Listing
 
 end
 
+
+#----------------------------------------------------------------------
 # Listing class for HN with custom accessors
+#----------------------------------------------------------------------
 class RedditListing < Listing
 
   def base_url
@@ -192,6 +216,9 @@ class RedditListing < Listing
 end
 
 
+#----------------------------------------------------------------------
+# collects listing objects and provides site and sort selectors
+#----------------------------------------------------------------------
 class ListingCollection
 
   # access ALL listings
@@ -237,7 +264,10 @@ class ListingCollection
 
 end
 
+
+#----------------------------------------------------------------------
 # public interface
+#----------------------------------------------------------------------
 class DiscussItApi
 
   attr_accessor :all_listings

@@ -25,6 +25,7 @@ group :test do
   gem 'growl', :require => false
   gem 'vcr'
   gem 'webmock'
+  gem 'meta_request'
 end
 
 group :production do
@@ -36,6 +37,7 @@ gem 'haml-rails'
 gem 'twitter-bootstrap-rails'
 gem 'flat-ui-rails'
 gem 'httparty'
+gem 'hashie'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'

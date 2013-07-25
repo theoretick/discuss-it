@@ -2,22 +2,35 @@
   %h1 Discuss It!
   %p Online article discussion tracker website for locating online discussions about a given article.
   .row-fluid
-    .columnA.pull-center
+    .columnA
+      %p.pagination-centered
+        / FIXME: this looks stupid
+        ** Discussions about
+        = link_to @query_text, @query_text
+        **
       %h3 TOP RESULTS
-      - if @results.empty?
+
+      - if @top_results.values.empty?
         %p
+          / FIXME: add suggestion if empty
           Sorry, no discussions found.
           = link_to 'Try again?', root_path
       - else
-        - @results.each do |results|
-          = link_to results, results
-    .columnA.pull-center
+        - @top_results.each_pair do |k, v|
+          - unless v.nil?
+            %p{style: "word-break: break-all; word-break: break-word; hyphens: auto;"}
+              = "[#{k.to_s.capitalize}] - "
+              =  link_to v.title, v.location
+    .columnA
       %h3 ALL RESULTS
-      - if @all_results.empty?
+      - if @all_results.all.empty?
         %p
           No additional results found
       - else
-        - @all_results.each do |results|
-          = link_to results, results
+        %table.table
+          - @all_results.all.each do |listing|
+            %tr
+              %td{style: "word-break: break-all; word-break: break-word; hyphens: auto;"}
+                = link_to listing.location, listing.location
 
 %hr
