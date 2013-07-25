@@ -1,18 +1,22 @@
 require 'json'
 require 'httparty'
 
+
 # Exception class to catch invalid URL Errors
 class DiscussItUrlError < Exception; end
 
+
 #Formats url, gets response and returns parsed json
+# ABSTRACT ONLY, called w/ RedditFetch and HnFetch
 class Fetch
 
   # returns ruby hash of parsed json object
+  # currently only JSON, possible XML for future
   def self.parse(response)
     return JSON.parse(response)
   end
 
-  # adds http prefix if not found
+  # ensures url passed to API has http prefix
   def self.ensure_http(user_string)
     valid_url = user_string
     valid_url = "http://" + user_string unless user_string.match(/(http|https):\/\//)
@@ -27,6 +31,7 @@ class Fetch
       return self.parse(response.body)
 
     # if http://xxx is still invalid url content, raise error
+    # ```http://%% #=> raise DiscussItUrlError```
     rescue URI::InvalidURIError => e
       raise DiscussItUrlError.new
     end
@@ -34,13 +39,14 @@ class Fetch
 
 end
 
-# traverses hash, standardizes variables and misc and stuff
-#######################################################################
+# fetches API response from HackerNews
+# provides site-specific details: key-names and urls
 class RedditFetch < Fetch
 
   #  returns big has of all reddit listings for a query
   def initialize(query_string)
 
+    # ALWAYS remove trailing slash before get_response calls
     if query_string.end_with?('/')
       query_url = query_string.chop
     else
@@ -64,7 +70,7 @@ class RedditFetch < Fetch
   end
 
   # gets called in DiscussItApi to build reddit listings
-  #   if not already built
+  # if not already built
   def listings
     return @listings ||= build_all_listings
   end
@@ -86,11 +92,14 @@ class RedditFetch < Fetch
 end
 
 
+# fetches API response from HackerNews
+# provides site-specific details: key-names and urls
 class HnFetch < Fetch
 
   #  returns a hash of HN listings for a query
   def initialize(query_string)
 
+    # ALWAYS remove trailing slash before get_response calls
     if query_string.end_with?('/')
       query_url = query_string.chop
     else
@@ -110,8 +119,8 @@ class HnFetch < Fetch
     return parent_hash["results"]
   end
 
-  # gets called in DiscussItApi to build reddit listings
-  #   if not already built
+  # gets called in DiscussItApi to build HN listings
+  # if not already built
   def listings
     return @listings ||= build_all_listings
   end
@@ -125,6 +134,7 @@ class HnFetch < Fetch
   # creates array of listing objects for all responses
   def build_all_listings
     all_listings = []
+    # FIXME: should this be switched to a map() call?
     @raw_master.each do |listing|
       all_listings << build_listing(listing)
     end
@@ -132,7 +142,10 @@ class HnFetch < Fetch
   end
 end
 
-# takes listing hash and creates a listing array of objects
+
+# takes listing hash and creates a listing obj
+# with sort & dot-notation accessors
+# ABSTRACT ONLY, instantiated w/ HnListing and RedditListing
 class Listing < Hashie::Mash
   # provides sort method
   include Comparable
@@ -143,6 +156,8 @@ class Listing < Hashie::Mash
 
 end
 
+
+# Listing class for HN with custom accessors
 class HnListing < Listing
 
   def base_url
@@ -159,6 +174,7 @@ class HnListing < Listing
 
 end
 
+# Listing class for HN with custom accessors
 class RedditListing < Listing
 
   def base_url
@@ -175,43 +191,31 @@ class RedditListing < Listing
 
 end
 
-class DiscussItApi
-
-  attr_accessor :all_listings
-
-  # initializes fetchers and calls listing builders
-  def initialize(query_string)
-
-    reddit_fetch = RedditFetch.new(query_string)
-    hn_fetch     = HnFetch.new(query_string)
-    @all_listings    = ListingCollection.new
-
-    @all_listings.all = reddit_fetch.listings
-    # shovel creates a nested array item
-    @all_listings.all += hn_fetch.listings
-  end
-
-  # returns a ListingCollection of all listing urls for each site
-  def find_all
-    return @all_listings
-  end
-
-  # returns a HASH of listings w/ highest score for each site
-  def find_top
-    return @all_listings.tops
-  end
-end
 
 class ListingCollection
 
   # access ALL listings
-  # FIXME: should this be attr_reader only?
   attr_accessor :all
 
   def initialize
   end
 
-  # sorts listings per site and returns the one with the top score
+  # sorts listings per site and returns 1 per site
+  # with top score.
+  # key is sitename
+  # val is 1 HnListing or 1 RedditListing
+  #
+  # results = {
+  #       hn: {
+  #           points: 3,
+  #              id: 3934943,
+  #          }
+  #   reddit: {
+  #           score: 7,
+  #       permalink: "/r/foo/fake_url_permalink",
+  #          }
+  # }
+  #
   def tops
     results = {}
 
@@ -221,22 +225,48 @@ class ListingCollection
     return results
   end
 
-  # returns all HN listing objects
+  # returns array of all HnListing objects
   def hn
     all.select {|listing| listing.class == HnListing }
   end
 
-  # returns all reddit listing objects
+  # returns array of all RedditListing objects
   def reddit
     all.select {|listing| listing.class == RedditListing }
   end
 
-  # returns all listings for Reddit and HN
-  def locations
-    return all.map {|listing| listing.location}
-  end
-
 end
 
+# public interface
+class DiscussItApi
 
+  attr_accessor :all_listings
+
+  # - initializes site fetchers
+  # - calls listing builders
+  # - finds all listings
+  # - finds top listings (1 per site)
+  #
+  def initialize(query_string)
+
+    reddit_fetch = RedditFetch.new(query_string)
+    hn_fetch     = HnFetch.new(query_string)
+    @all_listings    = ListingCollection.new
+
+    @all_listings.all = reddit_fetch.listings
+    # shovel creates a nested array item, use += instead
+    @all_listings.all += hn_fetch.listings
+  end
+
+  # returns a ListingCollection of all listing urls for each site
+  # FIXME: this should probably be standardized to a hash for consistency
+  def find_all
+    return @all_listings
+  end
+
+  # returns a HASH of listings w/ highest score for each site
+  def find_top
+    return @all_listings.tops
+  end
+end
 
