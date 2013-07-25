@@ -1,4 +1,4 @@
-require 'discuss_it_api2'
+require 'discuss_it_api_v3'
 
 class StaticPagesController < ApplicationController
   def index
