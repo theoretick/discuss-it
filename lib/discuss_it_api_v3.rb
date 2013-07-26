@@ -20,7 +20,6 @@ class DiscussItUrlError < Exception; end
 # ABSTRACT ONLY, called w/ RedditFetch and HnFetch
 #----------------------------------------------------------------------
 class Fetch
-
   # returns ruby hash of parsed json object
   # FIXME: currently only JSON, possible XML for future
   def self.parse(response)
@@ -46,16 +45,17 @@ class Fetch
     rescue URI::InvalidURIError => e
       raise DiscussItUrlError.new
     end
+
   end
 
 end
-
 
 #----------------------------------------------------------------------
 # fetches API response from Reddit
 # provides site-specific details: key-names and urls
 #----------------------------------------------------------------------
-class RedditFetch < Fetch
+class RedditFetch
+  # include Fetch
 
   #  returns big hash of all reddit listings for a query
   def initialize(query_string)
@@ -110,7 +110,8 @@ end
 # fetches API response from HackerNews
 # provides site-specific details: key-names and urls
 #----------------------------------------------------------------------
-class HnFetch < Fetch
+class HnFetch
+  # include Fetch
 
   #  returns a hash of HN listings for a query
   def initialize(query_string)
@@ -163,7 +164,8 @@ end
 # fetches persistentlistings locally from (Slashdot) Listing controllers
 # provides site-specific details: key-names and urls
 #----------------------------------------------------------------------
-class SlashdotFetch < Fetch
+class SlashdotFetch
+  # include Fetch
 
   #  returns big hash of all slashdot listings for a query
   def initialize(query_string)
@@ -272,6 +274,7 @@ end
 #----------------------------------------------------------------------
 class SlashdotListing < Listing
 end
+
 
 #----------------------------------------------------------------------
 # collects listing objects and provides site and sort selectors
