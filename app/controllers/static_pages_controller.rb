@@ -6,6 +6,7 @@ class StaticPagesController < ApplicationController
   def submit
     begin
       @query_text = params[:query]
+
       @discussit = DiscussItApi.new(@query_text)
       @all_results = @discussit.find_all
       @top_results = @discussit.find_top

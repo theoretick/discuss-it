@@ -73,6 +73,7 @@ GEM
       capybara (>= 1.1.2)
       cucumber (>= 1.1.8)
       nokogiri (>= 1.5.0)
+    daemons (1.1.9)
     debug_inspector (0.0.2)
     debugger (1.6.1)
       columnize (>= 0.3.1)
@@ -82,11 +83,16 @@ GEM
     debugger-ruby_core_source (1.2.3)
     diff-lcs (1.2.4)
     diffy (3.0.1)
+    dotenv (0.8.0)
     erubis (2.7.0)
+    eventmachine (1.0.3)
     execjs (1.4.0)
       multi_json (~> 1.0)
     ffi (1.9.0)
     flat-ui-rails (0.0.2)
+    foreman (0.63.0)
+      dotenv (>= 0.7)
+      thor (>= 0.13.6)
     formatador (0.2.4)
     gherkin (2.12.0)
       multi_json (~> 1.3)
@@ -254,6 +260,10 @@ GEM
       activesupport (>= 3.0)
       sprockets (~> 2.8)
     sqlite3 (1.3.7)
+    thin (1.5.1)
+      daemons (>= 1.0.9)
+      eventmachine (>= 0.12.6)
+      rack (>= 1.0.0)
     thor (0.18.1)
     thread_safe (0.1.0)
       atomic
@@ -287,6 +297,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   cucumber-rails
   flat-ui-rails
+  foreman
   growl
   guard-rspec
   guard-spork
@@ -307,6 +318,7 @@ DEPENDENCIES
   spork (~> 1.0rc)
   spork-rails!
   sqlite3
+  thin
   twitter-bootstrap-rails
   uglifier (>= 1.3.0)
   vcr

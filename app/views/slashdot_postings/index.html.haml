@@ -1,0 +1,23 @@
+%h1 Listing slashdot_postings
+
+%table
+  %tr
+    %th Title
+    %th Permalink
+    %th Urls
+    %th
+    %th
+    %th
+
+  - @slashdot_postings.each do |slashdot_posting|
+    %tr
+      %td= slashdot_posting.title
+      %td= slashdot_posting.permalink
+      %td= slashdot_posting.urls
+      %td= link_to 'Show', slashdot_posting
+      %td= link_to 'Edit', edit_slashdot_posting_path(slashdot_posting)
+      %td= link_to 'Destroy', slashdot_posting, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Slashdot posting', new_slashdot_posting_path

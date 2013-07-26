@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130726041617) do
+ActiveRecord::Schema.define(version: 20130726174956) do
 
   create_table "slashdot_postings", force: true do |t|
     t.string   "title"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20130726041617) do
     t.text     "urls"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "site"
   end
 
 end

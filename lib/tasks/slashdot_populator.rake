@@ -3,11 +3,18 @@ require 'nokogiri'
 
 namespace :slashdot do
 
+  desc "clear db of postings"
+  task :clear_db => :environment do
+    puts "Deleting #{SlashdotPosting.all.length} slashdot_postings..."
+    SlashdotPosting.delete_all
+    puts "DONE."
+  end
+
   desc "get recent postings"
   task :get_slashdot_postings => :environment do
     puts "Starting slashdot fetch..."
     dollah_dollah_bills_yall
-    puts "Done! Populated the DB. dolah"
+    puts "DONE. Populated the DB..."
   end
 
 end
@@ -43,7 +50,8 @@ end
 # populates db with created postings
 #----------------------------------------------------------------------
 def dollah_dollah_bills_yall
-  response = HTTParty::get('http://slashdot.org/archive.pl?op=bytime&keyword=&year=2013')
+  # only scrape the last 7 days
+  response = HTTParty::get('http://slashdot.org/archive.pl')
   doc = Nokogiri::HTML(response.body)
   parent_body_anchors = []
 
@@ -51,10 +59,10 @@ def dollah_dollah_bills_yall
   # FIXME: this is probably where we should get comment counts... ish.
   #
   # POETRY AND M0N3Y$.
-  doc.css('div.grid_24 a').each { |blah| parent_body_anchors << blah.attribute("href").to_s }[20...-1]
+  doc.css('div.grid_24 a')[20...-1].each { |blah| parent_body_anchors << blah.attribute("href").to_s }
 
-  # go through each listing per day(?) on archive page, traverse XML,
-  # and create SlashdotListing instance
+  # go through each posting per day(?) on archive page, traverse XML,
+  # and create SlashdotPosting instance
   parent_body_anchors.each do |anchor|
     valid_anchor = 'http:' + anchor
     posting_urls = []
@@ -64,17 +72,28 @@ def dollah_dollah_bills_yall
 
     # builds posting_url array with relevant body anchors that aren't slashdot
     # FIXME: should we include slashdot links?
-    document.css('div.body a:not([href*="slashdot"])').each {|blah| posting_urls << blah.attribute("href").to_s}
+    document.css('div.body a:not([href*="slashdot"])').each do |blah|
+      body_url = blah.attribute("href").to_s
+      # puts "archiving '#{body_url}'..."
+      posting_urls << body_url
+    end
+
     title = document.css('title').children.text
 
     # MAKE THE GODDAMN LISTING
+    # stringified_urls = ''
+    # posting_urls.each { |url| stringified_urls << url + ',' }
+
     s = SlashdotPosting.new
+    s.site = "slashdot"
     s.permalink = valid_anchor
-    s.urls      = posting_urls
+    # FIXME: get all and not just the first
+    s.urls      = posting_urls.first
     s.title     = title
     #s.author  = balrog
     #s.comment_count = xxx
     #s.posted_date = xxx
+    puts "Saving SlashdotPosting for '#{s.title}'..."
     s.save
   end # end of parent_body_anchors block
 end

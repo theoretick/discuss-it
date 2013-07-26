@@ -8,6 +8,7 @@ group :development do
   gem 'sqlite3'
   gem 'better_errors'
   gem 'jazz_hands'
+  gem 'foreman'
 end
 
 group :development, :test do
@@ -33,6 +34,7 @@ group :production do
   gem 'pg'
 end
 
+gem 'thin'
 gem 'haml-rails'
 gem 'twitter-bootstrap-rails'
 gem 'flat-ui-rails'

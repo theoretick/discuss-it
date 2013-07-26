@@ -55,7 +55,6 @@ end
 # provides site-specific details: key-names and urls
 #----------------------------------------------------------------------
 class RedditFetch
-  # include Fetch
 
   #  returns big hash of all reddit listings for a query
   def initialize(query_string)
@@ -111,7 +110,6 @@ end
 # provides site-specific details: key-names and urls
 #----------------------------------------------------------------------
 class HnFetch
-  # include Fetch
 
   #  returns a hash of HN listings for a query
   def initialize(query_string)
@@ -165,26 +163,30 @@ end
 # provides site-specific details: key-names and urls
 #----------------------------------------------------------------------
 class SlashdotFetch
-  # include Fetch
 
   #  returns big hash of all slashdot listings for a query
   def initialize(query_string)
-    # @slashdot_listings = Fetch.get_response(api_url, query_string)
-    @slashdot_listings =  {
-         "hits" => 2,
-      "results" => []
-    }
+    @slashdot_listings = Fetch.get_response(api_url, query_string)
+    # @slashdot_listings =  {
+    #      "hits" => 2,
+    #   "results" => []
+    # }
     @raw_master = pull_out(@slashdot_listings)
   end
 
   def api_url
     # FIXME: this work?
-    return 'listings/find_by_url/'
+    if Rails.env.development?
+      return 'http://localhost:3001/slashdot_postings/search?url='
+    else
+      return 'slashdot_postings/search?url='
+    end
   end
 
   # returns relevant subarray of raw hash listings
   def pull_out(parent_hash)
-    return parent_hash["results"]
+    # FIXME: need this? probably not
+    return parent_hash#["results"]
   end
 
   # gets called in DiscussItApi to build Slashdot listings
@@ -203,9 +205,10 @@ class SlashdotFetch
   def build_all_listings
     all_listings = []
     # FIXME: should this be switched to a map() call?
-    @raw_master.each do |listing|
-      all_listings << build_listing(listing)
-    end
+    # @raw_master.each do |listing|
+      # all_listings << build_listing(listing)
+      all_listings << build_listing(@raw_master)
+    # end
     return all_listings
   end
 
@@ -273,6 +276,11 @@ end
 # FIXME: should be moved to raketask?
 #----------------------------------------------------------------------
 class SlashdotListing < Listing
+
+  def location
+    return self["permalink"]
+  end
+
 end
 
 

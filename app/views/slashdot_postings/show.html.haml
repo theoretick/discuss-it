@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @slashdot_posting.title
+%p
+  %b Permalink:
+  = @slashdot_posting.permalink
+%p
+  %b Urls:
+  = @slashdot_posting.urls
+
+= link_to 'Edit', edit_slashdot_posting_path(@slashdot_posting)
+\|
+= link_to 'Back', slashdot_postings_path
