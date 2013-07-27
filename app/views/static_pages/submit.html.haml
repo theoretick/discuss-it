@@ -20,11 +20,7 @@
           - unless v.nil?
             %p{style: "word-break: break-all; word-break: break-word; hyphens: auto;"}
               = "[#{k.to_s.capitalize}] - "
-              - if v.site == "slashdot"
-                / FIXME: urls is a stupid keyname
-                = link_to v.title, v.permalink
-              - else
-                =  link_to v.title, v.location
+              =  link_to v.title, v.location
     .columnA
       %h3 ALL RESULTS
       - if @all_results.all.empty?

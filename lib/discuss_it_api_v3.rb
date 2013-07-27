@@ -1,8 +1,8 @@
 #----------------------------------------------------------------------
 # DiscussItApi v3.5
 #
-# - interfaces with Reddit, HackerNews (and Slashdot) to create sortable listings
-# by URL.
+# - interfaces with Reddit, HackerNews, and Slashdot to create sortable
+# listings by URL.
 #
 # http://github.com/theoretick/discussit
 #----------------------------------------------------------------------
@@ -23,7 +23,12 @@ class Fetch
   # returns ruby hash of parsed json object
   # FIXME: currently only JSON, possible XML for future
   def self.parse(response)
-    return JSON.parse(response)
+    begin
+      return JSON.parse(response)
+    # rescue for slashdot api
+    rescue JSON::ParserError => e
+      return {}
+    end
   end
 
   # ensures url passed to API has http prefix
@@ -41,7 +46,6 @@ class Fetch
       return self.parse(response.body)
 
     # if http://xxx is still invalid url content, raise error
-    # ```http://%% #=> raise DiscussItUrlError```
     rescue URI::InvalidURIError => e
       raise DiscussItUrlError.new
     end
@@ -49,6 +53,7 @@ class Fetch
   end
 
 end
+
 
 #----------------------------------------------------------------------
 # fetches API response from Reddit
@@ -59,6 +64,7 @@ class RedditFetch
   #  returns big hash of all reddit listings for a query
   def initialize(query_string)
 
+    # FIXME: this can be done in get_response instead
     # ALWAYS remove trailing slash before get_response calls
     if query_string.end_with?('/')
       query_url = query_string.chop
@@ -66,6 +72,8 @@ class RedditFetch
       query_url = query_string
     end
 
+    # reddit has no url validation so make EVERY call twice:
+    # with and without a trailing slash
     reddit_raw_a = Fetch.get_response(api_url, query_url)
     reddit_raw_b = Fetch.get_response(api_url, query_url + '/')
 
@@ -167,10 +175,10 @@ class SlashdotFetch
   #  returns big hash of all slashdot listings for a query
   def initialize(query_string)
     @slashdot_listings = Fetch.get_response(api_url, query_string)
-    if @slashdot_listings
-      @raw_master = @slashdot_listings
+    if @slashdot_listings.empty?
+      @raw_master = []
     else
-      @raw_master = {}
+      @raw_master = @slashdot_listings
     end
   end
 
@@ -204,10 +212,9 @@ class SlashdotFetch
   def build_all_listings
     all_listings = []
     # FIXME: should this be switched to a map() call?
-    # @raw_master.each do |listing|
-      # all_listings << build_listing(listing)
-      all_listings << build_listing(@raw_master)
-    # end
+    @raw_master.each do |listing|
+      all_listings << build_listing(listing)
+    end
     return all_listings
   end
 
@@ -280,6 +287,11 @@ class SlashdotListing < Listing
     return self["permalink"]
   end
 
+  # FIXME: future-proof if we want to integrate comment_count globally
+  def score
+    return self["comment_count"]
+  end
+
 end
 
 
@@ -289,7 +301,7 @@ end
   #  - with top score.
   #  - key is sitename
 #
-  # example_results = {
+  # EXAMPLE_RESULTS = {
   #       hn: {
   #           ...
   #           points: 3,
@@ -315,9 +327,9 @@ class ListingCollection
   def tops
     results = {}
 
-    results[:hn] = hn.sort.first unless hn.empty?
-    results[:reddit] = reddit.sort.first unless reddit.empty?
-    results[:slashdot] = slashdot.sort.first unless slashdot.empty?
+    results[:hn] = hn.sort.last unless hn.empty?
+    results[:reddit] = reddit.sort.last unless reddit.empty?
+    results[:slashdot] = slashdot.sort.last unless slashdot.empty?
 
     return results
   end
