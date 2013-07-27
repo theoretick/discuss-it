@@ -167,15 +167,14 @@ class SlashdotFetch
   #  returns big hash of all slashdot listings for a query
   def initialize(query_string)
     @slashdot_listings = Fetch.get_response(api_url, query_string)
-    # @slashdot_listings =  {
-    #      "hits" => 2,
-    #   "results" => []
-    # }
-    @raw_master = pull_out(@slashdot_listings)
+    if @slashdot_listings
+      @raw_master = @slashdot_listings
+    else
+      @raw_master = {}
+    end
   end
 
   def api_url
-    # FIXME: this work?
     if Rails.env.development?
       return 'http://localhost:3001/slashdot_postings/search?url='
     else
@@ -183,10 +182,10 @@ class SlashdotFetch
     end
   end
 
+  # FIXME: need this? probably not
   # returns relevant subarray of raw hash listings
   def pull_out(parent_hash)
-    # FIXME: need this? probably not
-    return parent_hash#["results"]
+    return parent_hash["results"]
   end
 
   # gets called in DiscussItApi to build Slashdot listings

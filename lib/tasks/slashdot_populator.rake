@@ -11,7 +11,8 @@ namespace :slashdot do
   end
 
   desc "get recent postings"
-  task :get_slashdot_postings => :environment do
+  task :get_postings => :environment do
+    # SlashdotPosting.delete_all
     puts "Starting slashdot fetch..."
     dollah_dollah_bills_yall
     puts "DONE. Populated the DB..."
@@ -55,47 +56,58 @@ def dollah_dollah_bills_yall
   doc = Nokogiri::HTML(response.body)
   parent_body_anchors = []
 
-  # array of all urls in some recent portion of 2013
   # FIXME: this is probably where we should get comment counts... ish.
-  #
-  # POETRY AND M0N3Y$.
-  doc.css('div.grid_24 a')[20...-1].each { |blah| parent_body_anchors << blah.attribute("href").to_s }
+  # array of slashdot posting urls from archive of last 7 days
+  doc.css('div.grid_24 a')[4...-1].each { |blah| parent_body_anchors << blah.attribute("href").to_s }
 
-  # go through each posting per day(?) on archive page, traverse XML,
+  # go through each posting on archive page, traverse HTML,
   # and create SlashdotPosting instance
   parent_body_anchors.each do |anchor|
     valid_anchor = 'http:' + anchor
     posting_urls = []
 
+    # open each slashdot discussion as 'posting'
     posting = HTTParty::get(valid_anchor)
     document = Nokogiri::HTML(posting)
 
-    # builds posting_url array with relevant body anchors that aren't slashdot
     # FIXME: should we include slashdot links?
-    document.css('div.body a:not([href*="slashdot"])').each do |blah|
-      body_url = blah.attribute("href").to_s
-      # puts "archiving '#{body_url}'..."
+    # FIXME: if not, have a more accurate slashdot exclusion (only domain, not just keyword)
+    # builds posting_url array with relevant body anchors that aren't slashdot
+    document.css('div.body a:not([href*="slashdot"])').each do |body_anchor|
+      body_url = body_anchor.attribute("href").to_s
       posting_urls << body_url
     end
 
-    title = document.css('title').children.text
+    # dont bother creating a listing if no links; i.e. "Ask Slashdot" posts
+    unless posting_urls.empty?
 
-    # MAKE THE GODDAMN LISTING
-    # stringified_urls = ''
-    # posting_urls.each { |url| stringified_urls << url + ',' }
+      # find slashdot article title
+      title = document.css('title').children.text
 
-    s = SlashdotPosting.new
-    s.site = "slashdot"
-    s.permalink = valid_anchor
-    # FIXME: get all and not just the first
-    s.urls      = posting_urls.first
-    s.title     = title
-    #s.author  = balrog
-    #s.comment_count = xxx
-    #s.posted_date = xxx
-    puts "Saving SlashdotPosting for '#{s.title}'..."
-    s.save
+      # find posting author
+      author = document.css('header div.details a').text
+
+      # FIXME: parse this into something useable
+      # find posting post_date
+      # => "on Sunday July 21, 2013 @01:51PM"
+      post_date = document.css('header div.details time').text
+
+      # find comment_count
+      comment_count = document.css('span.totalcommentcnt').first.text
+
+
+      s = SlashdotPosting.new
+      s.site = "slashdot"
+      s.permalink = valid_anchor
+      # FIXME: get all and not just the first url
+      s.urls      = posting_urls.first
+      s.title     = title
+      s.author  = author
+      s.comment_count = comment_count
+      # s.post_date = post_date
+      puts "Saving SlashdotPosting for '#{s.title}'..."
+      s.save
+    end
   end # end of parent_body_anchors block
 end
-
 

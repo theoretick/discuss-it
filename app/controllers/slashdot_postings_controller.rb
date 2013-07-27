@@ -17,11 +17,10 @@ class SlashdotPostingsController < ApplicationController
 
   # FIXME: probably need url objects?!?
   #  => (posting has_many :urls)
-  # Give me transaction data, all ledgers, and groups users names.
+  # return SlashdotPosting attached to query_url
   def find_by_url
     render json: SlashdotPosting.find_by_urls(params[:url])
   end
-
 
   # POST /slashdot_postings
   # POST /slashdot_postings.json
