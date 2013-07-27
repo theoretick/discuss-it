@@ -19,7 +19,14 @@ class SlashdotPostingsController < ApplicationController
   #  => (posting has_many :urls)
   # return SlashdotPosting attached to query_url
   def find_by_url
-    render json: SlashdotPosting.find_by_urls(params[:url])
+
+    db_postings = SlashdotPosting.find_by_urls(params[:url])
+    if db_postings == 'null'
+      render json: {}
+    else
+      render json: db_postings
+    end
+
   end
 
   # POST /slashdot_postings

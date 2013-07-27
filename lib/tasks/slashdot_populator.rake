@@ -58,7 +58,7 @@ def dollah_dollah_bills_yall
 
   # FIXME: this is probably where we should get comment counts... ish.
   # array of slashdot posting urls from archive of last 7 days
-  doc.css('div.grid_24 a')[4...-1].each { |blah| parent_body_anchors << blah.attribute("href").to_s }
+  doc.css('div.grid_24 a')[4...-1].each { |anchor| parent_body_anchors << anchor.attribute("href").to_s }
 
   # go through each posting on archive page, traverse HTML,
   # and create SlashdotPosting instance
@@ -81,28 +81,22 @@ def dollah_dollah_bills_yall
     # dont bother creating a listing if no links; i.e. "Ask Slashdot" posts
     unless posting_urls.empty?
 
-      # find slashdot article title
+      # parses all relevant data off slashdot page
       title = document.css('title').children.text
-
-      # find posting author
       author = document.css('header div.details a').text
-
       # FIXME: parse this into something useable
-      # find posting post_date
-      # => "on Sunday July 21, 2013 @01:51PM"
-      post_date = document.css('header div.details time').text
-
-      # find comment_count
+      # currently => "on Sunday July 21, 2013 @01:51PM"
+      post_date     = document.css('header div.details time').text
       comment_count = document.css('span.totalcommentcnt').first.text
 
 
       s = SlashdotPosting.new
-      s.site = "slashdot"
-      s.permalink = valid_anchor
+      s.site          = "slashdot"
+      s.permalink     = valid_anchor
       # FIXME: get all and not just the first url
-      s.urls      = posting_urls.first
-      s.title     = title
-      s.author  = author
+      s.urls          = posting_urls.first
+      s.title         = title
+      s.author        = author
       s.comment_count = comment_count
       # s.post_date = post_date
       puts "Saving SlashdotPosting for '#{s.title}'..."
