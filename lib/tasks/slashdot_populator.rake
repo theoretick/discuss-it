@@ -2,7 +2,7 @@ require_relative '../slashdot_api'
 
 
 #----------------------------------------------------------------------
-# FIXME: should run daily-ish
+# FIXME: should run daily-ish -- install 'whenever' gem
 #----------------------------------------------------------------------
 namespace :slashdot do
 
@@ -35,11 +35,10 @@ namespace :slashdot do
 
 
   # FIXME: worth adding more times? i.e. day & month
-  # FIXME: time is semantically odd for a number; use count? amount? range?
+  # FIXME: 'time' is semantically odd for a number; use count? amount? range?
   #
   # >> bundle exec rake slashdot:get_postings_by time='12'
   # >> bundle exec rake slashdot:get_postings_by time='w'
-  # >> bundle exec rake slashdot:get_postings_by time='y'
   desc "get postings by time: integer, week (w), or year (y); #=> time='w'"
   task :get_postings_by => :environment do
     time = ENV["time"]

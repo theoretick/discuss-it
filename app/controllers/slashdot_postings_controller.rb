@@ -1,19 +1,6 @@
 class SlashdotPostingsController < ApplicationController
   before_action :set_slashdot_posting, only: [:show, :edit, :update, :destroy]
 
-  # FIXME: Candidate for removal
-  # GET /slashdot_postings
-  # GET /slashdot_postings.json
-  # def index
-  #   @slashdot_postings = SlashdotPosting.all
-  # end
-
-  # FIXME: Candidate for removal
-  # GET /slashdot_postings/1
-  # GET /slashdot_postings/1.json
-  # def show
-  # end
-
   def find_by_url
     render json: SlashdotPosting.includes(:urls).where(urls: { target_url: params[:url] })
   end

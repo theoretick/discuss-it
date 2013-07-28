@@ -183,7 +183,8 @@ class SlashdotFetch
   end
 
   def api_url
-    if Rails.env.development?
+    # FIXME: should this stay around or is it too hacky?
+    if Rails.env.development? || Rails.env.test?
       return 'http://localhost:3001/slashdot_postings/search?url='
     else
       return 'slashdot_postings/search?url='

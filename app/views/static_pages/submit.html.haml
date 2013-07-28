@@ -18,6 +18,7 @@
       - else
         - @top_results.each_pair do |k, v|
           - unless v.nil?
+            / FIXME: move this to a stylesheet
             %p{style: "word-break: break-all; word-break: break-word; hyphens: auto;"}
               = "[#{k.to_s.capitalize}] - "
               =  link_to v.title, v.location
@@ -30,6 +31,7 @@
         %table.table
           - @all_results.all.each do |listing|
             %tr
+              / FIXME: move this to a stylesheet
               %td{style: "word-break: break-all; word-break: break-word; hyphens: auto;"}
                 = link_to listing.location, listing.location
 
