@@ -3,30 +3,34 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
 
+gem 'puma'
+gem 'httparty'
+gem 'hashie'
+
 group :development do
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3'
   gem 'better_errors'
-  gem 'jazz_hands'
-  gem 'foreman'
+  gem 'jazz_hands', :require => false
 end
 
 group :development, :test do
   gem 'rspec-rails'
   gem 'guard-rspec', :require => false
   gem 'guard-spork', :require => false
+  gem 'foreman'
 end
 
 group :test do
   gem 'spork', '~> 1.0rc'
   gem 'spork-rails', :require => false, :git => 'git://github.com/sporkrb/spork-rails'
   gem 'capybara'
-  gem 'cucumber-rails', :require => false
-  gem 'rb-fsevent', :require => false
-  gem 'growl', :require => false
   gem 'vcr'
   gem 'webmock'
-  gem 'meta_request'
+  gem 'meta_request', :require => false
+  # for guard-test awesomeness
+  gem 'rb-fsevent', :require => false
+  gem 'growl', :require => false
 end
 
 group :production do
@@ -34,21 +38,16 @@ group :production do
   gem 'pg'
 end
 
-gem 'thin'
+# for pretty stuff
 gem 'haml-rails'
 gem 'twitter-bootstrap-rails'
 gem 'flat-ui-rails'
-gem 'httparty'
-gem 'hashie'
-
-# Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
-
 # Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails', '~> 4.0.0'
+# gem 'coffee-rails', '~> 4.0.0'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby

@@ -1,3 +1,3 @@
-web:    bundle exec thin start -p $PORT
-worker: bundle exec thin start -p $PORT
-guard: bundle exec guard
+web:    bundle exec puma -p $PORT
+worker: bundle exec puma -p $PORT
+guard_spork: bundle exec guard
