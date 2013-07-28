@@ -14,19 +14,8 @@ class SlashdotPostingsController < ApplicationController
   # def show
   # end
 
-
-  # FIXME: probably need url objects?!?
-  #  => (posting has_many :urls)
-  # return SlashdotPosting attached to query_url
   def find_by_url
-
-    db_postings = SlashdotPosting.find_by_urls(params[:url])
-    if db_postings == 'null'
-      render json: {}
-    else
-      render json: db_postings
-    end
-
+    render json: SlashdotPosting.includes(:urls).where(urls: { target_url: params[:url] })
   end
 
   # POST /slashdot_postings

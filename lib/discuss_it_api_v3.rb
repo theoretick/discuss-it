@@ -203,7 +203,6 @@ class SlashdotFetch
   end
 
   def build_listing(parent_hash)
-    # FIXME: up one level in the hash is weighting data for HN
     listing = parent_hash
     return SlashdotListing.new(listing)
   end

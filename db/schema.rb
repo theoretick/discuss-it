@@ -11,17 +11,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130727000739) do
+ActiveRecord::Schema.define(version: 20130728010225) do
 
   create_table "slashdot_postings", force: true do |t|
     t.string   "title"
     t.string   "permalink"
-    t.text     "urls"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "site"
     t.string   "author"
     t.integer  "comment_count"
+    t.string   "post_date"
+  end
+
+  create_table "slashdot_postings_urls", id: false, force: true do |t|
+    t.integer "slashdot_posting_id"
+    t.integer "url_id"
+  end
+
+  add_index "slashdot_postings_urls", ["slashdot_posting_id", "url_id"], name: "index_slashdot_postings_urls_on_slashdot_posting_id_and_url_id"
+
+  create_table "urls", force: true do |t|
+    t.text     "target_url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end
