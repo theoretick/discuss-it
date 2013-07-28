@@ -1,5 +1,5 @@
-# Discuss-it 
-#### Online article discussion tracker
+# Discuss-it
+#### Online link discussion tracker
 
 ## Version 3.5
 
@@ -26,7 +26,18 @@ The API call is source agnostic and converts results from each site into similar
 
 Slashdot does not have an API so results from Slashdot are aggregated by our own API which scrapes the most recent postings and stores them as listing objects in a database.
 
+## Documentation
 
-## Contributors
+* [wiki](http://github.com/theoretick/discuss-it/wiki)
+* [changelog](http://github.com/theoretick/discuss-it/blob/master/CHANGELOG.md)
 
-Created by: [Theoretick](https://github.com/Theoretick) - [ericalthatcher](https://github.com/ericalthatcher) - [CodingAntecedent](https://github.com/CodingAntecedent)
+## Authors
+
+#### Created and maintained by
+ [theoretick](https://github.com/theoretick) - [ericalthatcher](https://github.com/ericalthatcher) - [CodingAntecedent](https://github.com/CodingAntecedent)
+
+#### Find a bug? Contributors welcome.
+
+## License
+
+See [LICENSE](http://github.com/theoretick/discuss-it/blob/master/LICENSE) for the full license text.
