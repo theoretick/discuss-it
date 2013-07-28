@@ -1,3 +1,9 @@
+## 3.5.2 (2013-07-28)
+
+* Updated README with word-choice changes, twitter and github links, and bookmarklet [theoretick]
+* More robust slashdot fetching, cleaner code, now idempotent, less hackery
+* colorized rake tasks! whooo doggy!
+
 ## 3.5 (2013-07-27)
 
 * Preliminary support for slashdot links

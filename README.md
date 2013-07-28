@@ -11,7 +11,7 @@ Currently hosted at: [discuss-it.herokuapp.com](https://discuss-it.herokuapp.com
 
 ## Features
 
-Version 3.5 of Discuss-it takes a URL of an interesting site which you think may have interesting discussion somewhere on the internet and queries the search functions of link aggregators with comment systems.
+Version 3.5 of Discuss-it takes a URL you think may have interesting discussion somewhere on the internet and queries across a number of link aggregators with comment systems.
 
 After submitting your URL we return a page with links. The links we return take you directly to the comments page of the article in question so that you can begin talking about the link you searched for immediately.
 
@@ -20,23 +20,48 @@ Current list of queried sites:
 * __Reddit__
 * __Slashdot__
 
-The returned search results include the top search result as sorted by upvotes/points for each queried site followed by a list of all returned results below it ordered by the same criteria.
+The returned search results include the top search result as sorted by
+upvotes/points for each queried site followed by a list of all returned
+results below it ordered by the same criteria.
 
-The API call is source agnostic and converts results from each site into similar listing ojbects that can be manipulated and sorted easily.
+The API call is source agnostic and converts results from each site
+into similar listing ojbects that can be manipulated and sorted easily.
 
-Slashdot does not have an API so results from Slashdot are aggregated by our own API which scrapes the most recent postings and stores them as listing objects in a database.
+Slashdot does not have an API so results from Slashdot are aggregated
+by our own API which scrapes the most recent postings and stores them
+as listing objects in a database.
+
+## Bookmarklet
+
+For easy searching, add Discuss-It search to your bookmark bar, just
+add a new bookmark and paste in this hunk of JS:
+
+```javascript
+javascript:(function() {
+  function searchDiscussIt() {
+    var url = window.location.href;
+    var discussit = 'http://discuss-it.herokuapp.com/static_pages/submit?query=';
+    window.location.href = discussit+url;
+}
+searchDiscussIt();
+})();
+```
 
 ## Documentation
 
 * [wiki](http://github.com/theoretick/discuss-it/wiki)
 * [changelog](http://github.com/theoretick/discuss-it/blob/master/CHANGELOG.md)
 
-## Authors
+## Created and maintained by
 
-#### Created and maintained by
- [theoretick](https://github.com/theoretick) - [ericalthatcher](https://github.com/ericalthatcher) - [CodingAntecedent](https://github.com/CodingAntecedent)
+**theoretick** :: [github](https://github.com/theoretick), [twitter](https://twitter.com/theoretick)
 
-#### Find a bug? Contributors welcome.
+**ericalthatcher** :: [github](https://github.com/ericalthatcher), [twitter](https://twitter.com/ericalthatcher)
+
+**CodingAntecedent** :: [github](https://github.com/CodingAntecedent), [twitter](https://twitter.com/JohannBenedikt)
+
+
+_Find a bug? Contributions welcome._
 
 ## License
 
