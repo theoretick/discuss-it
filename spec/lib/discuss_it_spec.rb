@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'discuss_it_api_v3'
 
 
 describe "Fetch" do
