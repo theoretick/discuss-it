@@ -6,6 +6,7 @@ gem 'rails', '4.0.0'
 gem 'puma'
 gem 'httparty'
 gem 'hashie'
+gem 'whenever', :require => false
 
 group :development do
   # Use sqlite3 as the database for Active Record
