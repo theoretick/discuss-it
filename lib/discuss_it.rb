@@ -187,7 +187,7 @@ class SlashdotFetch
     if Rails.env.development? || Rails.env.test?
       return 'http://localhost:5100/slashdot_postings/search?url='
     else
-      return 'slashdot_postings/search?url='
+      return 'https://young-brook-6111.herokuapp.com/slashdot_postings/search?url='
     end
   end
 

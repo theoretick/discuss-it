@@ -288,6 +288,7 @@ DEPENDENCIES
   jbuilder (~> 1.2)
   jquery-rails
   meta_request
+  nokogiri
   pg
   puma
   rails (= 4.0.0)
