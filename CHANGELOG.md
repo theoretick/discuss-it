@@ -1,3 +1,12 @@
+## 3.5.3 (2013-07-30)
+
+* deleted extra scaffolding files and coffee-script crap [theoretick]
+* added nokogiri to gemfile, whoops
+* better comments
+* moved inline style into SCSS
+* added favicon
+* now deployed on dual heroku instances which query themselves. crazzyy
+
 ## 3.5.2 (2013-07-28)
 
 * Updated README with word-choice changes, twitter and github links, and bookmarklet [theoretick]
