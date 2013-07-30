@@ -24,3 +24,12 @@ input[name=query] {
 footer {
   background: none;
 }
+
+/* submit page */
+
+/*  helps format submit page so urls wrap and dont get ugly */
+.url-friendly {
+  word-break: break-all;
+  word-break: break-word; /* this is for IE or something weird */
+  hyphens: auto;
+}

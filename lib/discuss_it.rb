@@ -21,7 +21,7 @@ class DiscussItUrlError < Exception; end
 #----------------------------------------------------------------------
 class Fetch
   # returns ruby hash of parsed json object
-  # FIXME: currently only JSON, possible XML for future
+  # TODO: currently only JSON, possible XML for future
   def self.parse(response)
     begin
       return JSON.parse(response)
@@ -104,7 +104,7 @@ class RedditFetch
   # creates array of listing objects for all responses
   def build_all_listings
     all_listings = []
-    # FIXME: should this be switched to a map() call?
+    # TODO: should this be switched to a map() call?
     @raw_master.each do |listing|
       all_listings << build_listing(listing)
     end
@@ -211,7 +211,7 @@ class SlashdotFetch
   # creates array of listing objects for all responses
   def build_all_listings
     all_listings = []
-    # FIXME: should this be switched to a map() call?
+    # TODO: should this be switched to a map() call?
     @raw_master.each do |listing|
       all_listings << build_listing(listing)
     end
@@ -279,7 +279,6 @@ end
 
 #----------------------------------------------------------------------
 # Listing class for Slashdot with custom accessors
-# FIXME: should be moved to raketask?
 #----------------------------------------------------------------------
 class SlashdotListing < Listing
 
@@ -287,7 +286,7 @@ class SlashdotListing < Listing
     return self["permalink"]
   end
 
-  # FIXME: future-proof if we want to integrate comment_count globally
+  # TODO: future-proof if we want to integrate comment_count globally
   def score
     return self["comment_count"]
   end
@@ -359,7 +358,7 @@ end
   # - finds all listings
   # - finds top listings (1 per site)
 #----------------------------------------------------------------------
-# FIXME: consider renaming, this isn't an API just yet
+# TODO: consider renaming, this isn't an API just yet
 class DiscussItApi
 
   attr_accessor :all_listings
@@ -378,7 +377,7 @@ class DiscussItApi
   end
 
   # returns a ListingCollection of all listing urls for each site
-  # FIXME: this should probably be standardized to a hash for consistency
+  # TODO: this should probably be standardized to a hash for consistency
   def find_all
     return @all_listings
   end

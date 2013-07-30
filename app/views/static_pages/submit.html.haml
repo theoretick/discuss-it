@@ -4,22 +4,20 @@
   .row-fluid
     .columnA
       %p.pagination-centered
-        / FIXME: this looks stupid
-        ** Discussions about
+        * Discussions about
         = link_to @query_text, @query_text
-        **
+        *
       %h3 TOP RESULTS
 
       - if @top_results.values.empty?
         %p
-          / FIXME: add suggestion if empty
+          / TODO: add suggestion if empty
           Sorry, no discussions found.
           = link_to 'Try again?', root_path
       - else
         - @top_results.each_pair do |k, v|
           - unless v.nil?
-            / FIXME: move this to a stylesheet
-            %p{style: "word-break: break-all; word-break: break-word; hyphens: auto;"}
+            %p.url-friendly
               = "[#{k.to_s.capitalize}] - "
               =  link_to v.title, v.location
     .columnA
@@ -31,8 +29,7 @@
         %table.table
           - @all_results.all.each do |listing|
             %tr
-              / FIXME: move this to a stylesheet
-              %td{style: "word-break: break-all; word-break: break-word; hyphens: auto;"}
+              %td.url-friendly
                 = link_to listing.location, listing.location
 
 %hr
