@@ -1,3 +1,8 @@
+## 3.6.0 (2013-08-01)
+
+* added many rescues for HTTP timeouts and nil responses, far more robust
+* cleaned up and updated comments
+
 ## 3.5.3 (2013-07-30)
 
 * deleted extra scaffolding files and coffee-script crap [theoretick]

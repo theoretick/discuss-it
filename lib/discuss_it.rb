@@ -7,7 +7,6 @@
 # http://github.com/theoretick/discussit
 #----------------------------------------------------------------------
 require 'json'
-require 'httparty'
 
 #----------------------------------------------------------------------
 # Exception class to catch invalid URL Errors
@@ -16,18 +15,38 @@ class DiscussItUrlError < Exception; end
 
 
 #----------------------------------------------------------------------
+# FIXME: should this have a more general name?
+# Exception class to catch Timeouts and general HTTP Errors
+#----------------------------------------------------------------------
+class DiscussItTimeoutError < Exception; end
+
+
+#----------------------------------------------------------------------
+# FIXME: should this have a more general name?
+# Exception class to catch Timeouts and general HTTP Errors
+#----------------------------------------------------------------------
+class DiscussItUnknownError < Exception; end
+
+
+#----------------------------------------------------------------------
 # Formats url, gets response and returns parsed json
 # ABSTRACT ONLY, called w/ RedditFetch and HnFetch
 #----------------------------------------------------------------------
 class Fetch
+  include HTTParty
+
+  # FIXME: is this long enough? too long?
+  # Sets lower timeout for HTTParty
+  default_timeout 3
+
   # returns ruby hash of parsed json object
   # TODO: currently only JSON, possible XML for future
   def self.parse(response)
     begin
       return JSON.parse(response)
-    # rescue for slashdot api
+    # rescue for nil response parsing
     rescue JSON::ParserError => e
-      return {}
+      return self.empty_hash
     end
   end
 
@@ -42,12 +61,24 @@ class Fetch
   def self.get_response(api_url, query_string)
     begin
       query_url = ensure_http(query_string)
-      response = HTTParty.get(api_url + query_url)
+      response = get(api_url + query_url)
       return self.parse(response.body)
 
     # if http://xxx is still invalid url content, raise error
     rescue URI::InvalidURIError => e
-      raise DiscussItUrlError.new
+      raise DiscussItUrlError.new # catch in controller
+    # if HTTP timeout or general HTTP error, don't break everything
+    rescue  Timeout::Error,
+            Errno::EINVAL,
+            Errno::ECONNRESET,
+            EOFError,
+            Net::HTTPBadResponse,
+            Net::HTTPHeaderSyntaxError,
+            Net::ProtocolError => e
+      raise DiscussItTimeoutError.new
+    # General rescue catch in controller for when things go crazy wrong
+    rescue => e
+      raise DiscussItUnknownError.new
     end
 
   end
@@ -57,14 +88,14 @@ end
 
 #----------------------------------------------------------------------
 # fetches API response from Reddit
-# provides site-specific details: key-names and urls
+# provides site-specific details: key-names, howto parse, and urls
 #----------------------------------------------------------------------
 class RedditFetch
 
   #  returns big hash of all reddit listings for a query
   def initialize(query_string)
 
-    # FIXME: this can be done in get_response instead
+    # TODO: this can be done in DiscussItApi instead
     # ALWAYS remove trailing slash before get_response calls
     if query_string.end_with?('/')
       query_url = query_string.chop
@@ -72,13 +103,22 @@ class RedditFetch
       query_url = query_string
     end
 
-    # reddit has no url validation so make EVERY call twice:
+    # reddit has no url validation so make EVERY call twice,
     # with and without a trailing slash
-    reddit_raw_a = Fetch.get_response(api_url, query_url)
-    reddit_raw_b = Fetch.get_response(api_url, query_url + '/')
+    begin
+      reddit_raw_a = Fetch.get_response(api_url, query_url)
+      @raw_master = pull_out(reddit_raw_a)
+    rescue DiscussItTimeoutError => e
+      @raw_master = []
+    end
 
-    # return master hash of both combined API calls
-    @raw_master = pull_out(reddit_raw_a) + pull_out(reddit_raw_b)
+    begin
+      reddit_raw_b = Fetch.get_response(api_url, query_url + '/')
+      # sets master hash of both combined API calls
+      @raw_master += pull_out(reddit_raw_b)
+    rescue DiscussItTimeoutError => e
+      @raw_master += []
+    end
   end
 
   def api_url
@@ -88,6 +128,17 @@ class RedditFetch
   # returns relevant subarray of raw hash listings
   def pull_out(parent_hash)
     return parent_hash["data"]["children"]
+  end
+
+  # FIXME: add status code for e homepage display 'reddit down'
+  # if timeout, return empty_hash with statuscode
+  # properly forms the reddit response if nil
+  def empty_hash
+    return {
+      "data" => {
+        "children" => []
+      }
+    }
   end
 
   # gets called in DiscussItApi to build reddit listings
@@ -122,6 +173,7 @@ class HnFetch
   #  returns a hash of HN listings for a query
   def initialize(query_string)
 
+    # TODO: this can be done in DiscussItApi instead
     # ALWAYS remove trailing slash before get_response calls
     if query_string.end_with?('/')
       query_url = query_string.chop
@@ -129,8 +181,12 @@ class HnFetch
       query_url = query_string
     end
 
-    hn_raw = Fetch.get_response(api_url, query_url + '/')
-    @raw_master = pull_out(hn_raw)
+    begin
+      hn_raw = Fetch.get_response(api_url, query_url + '/')
+      @raw_master = pull_out(hn_raw)
+    rescue DiscussItTimeoutError => e
+      @raw_master = []
+    end
   end
 
   def api_url
@@ -140,6 +196,14 @@ class HnFetch
   # returns relevant subarray of raw hash listings
   def pull_out(parent_hash)
     return parent_hash["results"]
+  end
+
+  # TODO: add status code for e homepage display 'reddit down'
+  # properly forms the hn response if nil
+  def empty_hash
+    return {
+      "results" => []
+    }
   end
 
   # gets called in DiscussItApi to build HN listings
@@ -167,18 +231,18 @@ end
 
 
 #----------------------------------------------------------------------
-# fetches persistentlistings locally from (Slashdot) Listing controllers
+# fetches persistent listings locally from SlashdotPosting,
 # provides site-specific details: key-names and urls
 #----------------------------------------------------------------------
 class SlashdotFetch
 
   #  returns big hash of all slashdot listings for a query
   def initialize(query_string)
-    @slashdot_listings = Fetch.get_response(api_url, query_string)
-    if @slashdot_listings.empty?
+    begin
+      slashdot_raw = Fetch.get_response(api_url, query_string)
+      @raw_master = slashdot_raw
+    rescue DiscussItTimeoutError => e
       @raw_master = []
-    else
-      @raw_master = @slashdot_listings
     end
   end
 
@@ -191,10 +255,11 @@ class SlashdotFetch
     end
   end
 
-  # FIXME: need this? probably not
-  # returns relevant subarray of raw hash listings
-  def pull_out(parent_hash)
-    return parent_hash["results"]
+  # TODO: add status code for e homepage display 'reddit down'
+  # if timeout, return empty_hash with statuscode
+  # properly forms the reddit response if nil
+  def empty_hash
+    return []
   end
 
   # gets called in DiscussItApi to build Slashdot listings
