@@ -1,6 +1,5 @@
 require 'spec_helper'
 
-
 describe "Fetch" do
 
   describe "http_add" do

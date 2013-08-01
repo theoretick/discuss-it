@@ -1,4 +1,5 @@
 require 'rubygems'
+
 require 'spork'
 require 'webmock/rspec'
 require 'vcr'

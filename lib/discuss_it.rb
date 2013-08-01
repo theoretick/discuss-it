@@ -77,8 +77,8 @@ class Fetch
             Net::ProtocolError => e
       raise DiscussItTimeoutError.new
     # General rescue catch in controller for when things go crazy wrong
-    rescue => e
-      raise DiscussItUnknownError.new
+    # rescue => e
+    #   raise DiscussItUnknownError.new
     end
 
   end
