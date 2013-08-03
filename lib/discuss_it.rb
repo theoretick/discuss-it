@@ -125,8 +125,8 @@ class RedditFetch
   # returns relevant subarray of raw hash listings
   def pull_out(parent_hash)
     return parent_hash["data"]["children"]
-  # rescue
-  #   return []
+  rescue
+    return []
   end
 
   # FIXME: add status code for e homepage display 'reddit down'
@@ -195,8 +195,8 @@ class HnFetch
   # returns relevant subarray of raw hash listings
   def pull_out(parent_hash)
     return parent_hash["results"]
-  # rescue
-  #   return []
+  rescue
+    return []
   end
 
   # TODO: add status code for e homepage display 'reddit down'
