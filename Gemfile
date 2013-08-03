@@ -9,6 +9,7 @@ gem 'puma'
 gem 'httparty'
 gem 'nokogiri'
 gem 'hashie'
+gem 'newrelic_rpm'
 
 gem 'whenever'
 
