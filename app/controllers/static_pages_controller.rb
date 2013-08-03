@@ -6,8 +6,15 @@ class StaticPagesController < ApplicationController
   def submit
     begin
       @query_text = params[:query]
+      @api_version = '2'
 
-      @discussit = DiscussItApi.new(@query_text)
+      # Defaults to APIv2. 'beta' version uses latest (slashdot)
+      if (params[:commit] == '(Beta) Search') || (params[:version] == '3')
+        @api_version = '3'
+      end
+
+      @discussit = DiscussItApi.new(@query_text, @api_version)
+
       @all_results = @discussit.find_all
       @top_results = @discussit.find_top
     rescue DiscussItUrlError => e

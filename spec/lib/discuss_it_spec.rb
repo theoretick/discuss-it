@@ -277,11 +277,24 @@ describe "DiscussItApi" do
       expect(DiscussItApi.new("http://restorethefourth.net/")).to be_an_instance_of(DiscussItApi)
     end
 
-    it "should not initialize with 2 args" do
+    it "should initialize with 2 args if 2nd is 2 or 3" do
       expect {
         DiscussItApi.new('http://example.com','http://example.org')
-      }.to raise_error(ArgumentError, "wrong number of arguments (2 for 1)")
+      }.not_to raise_error(ArgumentError)
     end
+
+    # it "should not initialize with 2 args if 2nd is not 2 or 3" do
+    #   expect {
+    #     DiscussItApi.new('http://example.com','http://example.org')
+    #   }.to raise_error(ArgumentError, "wrong number of arguments (2 for 1)")
+    # end
+
+    it "should not initialize with 3 args" do
+      expect {
+        DiscussItApi.new('http://example.com','http://example.org','http://example.org')
+      }.to raise_error(ArgumentError, "wrong number of arguments (3 for 1..2)")
+    end
+
   end
 
   describe "find_all", :vcr do

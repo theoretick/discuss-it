@@ -22,7 +22,6 @@ class DiscussItTimeoutError < Exception; end
 
 
 #----------------------------------------------------------------------
-# FIXME: should this have a more general name?
 # Exception class to catch Timeouts and general HTTP Errors
 #----------------------------------------------------------------------
 class DiscussItUnknownError < Exception; end
@@ -46,7 +45,7 @@ class Fetch
       return JSON.parse(response)
     # rescue for nil response parsing
     rescue JSON::ParserError => e
-      return self.empty_hash
+      return []
     end
   end
 
@@ -76,9 +75,6 @@ class Fetch
             Net::HTTPHeaderSyntaxError,
             Net::ProtocolError => e
       raise DiscussItTimeoutError.new
-    # General rescue catch in controller for when things go crazy wrong
-    # rescue => e
-    #   raise DiscussItUnknownError.new
     end
 
   end
@@ -112,6 +108,7 @@ class RedditFetch
       @raw_master = []
     end
 
+    # separate rescues to failure is graceful
     begin
       reddit_raw_b = Fetch.get_response(api_url, query_url + '/')
       # sets master hash of both combined API calls
@@ -128,6 +125,8 @@ class RedditFetch
   # returns relevant subarray of raw hash listings
   def pull_out(parent_hash)
     return parent_hash["data"]["children"]
+  # rescue
+  #   return []
   end
 
   # FIXME: add status code for e homepage display 'reddit down'
@@ -196,6 +195,8 @@ class HnFetch
   # returns relevant subarray of raw hash listings
   def pull_out(parent_hash)
     return parent_hash["results"]
+  # rescue
+  #   return []
   end
 
   # TODO: add status code for e homepage display 'reddit down'
@@ -251,7 +252,7 @@ class SlashdotFetch
     if Rails.env.development? || Rails.env.test?
       return 'http://localhost:5100/slashdot_postings/search?url='
     else
-      return 'https://young-brook-6111.herokuapp.com/slashdot_postings/search?url='
+      return 'https://slashdot-api.herokuapp.com/slashdot_postings/search?url='
     end
   end
 
@@ -428,17 +429,19 @@ class DiscussItApi
 
   attr_accessor :all_listings
 
-  def initialize(query_string)
+  # FIXME: api version 2 by default
+  # api_version 3 w/ slashdot by default
+  def initialize(query_string, api_version)
 
     reddit_fetch = RedditFetch.new(query_string)
     hn_fetch     = HnFetch.new(query_string)
-    slashdot_fetch = SlashdotFetch.new(query_string)
+    slashdot_fetch = SlashdotFetch.new(query_string) if api_version == '3'
     @all_listings    = ListingCollection.new
 
     @all_listings.all = reddit_fetch.listings
     # shovel creates a nested array item, use += instead
     @all_listings.all += hn_fetch.listings
-    @all_listings.all += slashdot_fetch.listings
+    @all_listings.all += slashdot_fetch.listings if slashdot_fetch
   end
 
   # returns a ListingCollection of all listing urls for each site
