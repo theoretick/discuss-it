@@ -45,19 +45,11 @@ namespace :slashdot do
     slashdot_api.get_postings(50)
   end
 
-  # desc "deletes slashdot listings older than 4 weeks"
-  # task :expire_4wk => :environment do
-  #   # @urls = Url.where('created_at <= ?', (Time.now - 4.weeks))
-  #   @postings = SlashdotPosting.where('created_at <= ?', (Time.now - 4.weeks))
-  #   @postings.delete_all
-  # end
-
-
   #--------------------------------------------------------------------
   # Admin manual management tasks
   #--------------------------------------------------------------------
 
-  desc "clear DB of urls and slashdot_postings. Re-populate last 7 days"
+  desc "clear DB of slashdot_postings and urls. Re-populate last 7 days"
   task :all => [:clear_db, :get_postings]
 
 
@@ -75,6 +67,19 @@ namespace :slashdot do
   end
 
 
+  desc "gisplays last 2 slashdot_postings and urls (debugging)"
+  task :show_last => :environment do
+    2.times do |recent_count|
+      most_recent_posting = SlashdotPosting.all[recent_count].permalink
+      most_recent_urls = SlashdotPosting.all[recent_count].urls.select([:id, :target_url]).to_a
+
+      display(most_recent_posting, :green)
+      most_recent_urls.select { |url| display("--" + url.target_url, :yellow)}
+      puts
+    end
+
+  end
+
   # Benchmark (28jul2013)
   #  - real  0m9.496s
   #  - user  0m3.281s
@@ -89,9 +94,7 @@ namespace :slashdot do
   end
 
 
-  # FIXME: worth adding more times? i.e. day & month
   # FIXME: 'time' is semantically odd for a number; use count? amount? range?
-  #
   # >> bundle exec rake slashdot:get_postings_by time='12' # lastest 12 postings
   desc "get postings by time: integer or week (w); #=> time='w'"
   task :get_postings_by => :environment do

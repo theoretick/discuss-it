@@ -36,7 +36,7 @@ class Fetch
 
   # FIXME: is this long enough? too long?
   # Sets lower timeout for HTTParty
-  default_timeout 3
+  default_timeout 6
 
   # returns ruby hash of parsed json object
   # TODO: currently only JSON, possible XML for future
@@ -105,6 +105,7 @@ class RedditFetch
       reddit_raw_a = Fetch.get_response(api_url, query_url)
       @raw_master = pull_out(reddit_raw_a)
     rescue DiscussItTimeoutError => e
+      # FIXME: add status code for e homepage display 'reddit down'
       @raw_master = []
     end
 
@@ -114,6 +115,7 @@ class RedditFetch
       # sets master hash of both combined API calls
       @raw_master += pull_out(reddit_raw_b)
     rescue DiscussItTimeoutError => e
+      # FIXME: add status code for e homepage display 'reddit down'
       @raw_master += []
     end
   end
@@ -129,16 +131,6 @@ class RedditFetch
     return []
   end
 
-  # FIXME: add status code for e homepage display 'reddit down'
-  # if timeout, return empty_hash with statuscode
-  # properly forms the reddit response if nil
-  def empty_hash
-    return {
-      "data" => {
-        "children" => []
-      }
-    }
-  end
 
   # gets called in DiscussItApi to build reddit listings
   # if not already built
@@ -184,6 +176,7 @@ class HnFetch
       hn_raw = Fetch.get_response(api_url, query_url + '/')
       @raw_master = pull_out(hn_raw)
     rescue DiscussItTimeoutError => e
+      # FIXME: add status code for e homepage display 'hn down'
       @raw_master = []
     end
   end
@@ -197,14 +190,6 @@ class HnFetch
     return parent_hash["results"]
   rescue
     return []
-  end
-
-  # TODO: add status code for e homepage display 'reddit down'
-  # properly forms the hn response if nil
-  def empty_hash
-    return {
-      "results" => []
-    }
   end
 
   # gets called in DiscussItApi to build HN listings
@@ -243,6 +228,7 @@ class SlashdotFetch
       slashdot_raw = Fetch.get_response(api_url, query_string)
       @raw_master = slashdot_raw
     rescue DiscussItTimeoutError => e
+      # FIXME: add status code for e homepage display 'slashdot down'
       @raw_master = []
     end
   end
@@ -254,13 +240,6 @@ class SlashdotFetch
     else
       return 'https://slashdot-api.herokuapp.com/slashdot_postings/search?url='
     end
-  end
-
-  # TODO: add status code for e homepage display 'reddit down'
-  # if timeout, return empty_hash with statuscode
-  # properly forms the reddit response if nil
-  def empty_hash
-    return []
   end
 
   # gets called in DiscussItApi to build Slashdot listings
