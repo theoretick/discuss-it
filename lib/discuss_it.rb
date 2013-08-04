@@ -36,7 +36,7 @@ class Fetch
 
   # FIXME: is this long enough? too long?
   # Sets lower timeout for HTTParty
-  default_timeout 6
+  # default_timeout 6
 
   # returns ruby hash of parsed json object
   # TODO: currently only JSON, possible XML for future

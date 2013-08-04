@@ -1,3 +1,7 @@
+## 3.6.1 (2013-08-03)
+
+* added more tests for discuss_it. Now full coverage for app-side.
+
 ## 3.6.0 (2013-08-01)
 
 * added many rescues for HTTP timeouts and nil responses, far more robust
