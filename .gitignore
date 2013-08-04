@@ -19,3 +19,4 @@ Guardfile
 # Ignore cassettes
 /spec/cassettes/*
 
+/config/newrelic.yml
