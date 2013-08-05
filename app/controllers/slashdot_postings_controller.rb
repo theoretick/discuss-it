@@ -1,6 +1,7 @@
 class SlashdotPostingsController < ApplicationController
-  before_action :set_slashdot_posting, only: [:show, :edit, :update, :destroy]
+  before_action :set_slashdot_posting, only: [:update, :destroy]
 
+  # GET 'slashdot_postings/search' => 'slashdot_postings#find_by_url'
   def find_by_url
     @postings = SlashdotPosting.includes(:urls).where(urls: { target_url: params[:url] })
     render json: @postings

@@ -5,11 +5,12 @@ class StaticPagesController < ApplicationController
 
   def submit
     begin
-      @query_text = params[:query]
+      @submit_params = submit_params
+      @query_text = @submit_params[:query]
       @api_version = '2'
 
       # Defaults to APIv2. 'beta' version uses latest (slashdot)
-      if (params[:commit] == '(Beta) Search') || (params[:version] == '3')
+      if (params[:commit] == '(Beta) Search') || (@submit_params[:version] == '3')
         @api_version = '3'
       end
 
@@ -19,11 +20,15 @@ class StaticPagesController < ApplicationController
       @top_results = @discussit.find_top
     rescue DiscussItUrlError => e
       redirect_to :root, :flash => { :error => 'Invalid URL' }
-    # rescue DiscussItUnknownError => e
-    #   redirect_to :root, :flash => {
-    #     :error => 'Error: Uh-Oh, something went very wrong, please try
-    #      again later' }
     end
+  end
+
+  private
+
+  # TODO: probably want to disable this once API is more fleshed out
+  # strong params to prevent empty API calls
+  def submit_params
+    params.require(:url).permit(:version)
   end
 
 end
