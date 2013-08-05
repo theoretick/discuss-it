@@ -34,6 +34,8 @@ group :test do
   gem 'vcr'
   gem 'webmock'
   gem 'meta_request', :require => false
+  gem 'simplecov', :require => false
+
   # for guard-test awesomeness
   gem 'rb-fsevent', :require => false
   gem 'growl', :require => false

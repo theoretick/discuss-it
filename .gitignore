@@ -19,4 +19,8 @@ Guardfile
 # Ignore cassettes
 /spec/cassettes/*
 
+# Ignore newrelic tracking config
 /config/newrelic.yml
+
+# Ignore simplecov test coverage results
+/coverage/*
