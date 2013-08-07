@@ -60,7 +60,7 @@ class Fetch
   def self.get_response(api_url, query_string)
     begin
       query_url = ensure_http(query_string)
-      response = get(api_url + query_url)
+      response = get(api_url + query_url, :headers => {"User-Agent" => "DiscussIt API by limitlesschannels"})
       return self.parse(response.body)
 
     # if http://xxx is still invalid url content, raise error
