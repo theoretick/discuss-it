@@ -41,7 +41,7 @@ describe "DiscussIt" do
         end
 
         it "should have a score accessor on RedditListing" do
-          expect(@reddit_listing.score).to eq(4)
+          expect(@reddit_listing.score).to eq(5)
         end
 
 
