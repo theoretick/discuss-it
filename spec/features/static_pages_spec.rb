@@ -17,8 +17,7 @@ describe "StaticPages" do
     it "disallows access to submit without query param" do
       expect{
         get 'static_pages/submit'
-        response.status
-        }.to raise_error(ActionController::ParameterMissing)
+      }.to raise_error()
     end
 
    end

@@ -156,11 +156,11 @@ module DiscussIt
 
       def api_url
         # FIXME: should this stay around or is it too hacky?
-        if Rails.env.development? || Rails.env.test?
-          return 'http://localhost:5100/slashdot_postings/search?url='
-        else
+        # if Rails.env.development? || Rails.env.test?
+        #   return 'http://localhost:5100/slashdot_postings/search?url='
+        # else
           return 'https://slashdot-api.herokuapp.com/slashdot_postings/search?url='
-        end
+        # end
       end
 
       # called in DiscussItApi to build Slashdot listings if not already built
