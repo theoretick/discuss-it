@@ -19,12 +19,10 @@
             - unless listing.nil?
               %tr
                 %td
+                  = listing.site
                   - if listing.site == 'Reddit'
-                    = link_to listing.site, listing.base_url
                     %br
                     = "/r/#{listing.subreddit}"
-                  - else
-                    = link_to listing.site, listing.base_url
                 %td.url-friendly
                   =  link_to listing.title, listing.location
 
@@ -38,12 +36,10 @@
           - @all_results.all.each do |listing|
             %tr
               %td
+                = listing.site
                 - if listing.site == 'Reddit'
-                  = link_to listing.site, listing.base_url
                   %br
                   = "/r/#{listing.subreddit}"
-                - else
-                  = link_to listing.site, listing.base_url
               %td.url-friendly
                 =  link_to listing.title, listing.location
 
