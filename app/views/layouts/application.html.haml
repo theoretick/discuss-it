@@ -29,15 +29,10 @@
     .navbar.navbar-fluid-top
       .navbar-inner
         .container-fluid
-          %a.btn.btn-navbar{"data-target" => ".nav-collapse", "data-toggle" => "collapse"}
-            %span.icon-bar
-            %span.icon-bar
-            %span.icon-bar
           = link_to "Discuss It", root_path, class:"brand"
-          .container-fluid.nav-collapse
+          .container-fluid
             %ul.nav
               %li= link_to "About", static_pages_about_path
-          / /.nav-collapse
     .container-fluid
       %br
       .row-fluid
