@@ -9,6 +9,6 @@ describe "static_pages/index.html.erb" do
 
   it "should have p with proper text" do
     visit '/'
-    page.should have_selector("p", text: "Online article discussion tracker website for locating online discussions about a given article.")
+    page.should have_selector("p", text: "Online discussion tracker for finding conversations")
   end
 end

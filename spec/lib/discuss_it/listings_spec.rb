@@ -9,7 +9,7 @@ describe "DiscussIt" do
       before(:all) do
 
         VCR.use_cassette("one_result_each", :record => :new_episodes) do
-          @one_result_each = DiscussIt::DiscussItApi.new('http://singularityhub.com/2013/07/27/canvas-camera-brush-and-algorithms-enable-robot-artists-beautiful-paintings/', '3')
+          @one_result_each = DiscussIt::DiscussItApi.new('http://singularityhub.com/2013/07/27/canvas-camera-brush-and-algorithms-enable-robot-artists-beautiful-paintings/')
         end
 
         @reddit_listing   = @one_result_each.all_listings.reddit.first
@@ -41,7 +41,7 @@ describe "DiscussIt" do
         end
 
         it "should have a score accessor on RedditListing" do
-          expect(@reddit_listing.score).to eq(5)
+          expect(@reddit_listing.score).to eq(4)
         end
 
 
@@ -110,15 +110,15 @@ describe "DiscussIt" do
       describe "tops" do
 
         it "should return 1 top listings for reddit" do
-          expect(@one_result_each.all_listings.tops[:reddit]).to be_an_instance_of(DiscussIt::Listings::RedditListing)
+          expect(@one_result_each.all_listings.tops[:Reddit]).to be_an_instance_of(DiscussIt::Listings::RedditListing)
         end
 
         it "should return 1 top listings for hn" do
-          expect(@one_result_each.all_listings.tops[:hn]).to be_an_instance_of(DiscussIt::Listings::HnListing)
+          expect(@one_result_each.all_listings.tops[:HackerNews]).to be_an_instance_of(DiscussIt::Listings::HnListing)
         end
 
         it "should return 1 top listings for slashdot" do
-          expect(@one_result_each.all_listings.tops[:slashdot]).to be_an_instance_of(DiscussIt::Listings::SlashdotListing)
+          expect(@one_result_each.all_listings.tops[:Slashdot]).to be_an_instance_of(DiscussIt::Listings::SlashdotListing)
         end
 
       end
