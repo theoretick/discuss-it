@@ -25,7 +25,7 @@ upvotes/points for each queried site followed by a list of all returned
 results below it ordered by the same criteria.
 
 The API call is source agnostic and converts results from each site
-into similar listing ojbects that can be manipulated and sorted easily.
+into similar listing objects that can be manipulated and sorted easily.
 
 Slashdot does not have an API so results from Slashdot are aggregated
 by our own API which scrapes the most recent postings and stores them
