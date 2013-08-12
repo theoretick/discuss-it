@@ -1,3 +1,8 @@
+## 4.0.0 (2013-08-11)
+
+* discuss_it is now a module, subdivided and elegantly clean
+* changed background image to pure-css with linear-gradient
+
 ## 3.6.1 (2013-08-03)
 
 * added more tests for discuss_it. Now full coverage for app-side.
