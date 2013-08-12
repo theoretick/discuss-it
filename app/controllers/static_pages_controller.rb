@@ -6,11 +6,12 @@ class StaticPagesController < ApplicationController
   def submit
     begin
       @query_text = params[:query]
-      @api_version = '2'
 
-      # Defaults to APIv2. 'beta' version uses latest (slashdot)
+      # checks for specific version number
       if (params[:commit] == '(Beta) Search') || (params[:version] == '3')
         @api_version = '3'
+      elsif params[:version] == '2'
+        @api_version = '2'
       end
 
       @discussit = DiscussIt::DiscussItApi.new(@query_text, @api_version)

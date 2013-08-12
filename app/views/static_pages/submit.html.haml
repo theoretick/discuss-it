@@ -1,26 +1,34 @@
 .hero-unit
   %h1 Discuss It!
-  %p Online article discussion tracker website for locating online discussions about a given article.
-  .row-fluid
-    .columnA
-      %p.pagination-centered
-        * Discussions about
-        = link_to @query_text, @query_text
-        *
-      %h3 TOP RESULTS
+  %p Online link discussion tracker for locating conversations about a given url.
+  .row-fluid.wrapper
+    %p.pagination-centered
+      %br
+      * Discussions about
+      = link_to @query_text, @query_text
 
+    #top-results
+      %h3 TOP RESULTS
       - if @top_results.values.empty?
         %p
-          / TODO: add suggestion if empty
           Sorry, no discussions found.
           = link_to 'Try again?', root_path
       - else
-        - @top_results.each_pair do |k, v|
-          - unless v.nil?
-            %p.url-friendly
-              = "[#{k.to_s.capitalize}] - "
-              =  link_to v.title, v.location
-    .columnA
+        %table.table
+          - @top_results.each_pair do |k, listing|
+            - unless listing.nil?
+              %tr
+                %td
+                  - if listing.site == 'Reddit'
+                    = link_to listing.site, listing.base_url
+                    %br
+                    = "/r/#{listing.subreddit}"
+                  - else
+                    = link_to listing.site, listing.base_url
+                %td.url-friendly
+                  =  link_to listing.title, listing.location
+
+    #all-results
       %h3 ALL RESULTS
       - if @all_results.all.empty?
         %p
@@ -29,7 +37,14 @@
         %table.table
           - @all_results.all.each do |listing|
             %tr
+              %td
+                - if listing.site == 'Reddit'
+                  = link_to listing.site, listing.base_url
+                  %br
+                  = "/r/#{listing.subreddit}"
+                - else
+                  = link_to listing.site, listing.base_url
               %td.url-friendly
-                = link_to listing.location, listing.location
+                =  link_to listing.title, listing.location
 
 %hr

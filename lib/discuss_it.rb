@@ -18,13 +18,11 @@ module DiscussIt
   # - calls listing builders
   # - provides all and top accessors
   #----------------------------------------------------------------------
-  # TODO: consider renaming, this isn't an API just yet
   class DiscussItApi
 
     attr_accessor :all_listings
 
-    # FIXME: api version 2 by default
-    # api_version 3 w/ slashdot by default
+    # Defaults to newest API, 'beta' version (slashdot)
     def initialize(query_string, api_version='3')
 
       reddit_fetch = Fetcher::RedditFetch.new(query_string)

@@ -39,12 +39,9 @@
               %li= link_to "About", static_pages_about_path
           / /.nav-collapse
     .container-fluid
+      %br
       .row-fluid
-        .span3
-        / /.well
-      / /span
-      .row-fluid
-        .span8.offset1
+        .span9.offset1
           = bootstrap_flash
           = yield
     / /row

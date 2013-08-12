@@ -1,18 +1,17 @@
 @import url(http://fonts.googleapis.com/css?family=Lato);
 
-div.columnA{
-  background-color: white;
-  padding: 1%;
-}
-
 body {
   background-image: linear-gradient(to right, #0E4B4B, #C1DFCC);
-  background-color:  ghostwhite;
   font-family: Futura, Lato, sans-serif;
 }
 
 p.suggested {
-  font-size: 14px;
-  margin-top: -5px;
-  margin-bottom: -5px;
+  font-size: 80%;
+  line-height: 110%;
+}
+
+.wrapper {
+  background-color: white;
+  padding: 2%;
+  padding-right: 1%;
 }

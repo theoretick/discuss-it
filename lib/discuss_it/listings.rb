@@ -19,9 +19,9 @@ module DiscussIt
     def tops
       results = {}
 
-      results[:hn] = hn.sort.last unless hn.empty?
-      results[:reddit] = reddit.sort.last unless reddit.empty?
-      results[:slashdot] = slashdot.sort.last unless slashdot.empty?
+      results[:HackerNews] = hn.sort.last unless hn.empty?
+      results[:Reddit] = reddit.sort.last unless reddit.empty?
+      results[:Slashdot] = slashdot.sort.last unless slashdot.empty?
 
       return results
     end
@@ -73,6 +73,10 @@ module DiscussIt
     #----------------------------------------------------------------------
     class RedditListing < Listing
 
+      def site
+        return 'Reddit'
+      end
+
       def base_url
         return 'http://www.reddit.com'
       end
@@ -93,6 +97,10 @@ module DiscussIt
     #----------------------------------------------------------------------
     class HnListing < Listing
 
+      def site
+        return 'HackerNews'
+      end
+
       def base_url
         return 'http://news.ycombinator.com/item?id='
       end
@@ -112,6 +120,10 @@ module DiscussIt
     # Listing class for Slashdot with custom accessors
     #----------------------------------------------------------------------
     class SlashdotListing < Listing
+
+      def site
+        return 'Slashdot'
+      end
 
       def location
         return self["permalink"]
