@@ -21,30 +21,6 @@ class SlashdotApi
 # finds or creates Url objects from each permalink-body's anchors
 #----------------------------------------------------------------------
 
-  # enable verbose output for debugging, etc
-  VERBOSE = true
-
-  def initialize
-  end
-
-  # if VERBOSE = true, displays output and colorizes it.
-  def display(message, color=:undef)
-    if VERBOSE == true
-      # colorize the output, baby
-      colorize = {
-        :black  => lambda { |text| "\033[30m#{text}\033[0m" },
-        :red    => lambda { |text| "\033[31m#{text}\033[0m" },
-        :green  => lambda { |text| "\033[32m#{text}\033[0m" },
-        :yellow => lambda { |text| "\033[33m#{text}\033[0m" },
-        :white  => lambda { |text| "\033[37m#{text}\033[0m" },
-        :blue   => lambda { |text| "\033[34m#{text}\033[0m" },
-        :undef  => lambda { |text| "#{text}"                }
-      }
-
-      puts colorize[color].call(message)
-    end
-  end
-
   def get_postings(timeframe='w')
 
     # first 21 anchors are nav links
@@ -60,9 +36,9 @@ class SlashdotApi
     request_count ||= -2
 
     response = HTTParty::get(archive_url)
-    display "Response fetched...", :green
+    puts "Response fetched..."
     doc = Nokogiri::HTML(response.body)
-    display "Response parsed...", :green
+    puts "Response parsed..."
     parent_body_anchors = []
 
     # array of slashdot posting urls from archive page
@@ -70,7 +46,7 @@ class SlashdotApi
 
     # counter for rake-task display of progress percentage
     archived_count = archived_postings.length
-    display "Fetching #{archived_count} results..."
+    puts "Fetching #{archived_count} results..."
 
     archived_postings.each { |anchor| parent_body_anchors << anchor.attribute("href").to_s }
 
@@ -87,7 +63,7 @@ class SlashdotApi
         # open each slashdot discussion link as 'posting'
         posting = HTTParty::get(permalink)
         document = Nokogiri::HTML(posting)
-        display "\nscanning #{anchor}", :yellow
+        puts "\nscanning #{anchor}"
 
         # FIXME: should we include slashdot links?
         # if not, have a more accurate RegEx exclusion (only domain, not just keyword)
@@ -118,7 +94,7 @@ class SlashdotApi
 
           # verbose output and progress percentage
           print "(#{(index.to_f/archived_count*100).round(1)}% done)  "
-          display "Saving SlashdotPosting for '#{s.title}'...", :green
+          puts "Saving SlashdotPosting for '#{s.title}'..."
           s.save
 
           # find/init Url.new instance from each url in posting's body
@@ -126,7 +102,7 @@ class SlashdotApi
           posting_urls.each do |url|
             u = Url.find_or_initialize_by_target_url(url)
             u.slashdot_postings << SlashdotPosting.find_or_initialize_by_permalink(s.permalink)
-            display ">  Saving associated URL: '#{url}'.", :green
+            puts ">  Saving associated URL: '#{url}'."
             u.save
           end
         end
