@@ -1,7 +1,7 @@
 # Discuss-it
 #### Online link discussion tracker
 
-## Version 3.5
+## Version 0.4.0
 
 [![Code Climate](https://codeclimate.com/github/theoretick/discuss-it.png)](https://codeclimate.com/github/theoretick/discuss-it)
 
@@ -11,7 +11,9 @@ Currently hosted at: [discuss-it.herokuapp.com](https://discuss-it.herokuapp.com
 
 ## Features
 
-Version 3.5 of Discuss-it takes a URL you think may have interesting discussion somewhere on the internet and queries across a number of link aggregators with comment systems.
+Version 0.4.0 of Discuss-it takes a URL you think may have interesting
+discussion somewhere on the internet and queries across a number of link
+aggregators with comment systems.
 
 After submitting your URL we return a page with links. The links we return take you directly to the comments page of the article in question so that you can begin talking about the link you searched for immediately.
 
@@ -49,8 +51,8 @@ searchDiscussIt();
 
 ## Documentation
 
-* [wiki](http://github.com/theoretick/discuss-it/wiki)
 * [changelog](http://github.com/theoretick/discuss-it/blob/master/CHANGELOG.md)
+* [wiki](http://github.com/theoretick/discuss-it/wiki)
 
 ## Created and maintained by
 

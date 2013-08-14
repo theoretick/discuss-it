@@ -18,12 +18,14 @@ group :development do
   gem 'sqlite3'
   gem 'better_errors'
   gem 'jazz_hands'
+  gem 'launchy'
 end
 
 group :development, :test do
   gem 'rspec-rails'
   gem 'guard-rspec', :require => false
   gem 'guard-spork', :require => false
+  gem 'guard-bundler'
   gem 'foreman'
 end
 
