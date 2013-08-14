@@ -55,7 +55,7 @@ module DiscussIt
     # ABSTRACT ONLY, instantiated w/ HnListing and RedditListing
     #----------------------------------------------------------------------
     #
-    # TODO: !!!try moving this below Reddit/HnListings and watch it explode
+    # TODO: try moving this below Reddit/HnListings and watch it explode
     # WHAT?? does order now matter in Ruby
     #
     class Listing < Hashie::Mash
@@ -135,7 +135,6 @@ module DiscussIt
       end
 
     end
-
 
   end
 

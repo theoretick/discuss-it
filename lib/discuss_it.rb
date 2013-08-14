@@ -1,4 +1,5 @@
 #----------------------------------------------------------------------
+# FIXME: change this to 0.4 (here, discuss_it/version, and changelog)
 # DiscussItApi v4.0.0
 #
 # - interfaces with Reddit, HackerNews, and Slashdot to create sortable
@@ -10,6 +11,7 @@
 require 'discuss_it/exceptions'
 require 'discuss_it/listings'
 require 'discuss_it/fetchers'
+require 'discuss_it/version'
 
 module DiscussIt
 
@@ -22,12 +24,12 @@ module DiscussIt
 
     attr_accessor :all_listings
 
-    # Defaults to newest API, 'beta' version (slashdot)
-    def initialize(query_string, api_version='3')
+    # Defaults to newest API, beta version (v3 with slashdot)
+    def initialize(query_string, api_version=DiscussIt::VERSION_MAJOR)
 
       reddit_fetch = Fetcher::RedditFetch.new(query_string)
       hn_fetch     = Fetcher::HnFetch.new(query_string)
-      slashdot_fetch = Fetcher::SlashdotFetch.new(query_string) if api_version == '3'
+      slashdot_fetch = Fetcher::SlashdotFetch.new(query_string) if api_version >= 3
       @all_listings    = ListingCollection.new
 
       @all_listings.all = reddit_fetch.listings
@@ -49,3 +51,5 @@ module DiscussIt
   end
 
 end
+
+

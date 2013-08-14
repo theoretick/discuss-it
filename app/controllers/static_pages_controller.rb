@@ -7,12 +7,8 @@ class StaticPagesController < ApplicationController
     begin
       @query_text = params[:query]
 
-      # checks for specific version number
-      if (params[:commit] == '(Beta) Search') || (params[:version] == '3')
-        @api_version = '3'
-      elsif params[:version] == '2'
-        @api_version = '2'
-      end
+      # checks for specific version number, 2 skips slashdot
+      @api_version = 2 if params[:version] == '2'
 
       @discussit = DiscussIt::DiscussItApi.new(@query_text, @api_version)
 
