@@ -18,7 +18,7 @@ describe "DiscussIt" do
 
       end
 
-      describe "initialize" do
+      describe "initialize", :vcr do
 
         it "should init with 1 arg" do
           expect(@big_reddit).to be_an_instance_of(DiscussIt::Fetcher::RedditFetch)
@@ -46,7 +46,9 @@ describe "DiscussIt" do
             }
           }
 
-          expect(@big_reddit.pull_out(fake_reddit_raw)).to eq([{"foo" => "bar"}])
+          expect(@big_reddit.pull_out(fake_reddit_raw)).to eq([
+            {"foo" => "bar"}
+          ])
         end
 
         it "should rescue and return empty hash if called on empty return" do
@@ -93,6 +95,7 @@ describe "DiscussIt" do
 
       describe "initialize" do
 
+        # FIXME: specify args. what are they
         it "should init with 1 arg" do
           expect(@small_hn_fetch).to be_an_instance_of(DiscussIt::Fetcher::HnFetch)
         end
@@ -237,6 +240,8 @@ describe "Fetch" do
       expect(DiscussIt::Fetcher::Fetch.parse(fake_nil_json)).to be_an_instance_of(Array)
     end
 
+    # TODO: add test for rescue JSON::ParserError => e
+
   end
 
   describe "get_response", :vcr do
@@ -247,15 +252,15 @@ describe "Fetch" do
       @slashdot_api_url = 'https://slashdot-api.herokuapp.com/slashdot_postings/search?url='
     end
 
-    it "should return ruby hash from reddit string", :vcr do
+    it "should return ruby hash from reddit string" do
       expect(DiscussIt::Fetcher::Fetch.get_response(@reddit_api_url, 'restorethefourth.net')).to be_an_instance_of(Hash)
     end
 
-    it "should return ruby hash from a nil reddit string", :vcr do
+    it "should return ruby hash from a nil reddit string" do
       expect(DiscussIt::Fetcher::Fetch.get_response(@reddit_api_url, '')).to be_an_instance_of(Hash)
     end
 
-    it "should return ruby hash from hn string", :vcr do
+    it "should return ruby hash from hn string" do
       expect(DiscussIt::Fetcher::Fetch.get_response(@hn_api_url, 'restorethefourth.net')).to be_an_instance_of(Hash)
     end
 
@@ -265,13 +270,15 @@ describe "Fetch" do
     end
 
     # FIXME: this should be a hash like everything else, TODO: serialize JSON response
-    it "should return ruby hash from slashdot string", :vcr do
+    it "should return ruby hash from slashdot string" do
       expect(DiscussIt::Fetcher::Fetch.get_response(@slashdot_api_url, 'http://singularityhub.com/2013/07/27/canvas-camera-brush-and-algorithms-enable-robot-artists-beautiful-paintings/')).to be_an_instance_of(Array)
     end
 
     it "should return ruby hash from a nil slashdot string" do
       expect(DiscussIt::Fetcher::Fetch.get_response(@slashdot_api_url, '')).to be_an_instance_of(Array)
     end
+
+    # TODO: stub get => raise error
 
   end
 

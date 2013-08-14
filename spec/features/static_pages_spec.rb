@@ -2,23 +2,25 @@ require 'spec_helper'
 
 describe "StaticPages" do
 
-  describe "GET static_pages" do
+  describe "GET static_pages", :vcr do
 
     it "lands on the homepage successfully" do
-      get '/'
-      expect(response.status).to be(200)
+      visit '/'
+      expect(page.status_code).to be(200)
     end
 
     it "lands on the about page successfully" do
-      get 'static_pages/about'
-      expect(response.status).to be(200)
+      visit '/static_pages/about'
+      expect(page.status_code).to be(200)
     end
 
     it "disallows access to submit without query param" do
       expect{
-        get 'static_pages/submit'
+        visit '/static_pages/submit'
       }.to raise_error()
+      # FIXME: specify the error
     end
 
-   end
+  end
+
 end

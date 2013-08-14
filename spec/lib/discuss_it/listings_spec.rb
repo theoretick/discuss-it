@@ -44,7 +44,6 @@ describe "DiscussIt" do
           expect(@reddit_listing.score).to eq(4)
         end
 
-
         it "should have a subreddit accessor on RedditListing" do
           expect(@reddit_listing.subreddit).to eq('technology')
         end
@@ -74,7 +73,7 @@ describe "DiscussIt" do
       before(:all) do
 
         VCR.use_cassette("one_result_each", :record => :new_episodes) do
-          @one_result_each = DiscussIt::DiscussItApi.new('http://singularityhub.com/2013/07/27/canvas-camera-brush-and-algorithms-enable-robot-artists-beautiful-paintings/', '3')
+          @one_result_each = DiscussIt::DiscussItApi.new('http://singularityhub.com/2013/07/27/canvas-camera-brush-and-algorithms-enable-robot-artists-beautiful-paintings/')
         end
 
         @reddit_listings   = @one_result_each.all_listings.reddit
@@ -94,15 +93,21 @@ describe "DiscussIt" do
       describe "accessors" do
 
         it "should return only HnListings from hn method" do
-          expect(@hn_listings.all?{|listing| listing.is_a?(DiscussIt::Listings::HnListing) } ).to be_true
+          expect(@hn_listings.all? { |listing|
+            listing.is_a?(DiscussIt::Listings::HnListing)
+          }).to be_true
         end
 
         it "should return only RedditListings from reddit method" do
-          expect(@reddit_listings.all?{|listing| listing.is_a?(DiscussIt::Listings::RedditListing) }).to be_true
+          expect(@reddit_listings.all? { |listing|
+            listing.is_a?(DiscussIt::Listings::RedditListing)
+          }).to be_true
         end
 
         it "should return only SlashdotListings from slashdot method" do
-          expect(@slashdot_listings.all?{|listing| listing.is_a?(DiscussIt::Listings::SlashdotListing) }).to be_true
+          expect(@slashdot_listings.all? { |listing|
+            listing.is_a?(DiscussIt::Listings::SlashdotListing)
+          }).to be_true
         end
 
       end
