@@ -21,11 +21,12 @@ module DiscussIt
   # - provides all and top accessors
   #----------------------------------------------------------------------
   class DiscussItApi
+    include DiscussIt
 
     attr_accessor :all_listings
 
     # Defaults to newest API, beta version (v3 with slashdot)
-    def initialize(query_string, api_version=params[:version].to_i)
+    def initialize(query_string, api_version=3)
 
       # FIXME: the VERSION_MINOR is super brittle, make better
       api_version ||= DiscussIt::VERSION_MINOR

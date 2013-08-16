@@ -1,19 +1,26 @@
+
+#reddit-api-status
+#hackernews-api-status
+#slashdot-api-status
+
+%hr
 .hero-unit
   %h1 Discuss It!
   %p Online discussion tracker for finding conversations
   .row-fluid
-    .control-group
-      %label.control-label{:for => "textinput"}
     .controls
       = form_tag static_pages_submit_path do
         = label_tag(:query, "Paste Here:")
-        %input{:name => "query", :placeholder => "http://example.com/article.html", :autofocus => "autofocus", :type => "text", :required => true}/
+        %input{:name => "query", :placeholder => "http://example.com/article.html", :autofocus => "autofocus", :type => "text", :required => true}
         = submit_tag("Search", :class => "btn btn-primary btn-large")
-        = submit_tag("(Beta) Search", :class => "btn-warning")
+        = submit_tag("Beta-Search", :class => "btn-warning btn-small")
   .row-fluid
     %h6 Suggested Searches
-    %p.suggested= link_to "Robot Produces Paintings With That 'Imperfect' Human Look - singularityhub.com", "/static_pages/submit?query=http://singularityhub.com/2013/07/27/canvas-camera-brush-and-algorithms-enable-robot-artists-beautiful-paintings/"
-    %p.suggested= link_to'Yahoo wins motion to declassify PRISM court case docs - cnet.com', "/static_pages/submit?query=http://news.cnet.com/8301-1023_3-57593871-93/yahoo-wins-motion-to-declassify-court-documents-in-prism-case/"
-    %p.suggested= link_to'Why Stephen King spends months or years on his opening sentences - theatlantic.com', "/static_pages/submit?query=http://www.theatlantic.com/entertainment/archive/2013/07/why-stephen-king-spends-months-and-even-years-writing-opening-sentences/278043/"
+    %p.suggested
+      = link_to "Robot Produces Paintings With That 'Imperfect' Human Look - singularityhub.com", "/static_pages/submit?query=http://singularityhub.com/2013/07/27/canvas-camera-brush-and-algorithms-enable-robot-artists-beautiful-paintings/"
+    %p.suggested
+      = link_to'Yahoo wins motion to declassify PRISM court case docs - cnet.com', "/static_pages/submit?query=http://news.cnet.com/8301-1023_3-57593871-93/yahoo-wins-motion-to-declassify-court-documents-in-prism-case/"
+    %p.suggested
+      = link_to'Why Stephen King spends months or years on his opening sentences - theatlantic.com', "/static_pages/submit?query=http://www.theatlantic.com/entertainment/archive/2013/07/why-stephen-king-spends-months-and-even-years-writing-opening-sentences/278043/"
 
 %hr

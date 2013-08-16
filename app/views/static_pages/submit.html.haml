@@ -4,11 +4,12 @@
   .row-fluid.wrapper
     %p.pagination-centered
       %br
-      * Discussions about
+      %b.pull-left Discussions about:
+      %br
       = link_to @query_text, @query_text
 
     #top-results
-      %h3 TOP RESULTS
+      %h3 TOP DISCUSSIONS
       - if @top_results.values.empty?
         %p
           Sorry, no discussions found.
@@ -25,9 +26,9 @@
                     = "/r/#{listing.subreddit}"
                 %td.url-friendly
                   =  link_to listing.title, listing.location
-
+    %br
     #all-results
-      %h3 ALL RESULTS
+      %h3 ALL DISCUSSIONS
       - if @all_results.all.empty?
         %p
           No additional results found
