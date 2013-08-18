@@ -3,6 +3,9 @@ class StaticPagesController < ApplicationController
   def index
   end
 
+  def about
+  end
+
   def submit
     begin
       @query_text = params[:query]
