@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20130728010225) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "slashdot_postings", force: true do |t|
     t.string   "title"
     t.string   "permalink"
@@ -29,7 +32,7 @@ ActiveRecord::Schema.define(version: 20130728010225) do
     t.integer "url_id"
   end
 
-  add_index "slashdot_postings_urls", ["slashdot_posting_id", "url_id"], name: "index_slashdot_postings_urls_on_slashdot_posting_id_and_url_id"
+  add_index "slashdot_postings_urls", ["slashdot_posting_id", "url_id"], name: "index_slashdot_postings_urls_on_slashdot_posting_id_and_url_id", using: :btree
 
   create_table "urls", force: true do |t|
     t.text     "target_url"
