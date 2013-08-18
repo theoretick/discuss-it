@@ -93,11 +93,11 @@ describe "DiscussIt" do
 
       end
 
-      describe "initialize" do
+      describe "initialize", :vcr do
 
         # FIXME: specify args. what are they
-        it "should init with 1 arg" do
-          expect(@small_hn_fetch).to be_an_instance_of(DiscussIt::Fetcher::HnFetch)
+        it "should init with " do
+          expect(DiscussIt::Fetcher::HnFetch.new("restorethefourth.net")).to be_an_instance_of(DiscussIt::Fetcher::HnFetch)
         end
 
         it "should not init with 0 arg" do
@@ -210,6 +210,7 @@ describe "DiscussIt" do
     end
 
 
+    # TODO: rename Fetch to BaseFetch?
 describe "Fetch" do
 
   describe "http_add" do
@@ -247,34 +248,35 @@ describe "Fetch" do
   describe "get_response", :vcr do
 
     before(:all) do
-      @reddit_api_url = 'http://www.reddit.com/api/info.json?url='
-      @hn_api_url = 'http://api.thriftdb.com/api.hnsearch.com/items/_search?filter[fields][url]='
+      @reddit_api_url   = 'http://www.reddit.com/api/info.json?url='
+      @hn_api_url       = 'http://api.thriftdb.com/api.hnsearch.com/items/_search?filter[fields][url]='
       @slashdot_api_url = 'https://slashdot-api.herokuapp.com/slashdot_postings/search?url='
     end
 
-    it "should return ruby hash from reddit string" do
+    it "should return no results gracefully from reddit string" do
       expect(DiscussIt::Fetcher::Fetch.get_response(@reddit_api_url, 'restorethefourth.net')).to be_an_instance_of(Hash)
     end
 
-    it "should return ruby hash from a nil reddit string" do
+    it "should return no results gracefully from a nil reddit string" do
       expect(DiscussIt::Fetcher::Fetch.get_response(@reddit_api_url, '')).to be_an_instance_of(Hash)
     end
 
-    it "should return ruby hash from hn string" do
+    it "should return valid hash content from hn string" do
       expect(DiscussIt::Fetcher::Fetch.get_response(@hn_api_url, 'restorethefourth.net')).to be_an_instance_of(Hash)
     end
 
     # FIXME: make a special catch for nil hn? weird valid case that returns results, potentially bad
-    it "should return ruby hash from a nil hn string" do
+    it "should return no results gracefully from a nil hn string" do
       expect(DiscussIt::Fetcher::Fetch.get_response(@hn_api_url, '')).to be_an_instance_of(Hash)
     end
 
-    # FIXME: this should be a hash like everything else, TODO: serialize JSON response
+    # FIXME: this should be a hash like everything else
+    # TODO: serialize JSON response
     it "should return ruby hash from slashdot string" do
       expect(DiscussIt::Fetcher::Fetch.get_response(@slashdot_api_url, 'http://singularityhub.com/2013/07/27/canvas-camera-brush-and-algorithms-enable-robot-artists-beautiful-paintings/')).to be_an_instance_of(Array)
     end
 
-    it "should return ruby hash from a nil slashdot string" do
+    it "should return no results gracefully from a nil slashdot string" do
       expect(DiscussIt::Fetcher::Fetch.get_response(@slashdot_api_url, '')).to be_an_instance_of(Array)
     end
 

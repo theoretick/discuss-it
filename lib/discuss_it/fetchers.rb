@@ -1,6 +1,4 @@
 
-# TODO: currently redundant. figure out default_timeout
-require 'httparty'
 require 'json'
 
 module DiscussIt
