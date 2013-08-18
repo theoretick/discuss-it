@@ -4,6 +4,7 @@ DiscussIt::Application.routes.draw do
 
   get 'index' => 'static_pages#index'
   get 'about' => 'static_pages#about'
+  post 'submit' => 'static_pages#submit'
   get 'submit' => 'static_pages#submit'
 
   resources :static_pages, only: [:index, :about, :submit]

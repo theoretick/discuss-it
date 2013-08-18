@@ -42,7 +42,7 @@ add a new bookmark and paste in this hunk of JS:
 javascript:(function() {
   function searchDiscussIt() {
     var url = window.location.href;
-    var discussit = 'http://discuss-it.herokuapp.com/static_pages/submit?query=';
+    var discussit = 'http://discuss-it.herokuapp.com/static_pages/submit?url=';
     window.location.href = discussit+url;
 }
 searchDiscussIt();

@@ -14,7 +14,7 @@ describe "StaticPages" do
       expect(page.status_code).to be(200)
     end
 
-    it "disallows access to submit without query param" do
+    it "disallows access to submit without url param" do
       expect{
         visit '/submit'
       }.to raise_error()
@@ -35,7 +35,7 @@ describe "StaticPages" do
         visit '/'
 
         within(".controls") do
-          fill_in 'query', :with => 'yorickpeterse.com/articles/debugging-with-pry/'
+          fill_in 'url', :with => 'yorickpeterse.com/articles/debugging-with-pry/'
         end
 
         click_button 'Search'

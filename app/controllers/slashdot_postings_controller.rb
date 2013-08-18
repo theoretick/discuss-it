@@ -48,13 +48,15 @@ class SlashdotPostingsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_slashdot_posting
-      @slashdot_posting = SlashdotPosting.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def slashdot_posting_params
-      params.require(:slashdot_posting).permit(:title, :permalink, :urls)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_slashdot_posting
+    @slashdot_posting = SlashdotPosting.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def slashdot_posting_params
+    params.require(:slashdot_posting).permit(:title, :permalink, :urls)
+  end
+
 end

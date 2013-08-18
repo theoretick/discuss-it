@@ -250,7 +250,7 @@ describe "Fetch" do
     before(:all) do
       @reddit_api_url   = 'http://www.reddit.com/api/info.json?url='
       @hn_api_url       = 'http://api.thriftdb.com/api.hnsearch.com/items/_search?filter[fields][url]='
-      @slashdot_api_url = 'https://slashdot-api.herokuapp.com/slashdot_postings/search?url='
+      @slashdot_api_url = 'https://slashdot-api.herokuapp.com/search?url='
     end
 
     it "should return no results gracefully from reddit string" do
