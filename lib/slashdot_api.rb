@@ -79,7 +79,7 @@ class SlashdotApi
           # find/init Url.new instance from each url in posting's body
           # and associate with SlashdotPosting instance
           posting_urls.each do |url|
-            u = Url.find_or_initialize_by_(target_url: url)
+            u = Url.find_or_initialize_by(target_url: url)
             u.slashdot_postings << SlashdotPosting.find_or_initialize_by(permalink: s.permalink)
             puts ">  Saving associated URL: '#{url}'."
             u.save
