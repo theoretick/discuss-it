@@ -1,4 +1,6 @@
 
+require 'typhoeus/adapters/faraday'
+
 module DiscussIt
 
   module Fetcher
@@ -35,7 +37,7 @@ module DiscussIt
 
           conn = Faraday.new(url: api_url + query_url) do |faraday|
             faraday.response :logger                  # log requests to STDOUT
-            faraday.adapter  Faraday.default_adapter  # make requests with Net::HTTP
+            faraday.adapter  :typhoeus  # make requests with Net::HTTP
             faraday.headers["User-Agent"] = "DiscussItAPI at github.com/discuss-it"
           end
 
