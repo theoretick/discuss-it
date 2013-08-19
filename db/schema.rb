@@ -11,10 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130818222309) do
+ActiveRecord::Schema.define(version: 20130819015916) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "searches", force: true do |t|
+    t.text     "query_url"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "searches", ["user_id"], name: "index_searches_on_user_id", using: :btree
 
   create_table "slashdot_postings", force: true do |t|
     t.string   "title"
@@ -41,8 +50,8 @@ ActiveRecord::Schema.define(version: 20130818222309) do
   end
 
   create_table "users", force: true do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "email",                  default: "",    null: false
+    t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -59,6 +68,7 @@ ActiveRecord::Schema.define(version: 20130818222309) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "guest"
+    t.boolean  "admin",                  default: false
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", unique: true, using: :btree
