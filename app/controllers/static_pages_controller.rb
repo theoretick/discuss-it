@@ -36,6 +36,11 @@ class StaticPagesController < ApplicationController
     end
   end
 
+  def after_sign_in_path_for(user)
+    index_path
+  end
+
+
   private
 
   # returns the total number of hits for top + all results

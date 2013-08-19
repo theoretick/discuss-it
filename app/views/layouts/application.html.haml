@@ -33,14 +33,22 @@
           .container-fluid
             %ul.nav
               %li= link_to "About", about_path
+            %ul.nav.pull-right
+              - if current_user
+                %li
+                  %strong= current_user.email
+                = link_to "Edit", edit_user_registration_path
+                |
+                = link_to "Log Out", destroy_user_session_path
+              - else
+                %li
+                  = link_to "Log In", user_session_path
     .container-fluid
       %br
       .row-fluid
         .span9.offset1
           = bootstrap_flash
           = yield
-    / /row
-    / /container
     %footer.span3
       %p Discuss It - 2013
       %br/

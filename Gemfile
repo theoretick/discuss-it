@@ -13,6 +13,10 @@ gem 'newrelic_rpm'
 
 gem 'whenever'
 
+# for user accounts and authentication
+gem 'devise'
+gem 'cancan'
+
 group :development do
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3'
