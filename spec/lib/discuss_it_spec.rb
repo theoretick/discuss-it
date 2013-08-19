@@ -65,19 +65,19 @@ describe "DiscussIt" do
     describe "find_top" do
 
       it "should return 3 results for multisite small listing" do
-        expect(@one_result_each.find_top.keys.length).to eq(3)
+        expect(@one_result_each.find_top.length).to eq(3)
       end
 
       it "should return 1 results for singlesite large listing" do
-        expect(@many_results_reddit.find_top.keys.length).to eq(1)
+        expect(@many_results_reddit.find_top.length).to eq(1)
       end
 
       it "should return 2 results for dualsite small listing" do
-        expect(@one_result_hn_reddit.find_top.keys.length).to eq(2)
+        expect(@one_result_hn_reddit.find_top.length).to eq(2)
       end
 
       it "should return 2 results for dualsite large listing" do
-        expect(@many_results_hn_reddit.find_top.keys.length).to eq(2)
+        expect(@many_results_hn_reddit.find_top.length).to eq(2)
       end
 
       # TODO: add test for only slashdot

@@ -16,29 +16,31 @@ module DiscussIt
     # access ALL listings
     attr_accessor :all
 
+    # returns highest scoring single result per site
     def tops
-      results = {}
+      results = []
 
-      results[:HackerNews] = hn.sort.last unless hn.empty?
-      results[:Reddit] = reddit.sort.last unless reddit.empty?
-      results[:Slashdot] = slashdot.sort.last unless slashdot.empty?
+      results << hn.sort.last unless hn.empty?
+      results << reddit.sort.last unless reddit.empty?
+      results << slashdot.sort.last unless slashdot.empty?
 
-      return results
+      # return results sorted by highest score first
+      return results.sort.reverse
     end
 
     # returns array of all HnListing objects
     def hn
-      all.select {|listing| listing.class == Listings::HnListing }
+      all.select {|listing| listing.class == Listing::HnListing }
     end
 
     # returns array of all RedditListing objects
     def reddit
-      all.select {|listing| listing.class == Listings::RedditListing }
+      all.select {|listing| listing.class == Listing::RedditListing }
     end
 
     # returns array of all SlashdotListing objects
     def slashdot
-      all.select {|listing| listing.class == Listings::SlashdotListing }
+      all.select {|listing| listing.class == Listing::SlashdotListing }
     end
 
   end
@@ -46,7 +48,7 @@ module DiscussIt
 
   # TODO: prob shouldn't be plural but creates name conflict w/
   # abstract object. how to rectify?
-  module Listings
+  module Listing
 
     #----------------------------------------------------------------------
     # creates a Listing object from listing hash w/ sort & dot-notation
@@ -58,7 +60,7 @@ module DiscussIt
     # TODO: try moving this below Reddit/HnListings and watch it explode
     # WHAT?? does order now matter in Ruby
     #
-    class Listing < Hashie::Mash
+    class BaseListing < Hashie::Mash
       # provides sort method
       include Comparable
 
@@ -71,7 +73,7 @@ module DiscussIt
     #----------------------------------------------------------------------
     # Listing class for Reddit with custom accessors
     #----------------------------------------------------------------------
-    class RedditListing < Listing
+    class RedditListing < BaseListing
 
       def site
         return 'Reddit'
@@ -86,7 +88,7 @@ module DiscussIt
       end
 
       def score
-        return self["score"]
+        return self["score"] + self["num_comments"]
       end
 
     end
@@ -95,7 +97,7 @@ module DiscussIt
     #----------------------------------------------------------------------
     # Listing class for HN with custom accessors
     #----------------------------------------------------------------------
-    class HnListing < Listing
+    class HnListing < BaseListing
 
       def site
         return 'HackerNews'
@@ -110,7 +112,7 @@ module DiscussIt
       end
 
       def score
-        return self["points"]
+        return self["points"] + self["num_comments"]
       end
 
     end
@@ -119,7 +121,7 @@ module DiscussIt
     #----------------------------------------------------------------------
     # Listing class for Slashdot with custom accessors
     #----------------------------------------------------------------------
-    class SlashdotListing < Listing
+    class SlashdotListing < BaseListing
 
       def site
         return 'Slashdot'

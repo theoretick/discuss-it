@@ -10,13 +10,13 @@
 
     #top-results
       %h3 TOP DISCUSSIONS
-      - if @top_results.values.empty?
+      - if @top_results.empty?
         %p
           Sorry, no discussions found.
           = link_to 'Try again?', root_path
       - else
         %table.table
-          - @top_results.each_pair do |k, listing|
+          - @top_results.each do |listing|
             - unless listing.nil?
               %tr
                 %td

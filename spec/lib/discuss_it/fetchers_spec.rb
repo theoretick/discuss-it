@@ -61,7 +61,7 @@ describe "DiscussIt" do
 
         it "should return a RedditListing object" do
           fake_json = {}
-          expect(@small_reddit.build_listing(fake_json)).to be_an_instance_of(DiscussIt::Listings::RedditListing)
+          expect(@small_reddit.build_listing(fake_json)).to be_an_instance_of(DiscussIt::Listing::RedditListing)
         end
 
       end
@@ -73,7 +73,7 @@ describe "DiscussIt" do
         end
 
         it "should have instance elements of RedditListing" do
-          expect(@small_reddit.build_all_listings.first).to be_an_instance_of(DiscussIt::Listings::RedditListing)
+          expect(@small_reddit.build_all_listings.first).to be_an_instance_of(DiscussIt::Listing::RedditListing)
         end
 
       end
@@ -133,7 +133,7 @@ describe "DiscussIt" do
 
         it "should return a HnListing object" do
           fake_json = {}
-          expect(@small_hn_fetch.build_listing(fake_json)).to be_an_instance_of(DiscussIt::Listings::HnListing)
+          expect(@small_hn_fetch.build_listing(fake_json)).to be_an_instance_of(DiscussIt::Listing::HnListing)
         end
 
       end
@@ -145,7 +145,7 @@ describe "DiscussIt" do
         end
 
         it "should have instance elements of HnListing" do
-          expect(@small_hn_fetch.build_all_listings.first).to be_an_instance_of(DiscussIt::Listings::HnListing)
+          expect(@small_hn_fetch.build_all_listings.first).to be_an_instance_of(DiscussIt::Listing::HnListing)
         end
 
       end
@@ -190,7 +190,7 @@ describe "DiscussIt" do
 
         it "should return a SlashdotListing object" do
           fake_json = {}
-          expect(@small_slashdot.build_listing(fake_json)).to be_an_instance_of(DiscussIt::Listings::SlashdotListing)
+          expect(@small_slashdot.build_listing(fake_json)).to be_an_instance_of(DiscussIt::Listing::SlashdotListing)
         end
 
       end
@@ -202,7 +202,7 @@ describe "DiscussIt" do
         end
 
         it "should have instance elements of SlashdotListing" do
-          expect(@big_slashdot.build_all_listings.first).to be_an_instance_of(DiscussIt::Listings::SlashdotListing)
+          expect(@big_slashdot.build_all_listings.first).to be_an_instance_of(DiscussIt::Listing::SlashdotListing)
         end
 
       end

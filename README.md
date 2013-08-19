@@ -1,7 +1,7 @@
 # Discuss-it
 #### Online link discussion tracker
 
-## Version 0.4.0
+## Version 0.4.8
 
 [![Code Climate](https://codeclimate.com/github/theoretick/discuss-it.png)](https://codeclimate.com/github/theoretick/discuss-it)
 
@@ -33,6 +33,15 @@ Slashdot does not have an API so results from Slashdot are aggregated
 by our own API which scrapes the most recent postings and stores them
 as listing objects in a database.
 
+## API
+
+Want to use our app for easy searching?
+
+Discuss It results can be conveniently accessed with a JSON request to our submit
+page:
+```http://discussitapp.com/submit.json?url=http://merbist.com/2011/02/22/concurrency-in-ruby-explained/```
+
+
 ## Bookmarklet
 
 For easy searching, add Discuss-It search to your bookmark bar, just
@@ -42,7 +51,7 @@ add a new bookmark and paste in this hunk of JS:
 javascript:(function() {
   function searchDiscussIt() {
     var url = window.location.href;
-    var discussit = 'http://discuss-it.herokuapp.com/static_pages/submit?url=';
+    var discussit = 'http://discuss-it.herokuapp.com/submit?url=';
     window.location.href = discussit+url;
 }
 searchDiscussIt();
