@@ -4,11 +4,14 @@ ruby '2.0.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
 
+# puma+faraday+typhoeus for highly-awesome concurrent fetching
 gem 'puma'
+gem 'faraday'
+gem 'typhoeus'
 
-gem 'httparty'
 gem 'nokogiri'
 gem 'hashie'
+
 gem 'newrelic_rpm'
 
 gem 'whenever'
@@ -18,8 +21,6 @@ gem 'devise'
 gem 'cancan'
 
 group :development do
-  # Use sqlite3 as the database for Active Record
-  gem 'sqlite3'
   gem 'better_errors'
   gem 'jazz_hands'
   gem 'launchy'
@@ -29,7 +30,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'guard-rspec', :require => false
   gem 'guard-spork', :require => false
-  gem 'guard-bundler'
+  gem 'guard-bundler', :require => false
   gem 'foreman'
 end
 
@@ -61,9 +62,6 @@ gem 'sass-rails', '~> 4.0.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 
-# Use CoffeeScript for .js.coffee assets and views
-# gem 'coffee-rails', '~> 4.0.0'
-
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
@@ -82,13 +80,10 @@ group :doc do
 end
 
 # Use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
+ gem 'bcrypt-ruby', '~> 3.0.0'
 
 # Use unicorn as the app server
 # gem 'unicorn'
 
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
-
-# Use debugger
-# gem 'debugger', group: [:development, :test]

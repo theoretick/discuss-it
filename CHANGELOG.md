@@ -1,3 +1,7 @@
+## 0.4.9 (2013-08-18)
+
+* changed DiscussIt API calls to Faraday+Typhoes, in prep for parallelism
+
 ## 0.4.8 (2013-08-18)
 
 * add comment_count to all API returns for smarter sorting

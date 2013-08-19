@@ -37,7 +37,7 @@ GEM
     arel (4.0.0)
     atomic (1.1.10)
     awesome_print (1.1.0)
-    bcrypt-ruby (3.1.1)
+    bcrypt-ruby (3.0.1)
     better_errors (0.9.0)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -76,8 +76,13 @@ GEM
     diffy (3.0.1)
     dotenv (0.8.0)
     erubis (2.7.0)
+    ethon (0.6.0)
+      ffi (>= 1.3.0)
+      mime-types (~> 1.18)
     execjs (1.4.0)
       multi_json (~> 1.0)
+    faraday (0.8.8)
+      multipart-post (~> 1.2.0)
     ffi (1.9.0)
     flat-ui-rails (0.0.2)
     foreman (0.63.0)
@@ -115,9 +120,6 @@ GEM
     hashie (2.0.5)
     hike (1.2.3)
     hirb (0.7.1)
-    httparty (0.11.0)
-      multi_json (~> 1.0)
-      multi_xml (>= 0.5.2)
     i18n (0.6.4)
     jazz_hands (0.5.1)
       awesome_print (~> 1.1.0)
@@ -158,7 +160,7 @@ GEM
     mini_portile (0.5.0)
     minitest (4.7.5)
     multi_json (1.7.7)
-    multi_xml (0.5.4)
+    multipart-post (1.2.0)
     newrelic_rpm (3.6.4.122)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
@@ -260,7 +262,6 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (~> 2.8)
-    sqlite3 (1.3.7)
     thor (0.18.1)
     thread_safe (0.1.0)
       atomic
@@ -273,6 +274,8 @@ GEM
       execjs
       rails (>= 3.1)
       railties (>= 3.1)
+    typhoeus (0.6.4)
+      ethon (~> 0.6.0)
     tzinfo (0.3.37)
     uglifier (2.1.1)
       execjs (>= 0.3.0)
@@ -294,10 +297,12 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bcrypt-ruby (~> 3.0.0)
   better_errors
   cancan
   capybara
   devise
+  faraday
   flat-ui-rails
   foreman
   growl
@@ -306,7 +311,6 @@ DEPENDENCIES
   guard-spork
   haml-rails
   hashie
-  httparty
   jazz_hands
   jbuilder (~> 1.2)
   jquery-rails
@@ -325,8 +329,8 @@ DEPENDENCIES
   simplecov
   spork (~> 1.0rc)
   spork-rails!
-  sqlite3
   twitter-bootstrap-rails
+  typhoeus
   uglifier (>= 1.3.0)
   vcr
   webmock

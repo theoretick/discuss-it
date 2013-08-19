@@ -1,15 +1,80 @@
 
-require 'json'
-
 module DiscussIt
 
   module Fetcher
 
     #----------------------------------------------------------------------
+    # Formats url, gets response and returns parsed json
+    # ABSTRACT ONLY, called w/ RedditFetch, HnFetch, SlashdotFetch
+    #----------------------------------------------------------------------
+    class BaseFetch
+
+      # returns ruby hash of parsed object
+      def parse(response, type='json')
+        if type == 'json'
+          begin
+            return JSON.parse(response)
+          # rescue for nil response parsing
+          rescue JSON::ParserError => e
+            return []
+          end
+        end
+      end
+
+      # ensures url passed to API has http prefix
+      def ensure_http(user_string)
+        valid_url = user_string
+        valid_url = "http://" + user_string unless user_string.match(/(http|https):\/\//)
+        return valid_url
+      end
+
+      #  makes http call with query_string and returns ruby hash
+      def get_response(api_url, query_string)
+        begin
+          query_url = ensure_http(query_string)
+
+          conn = Faraday.new(url: api_url + query_url) do |faraday|
+            faraday.response :logger                  # log requests to STDOUT
+            faraday.adapter  Faraday.default_adapter  # make requests with Net::HTTP
+            faraday.headers["User-Agent"] = "DiscussItAPI at github.com/discuss-it"
+          end
+
+          response = conn.get() do |req|
+            req.options[:timeout] = 5           # open/read timeout in seconds
+            req.options[:open_timeout] = 2      # connection open timeout in seconds
+          end
+
+          return self.parse(response.body)
+
+        # if http://xxx is still invalid url content, then raise error
+        # and catch/flash it in controller
+        rescue URI::InvalidURIError => e
+          raise DiscussIt::UrlError.new
+
+        # if HTTP timeout or general HTTP error, don't break everything
+        rescue  Timeout::Error,
+                Errno::EINVAL,
+                Errno::ECONNRESET,
+                EOFError,
+                Net::HTTPBadResponse,
+                Net::HTTPHeaderSyntaxError,
+                Net::ProtocolError => e
+          raise DiscussIt::TimeoutError.new
+        end
+
+      end
+
+    end
+
+
+
+
+
+    #----------------------------------------------------------------------
     # - fetches API response from Reddit
     # - provides site-specific details: key-names, howto parse, and urls
     #----------------------------------------------------------------------
-    class RedditFetch
+    class RedditFetch < BaseFetch
 
       #  returns big hash of all reddit listings for a query
       def initialize(query_string)
@@ -25,7 +90,7 @@ module DiscussIt
         # reddit has no url validation so make EVERY call twice,
         # with and without a trailing slash
         begin
-          reddit_raw_a = Fetch.get_response(api_url, query_url)
+          reddit_raw_a = get_response(api_url, query_url)
           @raw_master = pull_out(reddit_raw_a)
         rescue DiscussIt::TimeoutError => e
           # TODO: add status code for e homepage display 'reddit down'
@@ -34,7 +99,7 @@ module DiscussIt
 
         # separate rescues to failure is graceful
         begin
-          reddit_raw_b = Fetch.get_response(api_url, query_url + '/')
+          reddit_raw_b = get_response(api_url, query_url + '/')
           # sets master hash of both combined API calls
           @raw_master += pull_out(reddit_raw_b)
         rescue DiscussIt::TimeoutError => e
@@ -53,7 +118,6 @@ module DiscussIt
       rescue
         return []
       end
-
 
       # called in DiscussItApi to build Reddit listings if not already built
       def listings
@@ -80,7 +144,7 @@ module DiscussIt
     # - fetches API response from HackerNews
     # - provides site-specific details: key-names and urls
     #----------------------------------------------------------------------
-    class HnFetch
+    class HnFetch < BaseFetch
 
       #  returns a hash of HN listings for a query
       def initialize(query_string)
@@ -94,7 +158,7 @@ module DiscussIt
         end
 
         begin
-          hn_raw = Fetch.get_response(api_url, query_url + '/')
+          hn_raw = get_response(api_url, query_url + '/')
           @raw_master = pull_out(hn_raw)
         rescue DiscussIt::TimeoutError => e
           # TODO: add status code for e homepage display 'hn down'
@@ -119,7 +183,6 @@ module DiscussIt
       end
 
       def build_listing(parent_hash)
-        # FIXME: up one level in the hash is weighting data for HN
         listing = parent_hash['item']
         return DiscussIt::Listing::HnListing.new(listing)
       end
@@ -139,12 +202,12 @@ module DiscussIt
     # - fetches persistent listings locally from SlashdotPosting,
     # - provides site-specific details: key-names and urls
     #----------------------------------------------------------------------
-    class SlashdotFetch
+    class SlashdotFetch < BaseFetch
 
       #  returns big hash of all slashdot listings for a query
       def initialize(query_string)
         begin
-          slashdot_raw = Fetch.get_response(api_url, query_string)
+          slashdot_raw = get_response(api_url, query_string)
           @raw_master = slashdot_raw
         rescue DiscussIt::TimeoutError => e
           # TODO: add status code for e homepage display 'slashdot down'
@@ -178,67 +241,6 @@ module DiscussIt
           all_listings << build_listing(listing)
         end
         return all_listings
-      end
-
-    end
-
-
-
-    #----------------------------------------------------------------------
-    # Formats url, gets response and returns parsed json
-    # ABSTRACT ONLY, called w/ RedditFetch, HnFetch, SlashdotFetc
-    #----------------------------------------------------------------------
-    class Fetch
-
-      include HTTParty
-
-      # Sets lower timeout for HTTParty
-      # TEMP: test the timeout in staging/production
-      default_timeout 6
-
-      # returns ruby hash of parsed object
-      def self.parse(response, type='json')
-        if type == 'json'
-          begin
-            return JSON.parse(response)
-          # rescue for nil response parsing
-          rescue JSON::ParserError => e
-            return []
-          end
-        end
-      end
-
-      # ensures url passed to API has http prefix
-      def self.ensure_http(user_string)
-        valid_url = user_string
-        valid_url = "http://" + user_string unless user_string.match(/(http|https):\/\//)
-        return valid_url
-      end
-
-      # TODO: make this an instance_method and eliminate Fetch.get_response in DiscussItApi
-      #  makes http call with query_string and returns ruby hash
-      def self.get_response(api_url, query_string)
-        begin
-          query_url = ensure_http(query_string)
-          response = get(api_url + query_url, :headers => {"User-Agent" => "DiscussItAPI at github.com/discuss-it"})
-          return self.parse(response.body)
-
-        # if http://xxx is still invalid url content, then raise error
-        # and catch/flash it in controller
-        rescue URI::InvalidURIError => e
-          raise DiscussIt::UrlError.new
-
-        # if HTTP timeout or general HTTP error, don't break everything
-        rescue  Timeout::Error,
-                Errno::EINVAL,
-                Errno::ECONNRESET,
-                EOFError,
-                Net::HTTPBadResponse,
-                Net::HTTPHeaderSyntaxError,
-                Net::ProtocolError => e
-          raise DiscussIt::TimeoutError.new
-        end
-
       end
 
     end
