@@ -62,7 +62,7 @@ module DiscussIt
 
       def build_listing(parent_hash)
         listing = parent_hash['data']
-        return DiscussIt::Listings::RedditListing.new(listing)
+        return DiscussIt::Listing::RedditListing.new(listing)
       end
 
       # creates array of listing objects for all responses
@@ -121,7 +121,7 @@ module DiscussIt
       def build_listing(parent_hash)
         # FIXME: up one level in the hash is weighting data for HN
         listing = parent_hash['item']
-        return DiscussIt::Listings::HnListing.new(listing)
+        return DiscussIt::Listing::HnListing.new(listing)
       end
 
       # creates array of listing objects for all responses
@@ -168,7 +168,7 @@ module DiscussIt
 
       def build_listing(parent_hash)
         listing = parent_hash
-        return DiscussIt::Listings::SlashdotListing.new(listing)
+        return DiscussIt::Listing::SlashdotListing.new(listing)
       end
 
       # creates array of listing objects for all responses

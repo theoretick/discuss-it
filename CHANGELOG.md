@@ -1,3 +1,25 @@
+## 0.4.8 (2013-08-18)
+
+* add comment_count to all API returns for smarter sorting
+* top/all results renamed to top/all discussions
+* top discussions now sort as well, highest is first
+
+## 0.4.6 (2013-08-18)
+
+* changed 'query' param to 'url' for consistency
+
+## 0.4.5 (2013-08-16)
+
+* added user accounts with devise
+* added search model, currently unconnected to anything
+
+
+## 0.4.3 (2013-08-16)
+
+* better routes, removed static_pages namespace
+* migrated DB to postgres
+* added api_status.JS indicator to landing. displays if any external APIS are down
+
 ## 0.4.1 (2013-08-14)
 
 * spec refactoring

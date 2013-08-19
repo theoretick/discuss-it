@@ -1,6 +1,5 @@
 #----------------------------------------------------------------------
-# FIXME: change this to 0.4 (here, discuss_it/version, and changelog)
-# DiscussItApi v4.0.0
+# DiscussItApi v0.4.5
 #
 # - interfaces with Reddit, HackerNews, and Slashdot to create sortable
 # listings by URL.
@@ -42,7 +41,6 @@ module DiscussIt
     end
 
     # returns a ListingCollection of all listing urls for each site
-    # TODO: this should be standardized to a hash for consistency
     def find_all
       return @all_listings
     end

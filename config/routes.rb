@@ -1,5 +1,8 @@
 DiscussIt::Application.routes.draw do
 
+  resources :searches
+
+  devise_for :users
   root 'static_pages#index'
 
   get 'index' => 'static_pages#index'
