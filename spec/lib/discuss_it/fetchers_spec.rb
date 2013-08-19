@@ -211,34 +211,42 @@ describe "DiscussIt" do
 
 
     # TODO: rename Fetch to BaseFetch?
-describe "Fetch" do
+describe "BaseFetch" do
 
   describe "http_add" do
 
+    before(:all) do
+      @fetcher = DiscussIt::Fetcher::BaseFetch.new
+    end
+
     it "should add http if not found" do
-      expect(DiscussIt::Fetcher::Fetch.ensure_http('restorethefourth.net')).to eq('http://restorethefourth.net')
+      expect(@fetcher.ensure_http('restorethefourth.net')).to eq('http://restorethefourth.net')
     end
 
     it "should not add http if 'http://' found" do
-      expect(DiscussIt::Fetcher::Fetch.ensure_http('http://restorethefourth.net')).to eq('http://restorethefourth.net')
+      expect(@fetcher.ensure_http('http://restorethefourth.net')).to eq('http://restorethefourth.net')
     end
 
     it "should not add http if 'https://' found" do
-      expect(DiscussIt::Fetcher::Fetch.ensure_http('https://restorethefourth.net')).to eq('https://restorethefourth.net')
+      expect(@fetcher.ensure_http('https://restorethefourth.net')).to eq('https://restorethefourth.net')
     end
 
   end
 
   describe "parse" do
 
+    before(:all) do
+      @fetcher = DiscussIt::Fetcher::BaseFetch.new
+    end
+
     it "should return a ruby hash with correctly formed response" do
       fake_json = {"name" => "discussit"}.to_json
-      expect(DiscussIt::Fetcher::Fetch.parse(fake_json)).to be_an_instance_of(Hash)
+      expect(@fetcher.parse(fake_json)).to be_an_instance_of(Hash)
     end
 
     it "should return a ruby array with empty response" do
       fake_nil_json = [].to_json
-      expect(DiscussIt::Fetcher::Fetch.parse(fake_nil_json)).to be_an_instance_of(Array)
+      expect(@fetcher.parse(fake_nil_json)).to be_an_instance_of(Array)
     end
 
     # TODO: add test for rescue JSON::ParserError => e
@@ -251,33 +259,34 @@ describe "Fetch" do
       @reddit_api_url   = 'http://www.reddit.com/api/info.json?url='
       @hn_api_url       = 'http://api.thriftdb.com/api.hnsearch.com/items/_search?filter[fields][url]='
       @slashdot_api_url = 'https://slashdot-api.herokuapp.com/search?url='
+
+      @fetcher = DiscussIt::Fetcher::BaseFetch.new
     end
 
     it "should return no results gracefully from reddit string" do
-      expect(DiscussIt::Fetcher::Fetch.get_response(@reddit_api_url, 'restorethefourth.net')).to be_an_instance_of(Hash)
+      expect(@fetcher.get_response(@reddit_api_url, 'restorethefourth.net')).to be_an_instance_of(Hash)
     end
 
     it "should return no results gracefully from a nil reddit string" do
-      expect(DiscussIt::Fetcher::Fetch.get_response(@reddit_api_url, '')).to be_an_instance_of(Hash)
+      expect(@fetcher.get_response(@reddit_api_url, '')).to be_an_instance_of(Hash)
     end
 
     it "should return valid hash content from hn string" do
-      expect(DiscussIt::Fetcher::Fetch.get_response(@hn_api_url, 'restorethefourth.net')).to be_an_instance_of(Hash)
+      expect(@fetcher.get_response(@hn_api_url, 'restorethefourth.net')).to be_an_instance_of(Hash)
     end
 
     # FIXME: make a special catch for nil hn? weird valid case that returns results, potentially bad
     it "should return no results gracefully from a nil hn string" do
-      expect(DiscussIt::Fetcher::Fetch.get_response(@hn_api_url, '')).to be_an_instance_of(Hash)
+      expect(@fetcher.get_response(@hn_api_url, '')).to be_an_instance_of(Hash)
     end
 
-    # FIXME: this should be a hash like everything else
     # TODO: serialize JSON response
     it "should return ruby hash from slashdot string" do
-      expect(DiscussIt::Fetcher::Fetch.get_response(@slashdot_api_url, 'http://singularityhub.com/2013/07/27/canvas-camera-brush-and-algorithms-enable-robot-artists-beautiful-paintings/')).to be_an_instance_of(Array)
+      expect(@fetcher.get_response(@slashdot_api_url, 'http://singularityhub.com/2013/07/27/canvas-camera-brush-and-algorithms-enable-robot-artists-beautiful-paintings/')).to be_an_instance_of(Array)
     end
 
     it "should return no results gracefully from a nil slashdot string" do
-      expect(DiscussIt::Fetcher::Fetch.get_response(@slashdot_api_url, '')).to be_an_instance_of(Array)
+      expect(@fetcher.get_response(@slashdot_api_url, '')).to be_an_instance_of(Array)
     end
 
     # TODO: stub get => raise error

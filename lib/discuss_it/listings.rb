@@ -46,8 +46,6 @@ module DiscussIt
   end
 
 
-  # TODO: prob shouldn't be plural but creates name conflict w/
-  # abstract object. how to rectify?
   module Listing
 
     #----------------------------------------------------------------------

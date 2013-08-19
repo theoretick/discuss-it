@@ -1,5 +1,5 @@
 #----------------------------------------------------------------------
-# DiscussItApi v0.4.5
+# DiscussItApi v0.4.8
 #
 # - interfaces with Reddit, HackerNews, and Slashdot to create sortable
 # listings by URL.

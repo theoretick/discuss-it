@@ -10,8 +10,6 @@
 # http://github.com/theoretick/discussit
 #----------------------------------------------------------------------
 require 'nokogiri'
-require 'httparty'
-
 
 class SlashdotApi
 #----------------------------------------------------------------------
@@ -31,7 +29,7 @@ class SlashdotApi
     # request_count = timeframe.to_i + first_anchor - 1 # -1 == index 0
 
 
-    response = HTTParty::get(archive_url)
+    response = Faraday.get(archive_url)
     doc = Nokogiri::HTML(response.body)
 
     # array of slashdot posting urls from archive page
@@ -52,7 +50,7 @@ class SlashdotApi
       if s.blank?
 
         # open each slashdot discussion link as 'posting'
-        posting = HTTParty::get(permalink)
+        posting = Faraday.get(permalink)
 
         parse(posting)
 
