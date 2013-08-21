@@ -33,6 +33,7 @@ module DiscussIt
       reddit_fetch = Fetcher::RedditFetch.new(query_string)
       hn_fetch     = Fetcher::HnFetch.new(query_string)
       slashdot_fetch = Fetcher::SlashdotFetch.new(query_string) if api_version >= 3
+
       @all_listings    = ListingCollection.new
 
       @all_listings.all = reddit_fetch.listings
@@ -45,7 +46,7 @@ module DiscussIt
       return @all_listings
     end
 
-    # returns a HASH of 1-per-site listings w/ highest score for each site
+    # returns an ARRAY of 1-per-site listings w/ highest score for each site
     def find_top
       return @all_listings.tops
     end

@@ -55,7 +55,7 @@ module DiscussIt
     # ABSTRACT ONLY, instantiated w/ HnListing and RedditListing
     #----------------------------------------------------------------------
     #
-    # TODO: try moving this below Reddit/HnListings and watch it explode
+    # FIXME: try moving this below Reddit/HnListings and watch it explode
     # WHAT?? does order now matter in Ruby
     #
     class BaseListing < Hashie::Mash
@@ -85,6 +85,10 @@ module DiscussIt
         return base_url + self["permalink"]
       end
 
+      def comment_count
+         return self["num_comments"]
+      end
+
       def score
         return self["score"] + self["num_comments"]
       end
@@ -107,6 +111,10 @@ module DiscussIt
 
       def location
         return base_url + self["id"].to_s
+      end
+
+      def comment_count
+         return self["num_comments"]
       end
 
       def score

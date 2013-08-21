@@ -36,8 +36,8 @@ module DiscussIt
           query_url = ensure_http(query_string)
 
           conn = Faraday.new(url: api_url + query_url) do |faraday|
-            faraday.response :logger                  # log requests to STDOUT
-            faraday.adapter  :typhoeus  # make requests with Net::HTTP
+            faraday.response :logger      # log requests to STDOUT
+            faraday.adapter  :typhoeus    # make requests with Typhoeus
             faraday.headers["User-Agent"] = "DiscussItAPI at github.com/discuss-it"
           end
 
