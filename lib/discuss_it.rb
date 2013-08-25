@@ -24,11 +24,24 @@ module DiscussIt
 
     attr_accessor :all_listings
 
-    # Defaults to newest API, beta version (v3 with slashdot)
+    # Public: pulls all API listings into local session
+    #
+    # query_string - URL to be searched across sites. Call string until
+    #                validity as URL is confirmed during Fetcher
+    #                initializer.
+    # api_version - Optional backwards compatible version number to avoid
+    #               unstable new features; i.e. v2 has no slashdot
+    #               results, v3 does. (default: 3)
+    #
+    # Examples
+    #
+    #   discuss_it = DiscussItApi.new('http://restorethefourth.net', 3)
+    #
+    # Returns nothing.
     def initialize(query_string, api_version=3)
 
       # FIXME: the VERSION_MINOR is super brittle, make better
-      api_version ||= DiscussIt::VERSION_MINOR
+      api_version ||= VERSION_MINOR
 
       reddit_fetch = Fetcher::RedditFetch.new(query_string)
       hn_fetch     = Fetcher::HnFetch.new(query_string)
@@ -41,12 +54,25 @@ module DiscussIt
       @all_listings.all += slashdot_fetch.listings if slashdot_fetch
     end
 
-    # returns a ListingCollection of all listing urls for each site
+    # Public: accessor to return all fetched listings.
+    #
+    # Examples
+    #
+    #   all_results = discuss_it.find_all
+    #
+    # returns a ListingCollection of all returned listings.
     def find_all
       return @all_listings
     end
 
-    # returns an ARRAY of 1-per-site listings w/ highest score for each site
+    # Public: accessor to return top listings of 1 result per site
+    # queried.  Top is currently a dead-simple score + comment_count.
+    #
+    # Examples
+    #
+    #   top_results = discuss_it.find_top
+    #
+    # returns an Array of 1 listing per site.
     def find_top
       return @all_listings.tops
     end

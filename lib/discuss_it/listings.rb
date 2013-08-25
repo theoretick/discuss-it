@@ -3,20 +3,22 @@ module DiscussIt
 
   #---------------------------------------------------------------------
   # collects listing objects and provides site and sort selectors
-  #
-  # tops() => sorts listings per site and returns 1 per site
-  #   EXAMPLE_TOPS_RESULTS = {
-  #         hn: <#HnListingx392032>
-  #     reddit: <#RedditListingx0322335>
-  #   slashdot: <#SlashdotListingx959584>
-  #   }
   #---------------------------------------------------------------------
   class ListingCollection
 
     # access ALL listings
     attr_accessor :all
 
-    # returns highest scoring single result per site
+    # Public: accessor to return top Listing instances in collection.
+    # Top results returns a maximum of 1 result per site on which query
+    # was found.
+    #
+    # Examples
+    #
+    #   top_results = @listing_collection.tops
+    #   # => top_results.length == 3
+    #
+    # Returns Array of 1-listing per site.
     def tops
       results = []
 
@@ -28,17 +30,20 @@ module DiscussIt
       return results.sort.reverse
     end
 
-    # returns array of all HnListing objects
+    # Private: accessor to return only HN listings
+    # Returns Array of all HnListing objects
     def hn
       all.select {|listing| listing.class == Listing::HnListing }
     end
 
-    # returns array of all RedditListing objects
+    # Private: accessor to return only Reddit listings
+    # Returns Array of all RedditListing objects
     def reddit
       all.select {|listing| listing.class == Listing::RedditListing }
     end
 
-    # returns array of all SlashdotListing objects
+    # Private: accessor to return only Slashdot listings
+    # Returns Array of all SlashdotListing objects
     def slashdot
       all.select {|listing| listing.class == Listing::SlashdotListing }
     end
@@ -50,14 +55,13 @@ module DiscussIt
 
     #----------------------------------------------------------------------
     # creates a Listing object from listing hash w/ sort & dot-notation
-    # accessors
+    # accessors.
     #
     # ABSTRACT ONLY, instantiated w/ HnListing and RedditListing
     #----------------------------------------------------------------------
     #
     # FIXME: try moving this below Reddit/HnListings and watch it explode
     # WHAT?? does order now matter in Ruby
-    #
     class BaseListing < Hashie::Mash
       # provides sort method
       include Comparable

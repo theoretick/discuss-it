@@ -13,13 +13,14 @@ class StaticPagesController < ApplicationController
       # checks for specific version number, 2 skips slashdot
       @api_version = 2 if params[:version] == '2'
 
-      @discussit = DiscussIt::DiscussItApi.new(@query_url, @api_version)
+      @discuss_it = DiscussIt::DiscussItApi.new(@query_url, @api_version)
 
-      @all_results = @discussit.find_all
-      @top_results = @discussit.find_top
+      @all_results = @discuss_it.find_all
+      @top_results = @discuss_it.find_top
 
       @hits = set_total_results
 
+      # provides nicely-formatted JSON return with hit count as first val
       respond_to do |format|
         format.html
         format.json {
