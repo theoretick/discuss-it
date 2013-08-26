@@ -1,0 +1,5 @@
+LOG:  database system was shut down at 2013-08-07 14:50:12 PDT
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+FATAL:  database "discussit_test" does not exist
+FATAL:  database "discussit_test" does not exist
