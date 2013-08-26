@@ -1,6 +1,4 @@
 source 'https://rubygems.org'
-ruby '2.0.0'
-#ruby "1.9.3", :engine => "rbx", :engine_version => "2.0.0.n199"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
@@ -23,7 +21,10 @@ gem 'cancan'
 
 group :development do
   gem 'better_errors'
-  gem 'jazz_hands'
+  gem 'pry-rails'
+  gem 'pry-doc', :require => false
+  gem 'pry-stack_explorer'
+  # save_and_open pages for integration testing
   gem 'launchy'
 end
 
