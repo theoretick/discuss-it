@@ -1,21 +1,23 @@
-%h1 Listing searches
+.hero-unit
+  %h1 Listing searches
 
-%table
-  %tr
-    %th Query url
-    %th User
-    %th
-    %th
-    %th
-
-  - @searches.each do |search|
+  %table
     %tr
-      %td= search.query_url
-      %td= search.user
-      %td= link_to 'Show', search
-      %td= link_to 'Edit', edit_search_path(search)
-      %td= link_to 'Destroy', search, :method => :delete, :data => { :confirm => 'Are you sure?' }
+      %th Query url
+      %th User
+      %th
+      %th
+      %th
 
-%br
+    - @searches.each do |search|
+      %tr
+        %td= search.query_url
+        %td
+          - search.users.all.each do |x|
+            = x.email
+        %td= link_to 'Show', search
+        / %td= link_to 'Destroy', search, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
-= link_to 'New Search', new_search_path
+  %br
+
+  / = link_to 'New Search', new_search_path

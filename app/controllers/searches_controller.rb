@@ -24,18 +24,26 @@ class SearchesController < ApplicationController
   # POST /searches
   # POST /searches.json
   def create
-    @search = Search.new(search_params)
 
-    @url = params[:query_url]
-    # respond_to do |format|
-    #   if @search.save
-    #     format.html { redirect_to submit_path, :url => @url }
-    #     # format.json { render action: 'show', status: :created, location: @search }
-    #   else
-    #     format.html { redirect_to submit_path, :url => @url }
-    #     # format.json { render json: @search.errors, status: :unprocessable_entity }
-    #   end
-    # end
+    user = current_user
+    user ||= User.new_guest
+
+    @url = params["search"]["query_url"]
+
+    # links search to user account
+    @search = Search.find_or_initialize_by(query_url: @url)
+    @search.users << user
+
+
+    respond_to do |format|
+      if @search.save!
+        format.html { redirect_to submit_path, :url => @url }
+        # format.json { render action: 'show', status: :created, location: @search }
+      else
+        format.html { redirect_to submit_path, :url => @url, notice: 'Search unable to be created!' }
+        # format.json { render json: @search.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # PATCH/PUT /searches/1
@@ -43,15 +51,15 @@ class SearchesController < ApplicationController
   def update
 
     @url = params[:query_url]
-    # respond_to do |format|
-    #   if @search.update(search_params)
-    #     format.html { redirect_to @search, notice: 'Search was successfully updated.' }
-    #     # format.json { head :no_content }
-    #   else
-    #     format.html { render action: 'edit' }
-    #     # format.json { render json: @search.errors, status: :unprocessable_entity }
-    #   end
-    # end
+    respond_to do |format|
+      if @search.update(search_params)
+        format.html { redirect_to @search, notice: 'Search was successfully updated.' }
+        # format.json { head :no_content }
+      else
+        format.html { render action: 'edit' }
+        # format.json { render json: @search.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
 
@@ -60,15 +68,15 @@ class SearchesController < ApplicationController
   def destroy
     @search.destroy
     respond_to do |format|
-      format.html { redirect_to searches_url }
-      format.json { head :no_content }
+      format.html { redirect_to searches_path }
+      # format.json { head :no_content }
     end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_search
-      @search = Search.find(params[:query_url])
+      @search = Search.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

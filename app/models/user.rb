@@ -7,4 +7,9 @@ class User < ActiveRecord::Base
          :token_authenticatable, :timeoutable #, :confirmable
 
   has_and_belongs_to_many :searches
+
+  def self.new_guest
+    new { |u| u.guest = true }
+  end
+
 end
