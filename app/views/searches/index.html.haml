@@ -1,21 +1,20 @@
-.hero-unit
+.wrapper
+
   %h1 Listing searches
 
-  %table
+  %table.table
     %tr
       %th Query url
-      %th User
-      %th
+      %th Users
       %th
       %th
 
     - @searches.each do |search|
       %tr
-        %td= search.query_url
+        %td= link_to search.query_url, search
         %td
           - search.users.all.each do |x|
             = x.email
-        %td= link_to 'Show', search
         / %td= link_to 'Destroy', search, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
   %br
