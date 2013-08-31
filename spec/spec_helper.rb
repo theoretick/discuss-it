@@ -1,5 +1,9 @@
 require 'simplecov'
+require 'coveralls'
+
+# code coverage stuff
 SimpleCov.start 'rails'
+Coveralls.wear!
 
 require 'rubygems'
 

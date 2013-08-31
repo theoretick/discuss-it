@@ -13,6 +13,7 @@ gem 'hashie'
 
 gem 'newrelic_rpm'
 
+gem 'coveralls', require: false
 gem 'whenever'
 
 # for user accounts and authentication
