@@ -3,7 +3,7 @@ require 'coveralls'
 
 # code coverage stuff
 SimpleCov.start 'rails'
-Coveralls.wear!
+Coveralls.wear! 'rails'
 
 require 'rubygems'
 
