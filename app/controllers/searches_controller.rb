@@ -1,5 +1,5 @@
 class SearchesController < ApplicationController
-  before_action :set_search, only: [:update, :destroy]
+  before_action :set_search, only: [:show, :update, :destroy]
 
   # GET /searches
   # GET /searches.json
@@ -9,8 +9,8 @@ class SearchesController < ApplicationController
 
   # GET /searches/1
   # GET /searches/1.json
-  # def show
-  # end
+  def show
+  end
 
   # # GET /searches/new
   def new
@@ -81,6 +81,6 @@ class SearchesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def search_params
-      params.permit(:query_url, :user_id)
+      params.require(:search).permit(:query_url, :user_id)
     end
 end
