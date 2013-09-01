@@ -39,8 +39,9 @@ Want to use our app for easy searching?
 
 Discuss It results can be conveniently accessed with a JSON request to our submit
 page:
-```http://discussitapp.com/submit.json?url=http://merbist.com/2011/02/22/concurrency-in-ruby-explained/```
-
+```
+http://discussitapp.com/submit.json?url=http://merbist.com/2011/02/22/concurrency-in-ruby-explained/
+```
 
 ## Bookmarklet
 
