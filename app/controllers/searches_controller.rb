@@ -1,5 +1,6 @@
 class SearchesController < ApplicationController
   before_action :set_search, only: [:show, :update, :destroy]
+  load_and_authorize_resource
 
   # GET /searches
   # GET /searches.json
@@ -34,15 +35,11 @@ class SearchesController < ApplicationController
     @search = Search.find_or_initialize_by(query_url: @url)
     @search.users << user
 
-    puts '$$$$$' + @url.to_s
-
     respond_to do |format|
       if @search.save!
         format.html { redirect_to submit_path :url => @url }
-        # format.json { render action: 'show', status: :created, location: @search }
       else
         format.html { redirect_to submit_path :url => @url, notice: 'Search unable to be created!' }
-        # format.json { render json: @search.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -55,10 +52,8 @@ class SearchesController < ApplicationController
     respond_to do |format|
       if @search.update(search_params)
         format.html { redirect_to @search, notice: 'Search was successfully updated.' }
-        # format.json { head :no_content }
       else
         format.html { render action: 'edit' }
-        # format.json { render json: @search.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -70,7 +65,6 @@ class SearchesController < ApplicationController
     @search.destroy
     respond_to do |format|
       format.html { redirect_to searches_path }
-      # format.json { head :no_content }
     end
   end
 

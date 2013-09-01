@@ -1,18 +1,22 @@
 .hero-unit
   %h2 Sign up
+  .small
+    Want to know what sites you end up on the most? Want fun metrics later?
+  %br
+    Sign up and we'll make it happen
+
   = form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
     = devise_error_messages!
     %div
       = f.label :email
-      %br/
       = f.email_field :email, :autofocus => true
     %div
       = f.label :password
-      %br/
       = f.password_field :password
     %div
       = f.label :password_confirmation
-      %br/
       = f.password_field :password_confirmation
-    %div= f.submit "Sign up"
+    %div
+      = f.submit "Sign up"
+
   = render "devise/shared/links"

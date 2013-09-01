@@ -13,4 +13,8 @@ class ApplicationController < ActionController::Base
     request.referrer
   end
 
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to :root, :flash => { :alert => exception.message }
+  end
+
 end

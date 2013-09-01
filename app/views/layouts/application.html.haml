@@ -32,7 +32,12 @@
           = link_to "Discuss It", root_path, class:"brand"
           .container-fluid
             %ul.nav
-              %li= link_to "About", about_path
+              %li
+                - if can? :manage, @searches
+                  = link_to "[Searches]", searches_path
+              %li
+                = link_to "About", about_path
+
             %ul.nav.pull-right.signin-navbar
               - if current_user
                 %li

@@ -7,21 +7,12 @@
   %h1 Discuss It!
   %p Online discussion tracker for finding conversations
   .row-fluid
-    /.controls
-    /  = form_tag submit_path do
-    /    = label_tag(:url, "Paste Here:")
-    /    %input{:name => "url", :placeholder => "http://example.com/article.html", :autofocus => "autofocus", :type => "text", :required => true}
-    /    = submit_tag("Search", :class => "btn btn-primary btn-large")
-    /    = submit_tag("Beta-Search", :class => "btn-warning btn-small")
-
     = form_for Search.new do |f|
       .field
         = f.label :query_url, "Paste Here:"
         = f.text_field :query_url, id: "search-field", placeholder: "http://example.com/article.html", autofocus: "autofocus", required: true
         = f.submit "Search", class: "btn btn-primary"
-        = f.submit "Beta", class: "btn btn-warning btn-small"
-
-
+        /= f.submit "Beta", class: "btn btn-warning btn-small"
 
   .row-fluid
     %h6 Suggested Searches
