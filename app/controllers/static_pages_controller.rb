@@ -8,6 +8,7 @@ class StaticPagesController < ApplicationController
 
   def submit
     begin
+
       @query_url = params[:url]
 
       # checks for specific version number, 2 skips slashdot

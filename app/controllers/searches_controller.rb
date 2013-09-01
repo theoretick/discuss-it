@@ -34,13 +34,14 @@ class SearchesController < ApplicationController
     @search = Search.find_or_initialize_by(query_url: @url)
     @search.users << user
 
+    puts '$$$$$' + @url.to_s
 
     respond_to do |format|
       if @search.save!
-        format.html { redirect_to submit_path, :url => @url }
+        format.html { redirect_to submit_path :url => @url }
         # format.json { render action: 'show', status: :created, location: @search }
       else
-        format.html { redirect_to submit_path, :url => @url, notice: 'Search unable to be created!' }
+        format.html { redirect_to submit_path :url => @url, notice: 'Search unable to be created!' }
         # format.json { render json: @search.errors, status: :unprocessable_entity }
       end
     end

@@ -33,16 +33,16 @@
           .container-fluid
             %ul.nav
               %li= link_to "About", about_path
-            /%ul.nav.pull-right.signin-navbar
-            /  - if current_user
-            /    %li
-            /      %strong= current_user.email
-            /    = link_to "Edit", edit_user_registration_path
-            /    |
-            /    = link_to "Log Out", destroy_user_session_path
-            /  - else
-            /    %li
-            /      = link_to "Log In", user_session_path
+            %ul.nav.pull-right.signin-navbar
+              - if current_user
+                %li
+                  %strong= current_user.email
+                = link_to "Edit", edit_user_registration_path
+                |
+                = link_to "Log Out", destroy_user_session_path
+              - else
+                %li
+                  = link_to "Log In", user_session_path
     .container-fluid
       %br
       .row-fluid
