@@ -1,5 +1,7 @@
 class SearchesController < ApplicationController
-  before_action :set_search, only: [:show, :update, :destroy]
+  # FIXME: workaround for CanCan in Rails4
+  # before_action :set_search, only: [:show, :update, :destroy]
+  before_action :load_search, only: [:create, :show, :update, :destroy]
   load_and_authorize_resource
 
   # GET /searches
@@ -69,13 +71,20 @@ class SearchesController < ApplicationController
   end
 
   private
+
+    # FIXME: workaround for CanCan in Rails4
     # Use callbacks to share common setup or constraints between actions.
-    def set_search
-      @search = Search.find(params[:id])
+    # def set_search
+    #   @search = Search.find(params[:id])
+    # end
+
+    # FIXME: workaround for CanCan in Rails4
+    def load_search
+      @search = Search.new(search_params)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def search_params
-      params.require(:search).permit(:query_url, :user_id)
+      params.require(:search).permit(:search, :commit, :query_url, :user_id)
     end
 end
