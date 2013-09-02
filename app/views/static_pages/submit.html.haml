@@ -25,25 +25,45 @@
                 %td
                   = listing.site
                   - if listing.site == 'Reddit'
+                    %p
+                      = "/r/#{listing.subreddit}"
+                  .ratings
                     %br
-                    = "/r/#{listing.subreddit}"
+                    %p.rating-score-box
+                      - if listing.site == "Slashdot"
+                        = '0'
+                      - else
+                        = listing.score
+                    %p.rating-comment-box
+                      = listing.comment_count
                 %td.url-friendly
                   =  link_to listing.title, listing.location
+
     %br
+
     #all-results
       %h3 ALL DISCUSSIONS
-      - if @all_results.all.empty?
+      - if @all_results.empty?
         %p
           No additional results found
       - else
         %table.table
-          - @all_results.all.each do |listing|
+          - @all_results.each do |listing|
             %tr
               %td
                 = listing.site
                 - if listing.site == 'Reddit'
+                  %p
+                    = "/r/#{listing.subreddit}"
+                .ratings
                   %br
-                  = "/r/#{listing.subreddit}"
+                  %p.rating-score-box
+                    - if listing.site == "Slashdot"
+                      = '0'
+                    - else
+                      = listing.score
+                  %p.rating-comment-box
+                    = listing.comment_count
               %td.url-friendly
                 =  link_to listing.title, listing.location
 

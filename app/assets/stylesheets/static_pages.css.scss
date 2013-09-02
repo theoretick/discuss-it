@@ -33,3 +33,40 @@ footer {
   word-break: break-word; /* this is for IE or something weird */
   hyphens: auto;
 }
+
+*[class|="rating"] {
+  position:relative;
+  display: inline-block;
+  text-align: center;
+  margin: auto;
+  clear: both;
+}
+
+.rating-score-box {
+  width: 42%;
+  padding:5% 0%;
+  -webkit-border-radius:10px;
+     -moz-border-radius:10px;
+          border-radius: 30% 0% 0% 30%;
+  background:#f3961c; /* default background for browsers without gradient support */
+  /* css3 */
+  background:-webkit-gradient(linear, 0 0, 0 100%, from(#f9d835), to(#f3961c));
+  background:-moz-linear-gradient(#f9d835, #f3961c);
+  background:-o-linear-gradient(#f9d835, #f3961c);
+  background:linear-gradient(#f9d835, #f3961c);
+}
+
+.rating-comment-box {
+  width: 42%;
+  padding:5% 0%;
+  /* the border will curve into a 'D' */
+  -webkit-border-radius:10px;
+     -moz-border-radius:10px;
+          border-radius: 0% 30% 30% 0%;
+  background: lightblue; /* default background for browsers without gradient support */
+  /* css3 */
+  background:-webkit-gradient(linear, 0 0, 0 100%, from(lightblue), to(deepskyblue));
+  background:-moz-linear-gradient(lightblue, deepskyblue);
+  background:-o-linear-gradient(lightblue, deepskyblue);
+  background:linear-gradient(lightblue, deepskyblue);
+}
