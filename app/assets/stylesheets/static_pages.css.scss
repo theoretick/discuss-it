@@ -34,6 +34,12 @@ footer {
   hyphens: auto;
 }
 
+/* api-status css for index */
+*[class|="api-status"] {
+  visibility: hidden;
+}
+
+/* Display for rating boxes (score and comments) on submit page*/
 *[class|="rating"] {
   position:relative;
   display: inline-block;
