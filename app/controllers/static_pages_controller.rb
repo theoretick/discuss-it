@@ -6,6 +6,10 @@ class StaticPagesController < ApplicationController
   def about
   end
 
+  # developer page for api info
+  def developer
+  end
+
   def submit
     begin
 

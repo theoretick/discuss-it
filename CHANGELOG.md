@@ -1,3 +1,13 @@
+## 0.5.0 (2013-09-02)
+
+* added developer portal at ```http://discussitapp.com/api```
+* added user accounts!
+* added persistent searches (linked to user if signed in)
+* displays comment_count and score on submit page now
+* JSON return on submit page now has better sectioning w/ hit_count on each
+* many minor bugfixes
+* many minor code cleaning tweaks
+
 ## 0.4.9 (2013-08-18)
 
 * changed DiscussIt API calls to Faraday+Typhoes, in prep for parallelism

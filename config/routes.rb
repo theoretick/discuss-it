@@ -10,7 +10,9 @@ DiscussIt::Application.routes.draw do
   post 'submit' => 'static_pages#submit'
   get 'submit' => 'static_pages#submit'
 
-  resources :static_pages, only: [:index, :about, :submit]
+  get 'api' => 'static_pages#developer'
+
+  resources :static_pages, only: [:index, :about, :submit, :developer]
 
   get 'slashdot_postings/search' => 'slashdot_postings#find_by_url'
 

@@ -10,7 +10,7 @@ body {
 }
 
 p.suggested {
-  font-size: 80%;
+  font-size: 100%;
   line-height: 110%;
 }
 
@@ -22,4 +22,17 @@ p.suggested {
   -webkit-border-radius: 6px;
      -moz-border-radius: 6px;
           border-radius: 6px;
+}
+
+h4 {
+  color: #15B28A;
+}
+
+nav > li {
+  vertical-align: middle;
+}
+
+#devlink {
+  font-size: 90%;
+  color: #15B28A;
 }

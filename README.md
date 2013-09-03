@@ -1,9 +1,10 @@
 # Discuss-it
 #### Online link discussion tracker
 
-## Version 0.4.8
+## Version 0.5
 
 [![Code Climate](https://codeclimate.com/github/theoretick/discuss-it.png)](https://codeclimate.com/github/theoretick/discuss-it)
+[![Build Status](https://travis-ci.org/theoretick/discuss-it.png?branch=master)](https://travis-ci.org/theoretick/discuss-it)
 
 Website for locating online discussions about a given article on Reddit, Hacker News, and Slashdot.
 
@@ -11,36 +12,38 @@ Currently hosted at: [discuss-it.herokuapp.com](https://discuss-it.herokuapp.com
 
 ## Features
 
-Version 0.4.0 of Discuss-it takes a URL you think may have interesting
-discussion somewhere on the internet and queries across a number of link
-aggregators with comment systems.
+Version 0.5 of Discuss-it takes a URL you think may have interesting
+discussion online and queries across a number of discussion hubs.
 
-After submitting your URL we return a page with links. The links we return take you directly to the comments page of the article in question so that you can begin talking about the link you searched for immediately.
+After submitting your URL we return a page of discussions. The links
+take you directly to the comments page of the article in question so that
+you can begin talking about the url you searched for immediately.
 
 Current list of queried sites:
 * __Hacker News__
 * __Reddit__
 * __Slashdot__
 
-The returned search results include the top search result as sorted by
-upvotes/points for each queried site followed by a list of all returned
-results below it ordered by the same criteria.
+The returned results include the top discussions as sorted by upvotes/points
+for each queried site followed by all discussions found.
 
 The API call is source agnostic and converts results from each site
 into similar listing objects that can be manipulated and sorted easily.
 
 Slashdot does not have an API so results from Slashdot are aggregated
-by our own API which scrapes the most recent postings and stores them
-as listing objects in a database.
+by our custom API which scrapes the most recent postings and stores them
+as listings in a database.
 
-## API
+## Open Developer API
+
+__See more info on our [Developer Portal](http://discussitapp.com/api)__
 
 Want to use our app for easy searching?
 
-Discuss It results can be conveniently accessed with a JSON request to our submit
-page:
+Discuss It results can be conveniently accessed with a JSON request to our
+submit page:
 ```
-http://discussitapp.com/submit.json?url=http://merbist.com/2011/02/22/concurrency-in-ruby-explained/
+http://discussitapp.com/submit.json?url=http://example.com/
 ```
 
 ## Bookmarklet

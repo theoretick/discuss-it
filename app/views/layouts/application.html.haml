@@ -36,9 +36,11 @@
                 - if can? :manage, @searches
                   = link_to "[Searches]", searches_path
               %li
-                = link_to "About", about_path
+                = link_to "About Us", about_path
 
             %ul.nav.pull-right.signin-navbar
+              %li#devlink
+                = link_to "[Developers]", api_path
               - if current_user
                 %li
                   %strong= current_user.email

@@ -1,0 +1,240 @@
+.wrapper
+
+  .row-fluid
+
+    .span8-offset2
+
+      %h1
+        Developer Portal
+
+      %h4
+        Want to use our service for your own app?  We provide an open
+        API for searchability
+
+      %br
+
+      %p
+        We provide an open API for anyone to use.  If you want to query Discuss It
+        for any aggregate searches just ping our submit page directly by
+        specifying JSON, as seen below:
+
+      %p
+        %pre
+          http://discussitapp.com/submit.json?url=http://example.com/foo-bar/
+
+      %hr
+
+      %h3
+        API Options
+
+
+      %p
+        We also support a number of optional parameters.
+        %strong
+          Defaults marked with [*]:
+
+        %ul
+          %li
+            %code
+              [FUTURE] top - (all*|one)
+            \- returns ONLY the top results, one per site
+          %li
+            %code
+              [FUTURE] all - (true*|false)
+            \- returns ONLY all raw results (no separate 'top' block)
+          %li
+            %code
+              [FUTURE] sort - (total*|comment|score)
+            \- specify sorting method as comment_count only, score only, or our own aggregate score algorithm (total).
+          %li
+            %code
+              result_type - (both*|top|all)
+            \- specify the type of results returned, top results, all results, or both
+          %li
+            %code
+              version - (3*|2|1)
+            \- Our app defaults to the newest feature set, however we currently support any prior versions for backwards compatibility;
+          i.e. version=2 will return no slashdot results.
+
+        %hr
+
+        %h3
+          Example Usage
+
+        %pre
+          http://discussitapp.com/submit.json?sort=comment&version=2&top=true&url=http://merbist.com/2011/02/22/concurrency-in-ruby-explained/
+
+        %h3 Example Response
+
+        %pre
+          = preserve do
+            :escaped
+              {
+                 "total_hits": 5,
+                "top_results": {
+                         "hits": 2,
+                      "results": [
+                        {
+                          "username": "LiveTheDream",
+                          "parent_sigid": null,
+                          "domain": "merbist.com",
+                          "title": "Ruby concurrency explainined simply",
+                          "url": "http://merbist.com/2011/02/22/concurrency-in-ruby-explained/",
+                          "text": null,
+                          "discussion": null,
+                          "id": 2253344,
+                          "parent_id": null,
+                          "points": 16,
+                          "create_ts": "2011-02-23T06:42:32Z",
+                          "num_comments": 26,
+                          "cache_ts": "2011-02-23T20:13:19Z",
+                          "_id": "2253344-18778",
+                          "type": "submission",
+                          "_noindex": false,
+                          "_update_ts": 1307521236452810
+                        },
+                        {
+                          "domain": "merbist.com",
+                          "banned_by": null,
+                          "media_embed": {},
+                          "subreddit": "ruby",
+                          "selftext_html": null,
+                          "selftext": "",
+                          "likes": null,
+                          "saved": false,
+                          "id": "fqvej",
+                          "clicked": false,
+                          "stickied": false,
+                          "author": "matt_aimonetti",
+                          "media": null,
+                          "score": 32,
+                          "approved_by": null,
+                          "over_18": false,
+                          "hidden": false,
+                          "thumbnail": "",
+                          "subreddit_id": "t5_2qh21",
+                          "edited": false,
+                          "link_flair_css_class": null,
+                          "author_flair_css_class": null,
+                          "downs": 0,
+                          "is_self": false,
+                          "permalink": "/r/ruby/comments/fqvej/ruby_concurrency_explained/",
+                          "name": "t3_fqvej",
+                          "created": 1298443227,
+                          "url": "http://merbist.com/2011/02/22/concurrency-in-ruby-explained/",
+                          "author_flair_text": null,
+                          "title": "Ruby concurrency explained",
+                          "created_utc": 1298443227,
+                          "link_flair_text": null,
+                          "ups": 32,
+                          "num_comments": 1,
+                          "num_reports": null,
+                          "distinguished": null
+                        }
+                      ]
+                  },
+                  "all_results": {
+                           "hits": 3,
+                        "results": [
+                          {
+                            "domain": "merbist.com",
+                            "banned_by": null,
+                            "media_embed": {},
+                            "subreddit": "ruby",
+                            "selftext_html": null,
+                            "selftext": "",
+                            "likes": null,
+                            "saved": false,
+                            "id": "fqvej",
+                            "clicked": false,
+                            "stickied": false,
+                            "author": "matt_aimonetti",
+                            "media": null,
+                            "score": 32,
+                            "approved_by": null,
+                            "over_18": false,
+                            "hidden": false,
+                            "thumbnail": "",
+                            "subreddit_id": "t5_2qh21",
+                            "edited": false,
+                            "link_flair_css_class": null,
+                            "author_flair_css_class": null,
+                            "downs": 0,
+                            "is_self": false,
+                            "permalink": "/r/ruby/comments/fqvej/ruby_concurrency_explained/",
+                            "name": "t3_fqvej",
+                            "created": 1298443227,
+                            "url": "http://merbist.com/2011/02/22/concurrency-in-ruby-explained/",
+                            "author_flair_text": null,
+                            "title": "Ruby concurrency explained",
+                            "created_utc": 1298443227,
+                            "link_flair_text": null,
+                            "ups": 32,
+                            "num_comments": 1,
+                            "num_reports": null,
+                            "distinguished": null
+                          },
+                          {
+                            "domain": "merbist.com",
+                            "banned_by": null,
+                            "media_embed": {},
+                            "subreddit": "programming",
+                            "selftext_html": null,
+                            "selftext": "",
+                            "likes": null,
+                            "saved": false,
+                            "id": "fqvez",
+                            "clicked": false,
+                            "stickied": false,
+                            "author": "matt_aimonetti",
+                            "media": null,
+                            "score": 2,
+                            "approved_by": null,
+                            "over_18": false,
+                            "hidden": false,
+                            "thumbnail": "",
+                            "subreddit_id": "t5_2fwo",
+                            "edited": false,
+                            "link_flair_css_class": null,
+                            "author_flair_css_class": null,
+                            "downs": 0,
+                            "is_self": false,
+                            "permalink": "/r/programming/comments/fqvez/ruby_concurrency_explained/",
+                            "name": "t3_fqvez",
+                            "created": 1298443287,
+                            "url": "http://merbist.com/2011/02/22/concurrency-in-ruby-explained/",
+                            "author_flair_text": null,
+                            "title": "Ruby concurrency explained",
+                            "created_utc": 1298443287,
+                            "link_flair_text": null,
+                            "ups": 2,
+                            "num_comments": 0,
+                            "num_reports": null,
+                            "distinguished": null
+                          },
+                          {
+                            "username": "LiveTheDream",
+                            "parent_sigid": null,
+                            "domain": "merbist.com",
+                            "title": "Ruby concurrency explainined simply",
+                            "url": "http://merbist.com/2011/02/22/concurrency-in-ruby-explained/",
+                            "text": null,
+                            "discussion": null,
+                            "id": 2253344,
+                            "parent_id": null,
+                            "points": 16,
+                            "create_ts": "2011-02-23T06:42:32Z",
+                            "num_comments": 26,
+                            "cache_ts": "2011-02-23T20:13:19Z",
+                            "_id": "2253344-18778",
+                            "type": "submission",
+                            "_noindex": false,
+                            "_update_ts": 1307521236452810
+                          }
+                      ]
+                    }
+                }
+
+
+
+
