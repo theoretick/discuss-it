@@ -30,26 +30,28 @@
       .navbar-inner
         .container-fluid
           = link_to "Discuss It", root_path, class:"brand"
-          .container-fluid
-            %ul.nav
-              %li
-                - if can? :manage, @searches
-                  = link_to "[Searches]", searches_path
-              %li
-                = link_to "About Us", about_path
+          %ul.nav
+            %li
+              / if logged in as admin, displays [Searches] tab
+              - if can? :manage, @searches
+                = link_to "[Searches]", searches_path
+            %li
+              = link_to "About Us", about_path
 
-            %ul.nav.pull-right.signin-navbar
-              %li#devlink
-                = link_to "[Developers]", api_path
-              - if current_user
-                %li
-                  %strong= current_user.email
+          %ul.nav.pull-right.signin-navbar
+            %li#devlink
+              = link_to "[Developers]", api_path
+            - if current_user
+              %li
+                = current_user.email
+              %br
+              %p.pull-right
                 = link_to "Edit", edit_user_registration_path
                 |
                 = link_to "Log Out", destroy_user_session_path
-              - else
-                %li
-                  = link_to "Log In", user_session_path
+            - else
+              %li
+                = link_to "Log In", user_session_path
     .container-fluid
       %br
       .row-fluid
