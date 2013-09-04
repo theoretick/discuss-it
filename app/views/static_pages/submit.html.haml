@@ -12,15 +12,61 @@
       = link_to @query_url, @query_url
 
     #top-results
+
       %h3 TOP DISCUSSIONS
+
       - if @top_results.empty?
         %p
           Sorry, no discussions found.
           = link_to 'Try again?', root_path
+
       - else
         %table.table
-          - @top_results.each do |listing|
-            - unless listing.nil?
+          %thead
+            %tr
+              %th.listingmetadata
+              %th.listinglink
+
+          %tbody
+            - @top_results.each do |listing|
+              - unless listing.nil?
+                %tr
+                  %td
+                    = listing.site
+                    - if listing.site == 'Reddit'
+                      %p
+                        = "/r/#{listing.subreddit}"
+                    .ratings
+                      %br
+                      %p.rating-score-box
+                        - if listing.site == "Slashdot"
+                          = '0'
+                        - else
+                          = listing.score
+                      %p.rating-comment-box
+                        = listing.comment_count
+                  %td.url-friendly
+                    =  link_to listing.title, listing.location
+
+    %br
+
+    #all-results
+
+      %h3 ALL DISCUSSIONS
+
+      - if @all_results.empty?
+        %p
+          No additional results found
+
+      - else
+        %table.table
+          %thead
+            %tr
+              %th.listingmetadata
+              %th.listinglink
+
+          %tbody
+            - @all_results.each do |listing|
               %tr
                 %td
                   = listing.site
@@ -38,32 +84,4 @@
                       = listing.comment_count
                 %td.url-friendly
                   =  link_to listing.title, listing.location
-
-    %br
-
-    #all-results
-      %h3 ALL DISCUSSIONS
-      - if @all_results.empty?
-        %p
-          No additional results found
-      - else
-        %table.table
-          - @all_results.each do |listing|
-            %tr
-              %td
-                = listing.site
-                - if listing.site == 'Reddit'
-                  %p
-                    = "/r/#{listing.subreddit}"
-                .ratings
-                  %br
-                  %p.rating-score-box
-                    - if listing.site == "Slashdot"
-                      = '0'
-                    - else
-                      = listing.score
-                  %p.rating-comment-box
-                    = listing.comment_count
-              %td.url-friendly
-                =  link_to listing.title, listing.location
 
