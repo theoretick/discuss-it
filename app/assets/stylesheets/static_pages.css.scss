@@ -3,17 +3,10 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 
-/* index page */
+/**********************************************
+ * Index page
+ **********************************************/
 
-/* no decoration on brand link 'discuss it' */
-a.brand {
-  text-decoration: none;
-}
-
-/* centers 'about' link on navbar */
-.nav > li {
-  margin-top: 4%;
-}
 
 /* centers and sizes text search box on index */
 #search-field {
@@ -21,11 +14,25 @@ a.brand {
   width: 70%;
 }
 
-footer {
-  background: none;
+/* api-statuses to display if they are online */
+.api-statuses {
+  visibility: hidden;
 }
 
-/* submit page */
+
+/**********************************************
+ * Submit page
+ **********************************************/
+
+
+/* Headings for submit table */
+.listingmetadata {
+  width: 30%;
+}
+
+.listinglink {
+
+}
 
 /*  helps format submit page so urls wrap and dont get ugly */
 .url-friendly {
@@ -34,45 +41,41 @@ footer {
   hyphens: auto;
 }
 
-/* api-status css for index */
-*[class|="api-status"] {
-  visibility: hidden;
-}
-
 /* Display for rating boxes (score and comments) on submit page*/
-*[class|="rating"] {
+p[class|="rating"] {
   position:relative;
   display: inline-block;
   text-align: center;
-  margin: auto;
-  clear: both;
+  margin: 0;
+  max-width: 20%;
+  font-size: 80%;
 }
 
 .rating-score-box {
   width: 42%;
-  padding:5% 0%;
-  -webkit-border-radius:10px;
-     -moz-border-radius:10px;
-          border-radius: 30% 0% 0% 30%;
-  background:#f3961c; /* default background for browsers without gradient support */
+  padding: 2% 0;
+  -webkit-border-radius: 30% 0 0 30%;
+     -moz-border-radius: 30% 0 0 30%;
+          border-radius: 30% 0 0 30%;
+  background: #f3961c; /* default background for browsers without gradient support */
   /* css3 */
-  background:-webkit-gradient(linear, 0 0, 0 100%, from(#f9d835), to(#f3961c));
-  background:-moz-linear-gradient(#f9d835, #f3961c);
-  background:-o-linear-gradient(#f9d835, #f3961c);
-  background:linear-gradient(#f9d835, #f3961c);
+  background:     -webkit-gradient(linear, 0 0, 0 100%, from(#f9d835), to(#f3961c));
+  background: -moz-linear-gradient(#f9d835, #f3961c);
+  background:   -o-linear-gradient(#f9d835, #f3961c);
+  background:      linear-gradient(#f9d835, #f3961c);
 }
 
 .rating-comment-box {
   width: 42%;
-  padding:5% 0%;
+  padding: 2% 0;
   /* the border will curve into a 'D' */
-  -webkit-border-radius:10px;
-     -moz-border-radius:10px;
-          border-radius: 0% 30% 30% 0%;
+  -webkit-border-radius: 0 30% 30% 0;
+     -moz-border-radius: 0 30% 30% 0;
+          border-radius: 0 30% 30% 0;
   background: lightblue; /* default background for browsers without gradient support */
   /* css3 */
-  background:-webkit-gradient(linear, 0 0, 0 100%, from(lightblue), to(deepskyblue));
-  background:-moz-linear-gradient(lightblue, deepskyblue);
-  background:-o-linear-gradient(lightblue, deepskyblue);
-  background:linear-gradient(lightblue, deepskyblue);
+  background:     -webkit-gradient(linear, 0 0, 0 100%, from(lightblue), to(deepskyblue));
+  background: -moz-linear-gradient(lightblue, deepskyblue);
+  background:   -o-linear-gradient(lightblue, deepskyblue);
+  background:      linear-gradient(lightblue, deepskyblue);
 }

@@ -9,11 +9,6 @@ body {
   font-family: Futura, Lato, sans-serif;
 }
 
-p.suggested {
-  font-size: 100%;
-  line-height: 110%;
-}
-
 .wrapper {
   background-color: #eeeeee;
   padding: 2%;
@@ -28,8 +23,35 @@ h4 {
   color: #15B28A;
 }
 
+/**********************************************
+ * Navbar and Footer
+ **********************************************/
+
+/* no decoration on brand link 'discuss it' */
+a.brand {
+  text-decoration: none;
+}
+
+/* centers 'about' link on navbar */
+.nav > li {
+  margin-top: 4%;
+}
+
+footer {
+  background: none;
+}
+
 nav > li {
   vertical-align: middle;
+}
+
+/**********************************************
+ * General formatting
+ **********************************************/
+
+p.suggested {
+  font-size: 100%;
+  line-height: 110%;
 }
 
 #devlink {
