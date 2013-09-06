@@ -5,19 +5,17 @@
 # each has_many of the other. Validates presence of permalink/target_url
 # and uniqueness.
 #
-# part of DiscussIt project
-#
-# http://github.com/theoretick/discussit
+# http://github.com/theoretick/slashdot_api
 #----------------------------------------------------------------------
 require 'nokogiri'
 
-class SlashdotApi
 #----------------------------------------------------------------------
 # GET req slashdot archive page
 # GET permalinks to recent slashdot stories
 # finds or creates SlashdotPosting objects from permalinks
 # finds or creates Url objects from each permalink-body's anchors
 #----------------------------------------------------------------------
+class SlashdotApi
 
   def get_postings(timeframe='w')
 
@@ -38,11 +36,10 @@ class SlashdotApi
     parent_body_anchors = []
     archived_postings.each { |anchor| parent_body_anchors << anchor.attribute("href").to_s }
 
-    # go through each posting on archive page, traverse HTML,
-    # and create SlashdotPosting instance
+    # Iterate through each posting on archive page to create SlashdotPosting instance
     parent_body_anchors.each_with_index do |anchor, index|
-      permalink = 'http:' + anchor
       posting_urls = []
+      permalink = 'http:' + anchor
 
       # find/init SlashdotPosting.new instance from each posting_url
       s = SlashdotPosting.find_by(permalink: permalink)
@@ -87,8 +84,11 @@ class SlashdotApi
     end # end of parent_body_anchors block
   end
 
+  # Private: parses @document with nokogiri if not already parsed
+  #
+  # returns a Nokogiri::HTML::Object from HTML object
   def parse(posting)
-    @document = Nokogiri::HTML(posting)
+    @document ||= Nokogiri::HTML(posting)
   end
 
   def title
