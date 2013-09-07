@@ -1,7 +1,8 @@
 
 ## 0.5.1 (2013-09-06)
 
-* slashdot_api date now pre-parsed, still a string
+* Removed slashdot_api references from discuss-it codebase. Now
+  fully-separate app (github.com/theoretick/slashdot-api)
 
 ## 0.5.0 (2013-09-02)
 
