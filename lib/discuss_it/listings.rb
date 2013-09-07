@@ -67,7 +67,7 @@ module DiscussIt
       include Comparable
 
       def <=>(a)
-        return self.score <=> a.score
+        return self.ranking <=> a.ranking
       end
 
     end
@@ -94,7 +94,13 @@ module DiscussIt
       end
 
       def score
-        return self["score"] + self["num_comments"]
+        return self["score"]
+      end
+
+      # for custom ranking algorithm
+      def ranking
+      #   return self["score"] + ( subreddit_subscribers(self["subreddit"]) + self["num_comments"] )
+        return score + comment_count
       end
 
     end
@@ -122,7 +128,12 @@ module DiscussIt
       end
 
       def score
-        return self["points"] + self["num_comments"]
+        return self["points"]
+      end
+
+      # for custom ranking algorithm
+      def ranking
+        return score + comment_count
       end
 
     end
@@ -142,8 +153,18 @@ module DiscussIt
       end
 
       # TODO: future-proof if we want to integrate comment_count globally
-      def score
+      def comment_count
         return self["comment_count"]
+      end
+
+      # TODO: future-proof if we want to integrate comment_count globally
+      def score
+        return 0
+      end
+
+      # for custom ranking algorithm
+      def ranking
+        return comment_count
       end
 
     end

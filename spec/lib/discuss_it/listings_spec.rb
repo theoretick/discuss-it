@@ -33,8 +33,8 @@ describe "DiscussIt" do
           expect(@reddit_listing.location).to eq('http://www.reddit.com/r/technology/comments/1j8h6p/edavid_a_robotic_system_built_by_researchers_at/')
         end
 
-        it "should have a score accessor on RedditListing" do
-          expect(@reddit_listing.score).to eq(3)
+        it "should have a ranking accessor on RedditListing" do
+          expect(@reddit_listing.ranking).to eq(3)
         end
 
         it "should have a subreddit accessor on RedditListing" do
@@ -45,16 +45,16 @@ describe "DiscussIt" do
           expect(@hn_listing.location).to eq('http://news.ycombinator.com/item?id=6118451')
         end
 
-        it "should have a score accessor on HnListing" do
-          expect(@hn_listing.score).to eq(2)
+        it "should have a ranking accessor on HnListing" do
+          expect(@hn_listing.ranking).to eq(2)
         end
 
         it "should have a location accessor on SlashdotListing" do
           expect(@slashdot_listing.location).to eq('http://hardware.slashdot.org/story/13/07/28/2056210/robot-produces-paintings-with-that-imperfect-human-look')
         end
 
-        it "should have a score accessor on SlashdotListing" do
-          expect(@slashdot_listing.score).to eq(74)
+        it "should have a ranking accessor on SlashdotListing" do
+          expect(@slashdot_listing.ranking).to eq(74)
         end
 
       end
