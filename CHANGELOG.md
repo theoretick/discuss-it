@@ -1,3 +1,8 @@
+
+## 0.5.1 (2013-09-06)
+
+* slashdot_api date now pre-parsed, still a string
+
 ## 0.5.0 (2013-09-02)
 
 * added developer portal at ```http://discussitapp.com/api```

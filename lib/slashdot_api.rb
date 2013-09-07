@@ -104,8 +104,9 @@ class SlashdotApi
   end
 
   def post_date
-    # FIXME: parse date into something useable, currently "on Sunday July 21, 2013 @01:51PM"
-    return @document.css('header div.details time').text
+    date_raw = @document.css('header div.details time').text
+
+    return DateTime.parse(date_raw).to_s
   end
 
 
