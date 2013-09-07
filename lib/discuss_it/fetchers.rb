@@ -60,7 +60,8 @@ module DiscussIt
                 EOFError,
                 Net::HTTPBadResponse,
                 Net::HTTPHeaderSyntaxError,
-                Net::ProtocolError => e
+                Net::ProtocolError,
+                Faraday::Error::TimeoutError => e
           raise DiscussIt::TimeoutError.new
         end
 
