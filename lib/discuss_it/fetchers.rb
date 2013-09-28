@@ -38,11 +38,11 @@ module DiscussIt
           conn = Faraday.new(url: api_url + query_url) do |faraday|
             faraday.response :logger      # log requests to STDOUT
             faraday.adapter  :typhoeus    # make requests with Typhoeus
-            faraday.headers["User-Agent"] = "DiscussItAPI at github.com/discuss-it"
+            faraday.headers["User-Agent"] = "DiscussItAPI #{APP_VERSION} at github.com/discuss-it"
           end
 
           response = conn.get() do |req|
-            req.options[:timeout] = 5           # open/read timeout in seconds
+            req.options[:timeout] = 4           # open/read timeout in seconds
             req.options[:open_timeout] = 2      # connection open timeout in seconds
           end
 

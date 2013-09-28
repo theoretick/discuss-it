@@ -1,8 +1,13 @@
 module DiscussIt
-  VERSION = '0.4.8'
 
   VERSION_MAJOR   = 0
-  VERSION_MINOR   = 4
-  VERSION_BUILD   = 8
+  VERSION_MINOR   = 5
+  VERSION_BUILD   = 1
+
+  APP_VERSION = ([
+    VERSION_MAJOR,
+    VERSION_MINOR,
+    VERSION_BUILD]).
+  join('.')
 
 end
