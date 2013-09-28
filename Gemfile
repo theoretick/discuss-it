@@ -46,7 +46,7 @@ group :test do
   gem 'simplecov', :require => false
 
   # for guard-test awesomeness
-  gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
+  gem 'rb-fsevent', :require => false #if RUBY_PLATFORM =~ /darwin/i
   gem 'growl', :require => false
 end
 
