@@ -24,6 +24,18 @@ module DiscussIt
 
     attr_accessor :all_listings
 
+#discuss_it = DiscussIt::DiscussItApi.new(@query_url, @api_version)
+
+    # MemCachier Heroku implementation
+    #
+    # Uses query_url to check cache and verify expiration before
+    # initiating a new API call
+    def self.cached_request(@query_url, @api_version)
+      Rails.cache.fetch @query_url, :expires_in => 1.hour do
+        DiscussIt::DiscussItApi.new(@query_url, @api_version)
+      end
+    end
+
     # Public: pulls all API listings into local session
     #
     # query_string - URL to be searched across sites. Call string until
