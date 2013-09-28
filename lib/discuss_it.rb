@@ -38,14 +38,12 @@ module DiscussIt
     #   discuss_it = DiscussItApi.new('http://restorethefourth.net', 3)
     #
     # Returns nothing.
-    def initialize(query_string, api_version=3)
 
-      # FIXME: the VERSION_MINOR is super brittle, make better
-      api_version ||= VERSION_MINOR
+    def initialize(query_string, api_version=3)
 
       reddit_fetch = Fetcher::RedditFetch.new(query_string)
       hn_fetch     = Fetcher::HnFetch.new(query_string)
-      slashdot_fetch = Fetcher::SlashdotFetch.new(query_string) if api_version >= 3
+      slashdot_fetch = Fetcher::SlashdotFetch.new(query_string) if include_slashdot?
 
       @all_listings    = ListingCollection.new
 
@@ -75,6 +73,14 @@ module DiscussIt
     # returns an Array of 1 listing per site.
     def find_top
       return @all_listings.tops
+    end
+
+    def include_slashdot?
+      if VERSION_MAJOR >= 0 && VERSION_MINOR >= 3
+        return true
+      else
+        return false
+      end
     end
 
   end
