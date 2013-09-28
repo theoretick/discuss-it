@@ -35,6 +35,10 @@ class SearchesController < ApplicationController
 
     # links search to user account
     @search = Search.find_or_initialize_by(query_url: @url)
+
+    # update attributes
+    @search.update_attributes!(updated_at: Time.now)
+
     @search.users << user
 
     respond_to do |format|
