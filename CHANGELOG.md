@@ -1,8 +1,11 @@
 
 ## 0.5.1 (2013-09-06)
 
-* Removed slashdot_api references from discuss-it codebase. Now
+* removed slashdot_api references from discuss-it codebase. Now
   fully-separate app (github.com/theoretick/slashdot-api)
+* added Faraday::Timeout rescue
+* better versioning. see lib/discuss-it/version
+* added version number to user-agent
 
 ## 0.5.0 (2013-09-02)
 
