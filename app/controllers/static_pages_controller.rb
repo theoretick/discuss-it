@@ -18,7 +18,7 @@ class StaticPagesController < ApplicationController
       @api_version = 2 if params[:version] == '2'
 
       #caching discussit API calls
-      discuss_it = DiscussIt::DiscussItApi.cached_request
+      discuss_it = DiscussIt::DiscussItApi.cached_request(@query_url, @api_version)
 
       # result_type = params[:result_type]
 

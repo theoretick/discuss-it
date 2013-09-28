@@ -30,9 +30,9 @@ module DiscussIt
     #
     # Uses query_url to check cache and verify expiration before
     # initiating a new API call
-    def self.cached_request(@query_url, @api_version)
-      Rails.cache.fetch @query_url, :expires_in => 1.hour do
-        DiscussIt::DiscussItApi.new(@query_url, @api_version)
+    def self.cached_request(query_url, api_version)
+      Rails.cache.fetch query_url, :expires_in => 1.hour do
+        DiscussIt::DiscussItApi.new(query_url, api_version)
       end
     end
 
