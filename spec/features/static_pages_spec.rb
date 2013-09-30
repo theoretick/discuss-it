@@ -33,7 +33,7 @@ describe "StaticPages" do
           fill_in 'search[query_url]', :with => 'yorickpeterse.com/articles/debugging-with-pry/'
         end
 
-        click_button 'Search'
+        click_button 'Discuss This!'
       end
 
     end

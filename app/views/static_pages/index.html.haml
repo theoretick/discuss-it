@@ -10,9 +10,9 @@
   .row-fluid
     = form_for Search.new do |f|
       .field
-        = f.label :query_url, "Paste Here:"
+        = f.label :query_url, "Paste your link:"
         = f.text_field :query_url, id: "search-field", placeholder: "http://example.com/article.html", autofocus: "autofocus", required: true
-        = f.submit "Search", class: "btn btn-primary"
+        = f.submit "Discuss This!", class: "btn btn-primary"
         /= f.submit "Beta", class: "btn btn-warning btn-small"
 
   .row-fluid
@@ -22,4 +22,4 @@
     %p.suggested
       = link_to "Revealed: how US and UK spy agencies defeat internet privacy and security - theguardian.com", "/submit?url=http://www.theguardian.com/world/2013/sep/05/nsa-gchq-encryption-codes-security"
     %p.suggested
-      = link_to "Why Stephen King spends months or years on his opening sentences - theatlantic.com", "/submit?url=http://www.theatlantic.com/entertainment/archive/2013/07/why-stephen-king-spends-months-and-even-years-writing-opening-sentences/278043/"
+      = link_to "Photo of all-black house in Germany - imgur.com", "/submit?url=http://i.imgur.com/gOLvZVO.jpg"
