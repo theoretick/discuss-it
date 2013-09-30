@@ -4,7 +4,8 @@
 ## Version 0.5
 
 [![Code Climate](https://codeclimate.com/github/theoretick/discuss-it.png)](https://codeclimate.com/github/theoretick/discuss-it)
-[![Build Status](https://travis-ci.org/theoretick/discuss-it.png?branch=master)](https://travis-ci.org/theoretick/discuss-it)
+
+[![Coverage Status](https://coveralls.io/repos/theoretick/discuss-it/badge.png?branch=master)](https://coveralls.io/r/theoretick/discuss-it?branch=master)
 
 Website for locating online discussions about a given article on Reddit, Hacker News, and Slashdot.
 
