@@ -1,8 +1,11 @@
 DiscussIt::Application.routes.draw do
 
+  mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
+  devise_for :users
+  
+
   resources :searches
 
-  devise_for :users
   root 'static_pages#index'
 
   get 'index' => 'static_pages#index'

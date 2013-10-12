@@ -15,6 +15,9 @@ gem 'newrelic_rpm'
 
 gem 'coveralls', require: false
 
+# for easy DB admin
+gem 'rails_admin'
+
 # for user accounts and authentication
 gem 'devise'
 gem 'cancan'
