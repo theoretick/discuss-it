@@ -13,4 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require twitter/bootstrap
+//= oboe-browser
+//= static_pages
 //= require_tree .

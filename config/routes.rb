@@ -2,7 +2,7 @@ DiscussIt::Application.routes.draw do
 
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
   devise_for :users
-  
+
 
   resources :searches
 
@@ -12,6 +12,10 @@ DiscussIt::Application.routes.draw do
   get 'about' => 'static_pages#about'
   post 'submit' => 'static_pages#submit'
   get 'submit' => 'static_pages#submit'
+  get 'newsubmit' => 'static_pages#newsubmit'
+
+  get 'oboe_submit' => 'static_pages#oboe_submit'
+  post 'oboe_submit' => 'static_pages#oboe_submit'
 
   get 'api' => 'static_pages#developer'
 

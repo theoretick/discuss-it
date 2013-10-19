@@ -1,0 +1,38 @@
+.hero-unit
+
+  %h1 Discuss It!
+
+  %p Online link discussion tracker for locating conversations about a given url.
+
+  .row-fluid
+    %p.pagination-centered
+      %br
+      %b.pull-left Discussions about:
+      %br
+      = link_to @query_url, @query_url
+
+    #top-results
+
+      %h3 TOP DISCUSSIONS
+
+      %table.table#top-discussions-table
+        %thead
+          %tr
+            %th.listingmetadata
+            %th.listinglink
+
+        %tbody
+
+    %br
+
+    #all-results
+
+      %h3 ALL DISCUSSIONS
+
+      %table.table
+        %thead
+          %tr
+            %th.listingmetadata
+            %th.listinglink
+
+        %tbody

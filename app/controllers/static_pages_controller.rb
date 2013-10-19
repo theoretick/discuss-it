@@ -10,6 +10,47 @@ class StaticPagesController < ApplicationController
   def developer
   end
 
+  # new ajax-ified submit with Oboe.js
+  def newsubmit
+    @query_url = params[:url]
+    # checks for specific version number, 2 skips slashdot
+    @api_version = 2 if params[:version] == '2'
+  end
+
+  def oboe_submit
+    @query_url = params[:url]
+    # checks for specific version number, 2 skips slashdot
+    @api_version = 2 if params[:version] == '2'
+    result_hash = {}
+
+    #caching discussit API calls
+    discuss_it = DiscussIt::DiscussItApi.cached_request(@query_url, @api_version)
+
+    @top_results = discuss_it.find_top
+
+    result_hash[:top_results] = {
+         hits: set_top_hits,
+      results: @top_results
+    }
+
+    @all_results = discuss_it.find_all.all
+
+    result_hash[:all_results] = {
+         hits: set_all_hits,
+      results: @all_results
+    }
+
+    result_hash[:total_hits] = set_total_hits
+
+      # provides nicely-formatted JSON return with hit count as first val
+      respond_to do |format|
+        format.html
+        format.json {
+          render json: result_hash
+        }
+      end
+  end
+
   def submit
     begin
 
