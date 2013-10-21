@@ -57,10 +57,14 @@ class StaticPagesController < ApplicationController
 
       # result_type = params[:result_type]
 
-      @top_results = discuss_it.find_top
-      @all = discuss_it.find_all.all
+      @top_raw = discuss_it.find_top
+      @all_raw = discuss_it.find_all.all
 
-      @all_results, @filtered_results = DiscussIt::Filter.filter_threads(@all)
+
+      @top_results, filtered_top_results = DiscussIt::Filter.filter_threads(@top_raw)
+      @all_results, filtered_all_results = DiscussIt::Filter.filter_threads(@all_raw)
+
+      @filtered_results = (filtered_all_results + filtered_top_results).uniq
 
       results = {
            total_hits: total_hits_count,

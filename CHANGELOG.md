@@ -2,6 +2,8 @@
 ## 0.5.5 (2013-10-20)
 
  * added newsubmit page with initial rewrite for AJAX-loading of results
+ * now filters zero-comment threads for BOTH top and all results on
+   submit page
 
 ## 0.5.3 (2013-10-20)
 
