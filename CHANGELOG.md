@@ -1,4 +1,20 @@
 
+## 0.5.5 (2013-10-20)
+
+ * added newsubmit page with initial rewrite for AJAX-loading of results
+
+## 0.5.3 (2013-10-20)
+
+ * added filtering of zero-comment threads to submit page
+
+## 0.5.3 (2013-10-10)
+
+ * added rails_admin panel
+
+## 0.5.2 (2013-10-06)
+
+ * added tooltip to explain score + comment_count on submit page
+
 ## 0.5.1 (2013-09-06)
 
 * removed slashdot_api references from discuss-it codebase. Now

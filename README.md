@@ -9,11 +9,11 @@
 
 Website for locating online discussions about a given article on Reddit, Hacker News, and Slashdot.
 
-Currently hosted at: [discuss-it.herokuapp.com](https://discuss-it.herokuapp.com/)
+Currently hosted at: [discussitapp.com](http://discussitapp.com/)
 
 ## Features
 
-Version 0.5 of Discuss-it takes a URL you think may have interesting
+Discuss-it takes a URL you think may have interesting
 discussion online and queries across a number of discussion hubs.
 
 After submitting your URL we return a page of discussions. The links
