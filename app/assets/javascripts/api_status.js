@@ -40,8 +40,8 @@ var checkSlashdot = function(){
 };
 
 // on doc ready checks all apis
-(function() {
-  checkReddit();
-  checkHn();
-  checkSlashdot();
-})();
+// (function() {
+//   checkReddit();
+//   checkHn();
+//   checkSlashdot();
+// })();
