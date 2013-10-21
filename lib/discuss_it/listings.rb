@@ -77,18 +77,14 @@ module DiscussIt
     #----------------------------------------------------------------------
     class RedditListing < BaseListing
 
-      def comment_count
-         return self["num_comments"]
-      end
-
       def score
-        return self["score"]
+        return self["score"] || 0
       end
 
       # for custom ranking algorithm
       def ranking
         # self["score"] + ( subreddit_subscribers(self["subreddit"]) + self["num_comments"] )
-        self['ranking'] = score + comment_count
+        self['ranking'] = score + self['num_comments']
       end
 
     end
@@ -99,17 +95,13 @@ module DiscussIt
     #----------------------------------------------------------------------
     class HnListing < BaseListing
 
-      def comment_count
-         return self["num_comments"]
-      end
-
       def score
-        return self["points"]
+        return self["points"] || 0
       end
 
       # for custom ranking algorithm
       def ranking
-        self['ranking'] = score + comment_count
+        self['ranking'] = score + self['num_comments']
       end
 
     end
@@ -120,19 +112,14 @@ module DiscussIt
     #----------------------------------------------------------------------
     class SlashdotListing < BaseListing
 
-      # TODO: future-proof if we want to integrate comment_count globally
-      def comment_count
-        return self["comment_count"]
-      end
-
-      # TODO: future-proof if we want to integrate comment_count globally
+      # TODO: future-proof if we want to integrate num_comments globally
       def score
         return 0
       end
 
       # for custom ranking algorithm
       def ranking
-        self['ranking'] = score + comment_count
+        self['ranking'] = score + self['num_comments']
       end
 
     end

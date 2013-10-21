@@ -341,11 +341,14 @@ module DiscussIt
       # Private: Takes raw hash and creates Listing instance from it
       def build_listing(parent_hash)
         location = parent_hash['permalink']
+        comment_count = parent_hash['comment_count']
         parent_hash.delete('permalink')
+        parent_hash.delete('comment_count')
         listing  = parent_hash
 
         listing['site'] = 'Slashdot'
         listing['location'] = location
+        listing['num_comments'] = comment_count
         return DiscussIt::Listing::SlashdotListing.new(listing)
       end
 
