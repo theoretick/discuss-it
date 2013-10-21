@@ -77,18 +77,6 @@ module DiscussIt
     #----------------------------------------------------------------------
     class RedditListing < BaseListing
 
-      def site
-        return 'Reddit'
-      end
-
-      def base_url
-        return 'http://www.reddit.com'
-      end
-
-      def location
-        return base_url + self["permalink"]
-      end
-
       def comment_count
          return self["num_comments"]
       end
@@ -99,8 +87,8 @@ module DiscussIt
 
       # for custom ranking algorithm
       def ranking
-      #   return self["score"] + ( subreddit_subscribers(self["subreddit"]) + self["num_comments"] )
-        return score + comment_count
+        # self["score"] + ( subreddit_subscribers(self["subreddit"]) + self["num_comments"] )
+        self['ranking'] = score + comment_count
       end
 
     end
@@ -110,18 +98,6 @@ module DiscussIt
     # Listing class for HN with custom accessors
     #----------------------------------------------------------------------
     class HnListing < BaseListing
-
-      def site
-        return 'HackerNews'
-      end
-
-      def base_url
-        return 'http://news.ycombinator.com/item?id='
-      end
-
-      def location
-        return base_url + self["id"].to_s
-      end
 
       def comment_count
          return self["num_comments"]
@@ -133,7 +109,7 @@ module DiscussIt
 
       # for custom ranking algorithm
       def ranking
-        return score + comment_count
+        self['ranking'] = score + comment_count
       end
 
     end
@@ -143,14 +119,6 @@ module DiscussIt
     # Listing class for Slashdot with custom accessors
     #----------------------------------------------------------------------
     class SlashdotListing < BaseListing
-
-      def site
-        return 'Slashdot'
-      end
-
-      def location
-        return self["permalink"]
-      end
 
       # TODO: future-proof if we want to integrate comment_count globally
       def comment_count
@@ -164,7 +132,7 @@ module DiscussIt
 
       # for custom ranking algorithm
       def ranking
-        return comment_count
+        self['ranking'] = score + comment_count
       end
 
     end

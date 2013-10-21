@@ -202,6 +202,8 @@ module DiscussIt
       # Private: Takes raw hash and creates Listing instance from it
       def build_listing(parent_hash)
         listing = parent_hash['data']
+        listing['site'] = 'Reddit'
+        listing['location'] = 'http://www.reddit.com' + listing['permalink']
         return DiscussIt::Listing::RedditListing.new(listing)
       end
 
@@ -276,6 +278,8 @@ module DiscussIt
       # Private: Takes raw hash and creates Listing instance from it
       def build_listing(parent_hash)
         listing = parent_hash['item']
+        listing['site'] = 'HackerNews'
+        listing['location'] = 'http://news.ycombinator.com/item?id=' + listing['id'].to_s
         return DiscussIt::Listing::HnListing.new(listing)
       end
     end
@@ -336,7 +340,12 @@ module DiscussIt
 
       # Private: Takes raw hash and creates Listing instance from it
       def build_listing(parent_hash)
-        listing = parent_hash
+        location = parent_hash['permalink']
+        parent_hash.delete('permalink')
+        listing  = parent_hash
+
+        listing['site'] = 'Slashdot'
+        listing['location'] = location
         return DiscussIt::Listing::SlashdotListing.new(listing)
       end
 
