@@ -14,8 +14,8 @@ DiscussIt::Application.routes.draw do
   get 'submit' => 'static_pages#submit'
   get 'newsubmit' => 'static_pages#newsubmit'
 
-  get 'oboe_submit' => 'static_pages#oboe_submit'
-  post 'oboe_submit' => 'static_pages#oboe_submit'
+  get 'api/get_discussions' => 'static_pages#get_discussions'
+  post 'api/get_discussions' => 'static_pages#get_discussions'
 
   get 'api' => 'static_pages#developer'
 

@@ -13,6 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require twitter/bootstrap
-//= oboe-browser
+//= require Spin
+//= require jquery.spin
+//= require oboe-browser
 //= static_pages
 //= require_tree .

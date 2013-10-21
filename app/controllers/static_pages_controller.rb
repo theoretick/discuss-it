@@ -10,45 +10,39 @@ class StaticPagesController < ApplicationController
   def developer
   end
 
+  # kicks off API calls for AJAX-loading on submit page
+  def get_discussions
+    @query_url = params[:url]
+    # checks for specific version number, < 3 skips slashdot
+    @api_version = 2 if params[:version] == '2'
+    results = {}
+
+    #caching discussit API calls
+    discuss_it = DiscussIt::DiscussItApi.cached_request(@query_url, @api_version)
+
+    @top_results ||= discuss_it.find_top
+    @all_results ||= discuss_it.find_all.all
+
+    results = {
+         total_hits: total_hits_count,
+        top_results: {
+                 hits: top_hits_count,
+              results: @top_results
+          },
+        all_results: {
+                 hits: all_hits_count,
+              results: @all_results
+        }
+      }
+
+    render json: results
+  end
+
   # new ajax-ified submit with Oboe.js
   def newsubmit
     @query_url = params[:url]
     # checks for specific version number, 2 skips slashdot
     @api_version = 2 if params[:version] == '2'
-  end
-
-  def oboe_submit
-    @query_url = params[:url]
-    # checks for specific version number, 2 skips slashdot
-    @api_version = 2 if params[:version] == '2'
-    result_hash = {}
-
-    #caching discussit API calls
-    discuss_it = DiscussIt::DiscussItApi.cached_request(@query_url, @api_version)
-
-    @top_results = discuss_it.find_top
-
-    result_hash[:top_results] = {
-         hits: set_top_hits,
-      results: @top_results
-    }
-
-    @all_results = discuss_it.find_all.all
-
-    result_hash[:all_results] = {
-         hits: set_all_hits,
-      results: @all_results
-    }
-
-    result_hash[:total_hits] = set_total_hits
-
-      # provides nicely-formatted JSON return with hit count as first val
-      respond_to do |format|
-        format.html
-        format.json {
-          render json: result_hash
-        }
-      end
   end
 
   def submit
@@ -64,27 +58,25 @@ class StaticPagesController < ApplicationController
       # result_type = params[:result_type]
 
       @top_results = discuss_it.find_top
-      top_results = {
-           hits: set_top_hits,
-        results: @top_results
-      }
-
       @all_results = discuss_it.find_all.all
-      all_results = {
-           hits: set_all_hits,
-        results: @all_results
-      }
+
+      results = {
+           total_hits: total_hits_count,
+          top_results: {
+                   hits: top_hits_count,
+                results: @top_results
+            },
+          all_results: {
+                   hits: all_hits_count,
+                results: @all_results
+          }
+        }
 
       # provides nicely-formatted JSON return with hit count as first val
       respond_to do |format|
         format.html
         format.json {
-          render json: {
-            # TODO: this total is nonconditional, should change w/ params
-             total_hits: set_total_hits,
-            top_results: top_results,
-            all_results: all_results
-          }
+          render json: results
         }
       end
 
@@ -101,17 +93,17 @@ class StaticPagesController < ApplicationController
   private
 
   # returns the total number of hits for top + all results
-  def set_total_hits
-    return set_top_hits + set_all_hits
+  def total_hits_count
+    return top_hits_count + all_hits_count
   end
 
   # returns the total number of hits for top results
-  def set_top_hits
+  def top_hits_count
     return @top_results.length || 0
   end
 
   # returns the total number of hits for all results
-  def set_all_hits
+  def all_hits_count
     return @all_results.length || 0
   end
 
