@@ -44,7 +44,7 @@
                         - else
                           = listing.score
                       %p.rating-comment-box{title:"Comment Count"}
-                        = listing.comment_count
+                        = listing.num_comments
                   %td.url-friendly
                     =  link_to listing.title, listing.location
 
@@ -81,7 +81,45 @@
                       - else
                         = listing.score
                     %p.rating-comment-box{title:"Comment Count"}
-                      = listing.comment_count
+                      = listing.num_comments
                 %td.url-friendly
                   =  link_to listing.title, listing.location
 
+    %br
+
+    - unless @filtered_results.empty?
+
+      %button.btn.btn-block.btn-large.btn-info{"data-target" => "#filtered-results", "data-toggle" => "collapse", type: "button"}
+        %span.caret
+        CLICK TO VIEW FILTERED RESULTS
+        %span.caret
+
+      #filtered-results.collapse
+
+        %h3.small DISCUSSIONS WITHOUT COMMENTS
+
+        %table.table
+          %thead
+            %tr
+              %th.listingmetadata
+              %th.listinglink
+
+          %tbody
+            - @filtered_results.each do |listing|
+              %tr
+                %td
+                  = listing.site
+                  - if listing.site == 'Reddit'
+                    %p
+                      = "/r/#{listing.subreddit}"
+                  .ratings
+                    %br
+                    %p.rating-score-box{title:"Score"}
+                      - if listing.site == "Slashdot"
+                        = '0'
+                      - else
+                        = listing.score
+                    %p.rating-comment-box{title:"Comment Count"}
+                      = listing.num_comments
+                %td.url-friendly
+                  =  link_to listing.title, listing.location

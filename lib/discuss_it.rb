@@ -10,6 +10,7 @@
 require 'discuss_it/exceptions'
 require 'discuss_it/listings'
 require 'discuss_it/fetchers'
+require 'discuss_it/filter'
 require 'discuss_it/version'
 
 module DiscussIt

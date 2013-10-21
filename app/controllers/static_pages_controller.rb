@@ -58,7 +58,9 @@ class StaticPagesController < ApplicationController
       # result_type = params[:result_type]
 
       @top_results = discuss_it.find_top
-      @all_results = discuss_it.find_all.all
+      @all = discuss_it.find_all.all
+
+      @all_results, @filtered_results = DiscussIt::Filter.filter_threads(@all)
 
       results = {
            total_hits: total_hits_count,
