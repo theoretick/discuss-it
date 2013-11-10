@@ -16,5 +16,4 @@
 //= require Spin
 //= require jquery.spin
 //= require oboe-browser
-//= static_pages
 //= require_tree .

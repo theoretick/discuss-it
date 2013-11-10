@@ -9,19 +9,17 @@ $(document).ready(function(){
   var apiUrl = "/api/get_discussions" + window.location.search;
   var $topDiscussionsTable = $('#top-discussions-table tbody');
   var $allDiscussionsTable = $('#all-discussions-table tbody');
+  var $filteredDiscussionsTable = $('#filtered-discussions-table tbody');
 
-  // init loading spinners
+  // init loading spinners and hide filtered results unless they exist
   $topDiscussionsTable.spin('small');
   $allDiscussionsTable.spin('small');
+  $('#filtered-btn').hide();
+  $('#filtered-results').hide();
 
   // displays subreddit name if result is from reddit
   var ifSubreddit = function(result) {
-    if (result.site == 'Reddit') {
-      return '/r/' + result.subreddit;
-    }
-    else {
-      return '';
-    }
+    return result.site == 'Reddit' ? '/r/' + result.subreddit : '';
   };
 
   // builds table row for given result
@@ -33,6 +31,7 @@ $(document).ready(function(){
     tCell.innerHTML = '<a href="' + result.location + '">' + result.title + '</a>';
     tCell = tRow.insertCell(2);
     tCell.innerHTML = result.ranking;
+    tCell.style.textAlign = "right";
     return tRow;
   };
 
@@ -43,6 +42,9 @@ $(document).ready(function(){
     }
     else if (resultSet == 'all') {
       return ($allDiscussionsTable[0].children.length < 1) ? true : false;
+    }
+    else if (resultSet == 'filtered') {
+      return ($filteredDiscussionsTable[0].children.length < 1) ? true : false;
     }
   };
 
@@ -59,28 +61,46 @@ $(document).ready(function(){
     return $noResultP;
   };
 
-//   // fetch top_results
-//   $.get( apiUrl, function( data ) {
-//     topResults = data.top_results.results;
+  ////////////////////////////////////////////////////////////////////
+  // AJAX
+  ////////////////////////////////////////////////////////////////////
 
-//     $.each(topResults, function(k, result) {
-//       var row = addRow(result);
-//       $topDiscussionsTable.append(row);
-//     });
-//   }, "json");
+  // // fetch top_results
+  // $.get( apiUrl, function( data ) {
+  //   $topDiscussionsTable.spin(false);
+  //   var topResults = data.top_results.results;
+
+  //   $.each(topResults, function(k, result) {
+  //     var row = addRow(result);
+  //     $topDiscussionsTable.append(row);
+  //   });
+  // }, "json");
 
 
-// // fetch all_results
-//   $.get( apiUrl, function( data ) {
-//     allResults = data.all_results.results;
+  // // fetch all_results
+  // $.get( apiUrl, function( data ) {
+  //   $allDiscussionsTable.spin(false);
+  //   var allResults = data.all_results.results;
 
-//     $.each(allResults, function(k, result) {
-//       var row = addRow(result);
-//       $allDiscussionsTable.append(row);
-//       console.log(result.title);
-//     });
-//   }, "json");
+  //   $.each(allResults, function(k, result) {
+  //     var row = addRow(result);
+  //     $allDiscussionsTable.append(row);
+  //   });
+  // }, "json");
 
+  // // fetch filtered_results
+  // $.get( apiUrl, function( data ) {
+  //   $('#filtered-btn').show();
+  //   $('#filtered-results').show();
+  //   var filteredResults = data.filtered_results.results;
+
+  //   $.each(filteredResults, function(k, result) {
+  //     var row = addRow(result);
+  //     $filteredDiscussionsTable.append(row);
+  //   });
+  // }, "json");
+
+  // fetch top_results
   oboe(apiUrl)
     // for each result that comes in, add as row
     .node('!.top_results.results*', function( result ){
@@ -96,8 +116,9 @@ $(document).ready(function(){
       if ( hasNoResults('top') ){
         $('#top-results').append(showNoResults('top'));
       }
-  });
+    });
 
+  // fetch all_results
   oboe(apiUrl)
     // for each result that comes in, add as row
     .node('!.all_results.results*', function( result ){
@@ -113,5 +134,18 @@ $(document).ready(function(){
       if ( hasNoResults('all') ){
         $('#all-results').append(showNoResults('all'));
       }
-  });
+    });
+
+  // fetch filtered_results
+  oboe(apiUrl)
+    // for each result that comes in, add as row
+    .node('!.filtered_results.results*', function( result ){
+      if (result) {
+        $('#filtered-btn').show();
+        $('#filtered-results').show();
+      }
+      var row = addRow(result);
+      $filteredDiscussionsTable.append(row);
+    });
+
 });

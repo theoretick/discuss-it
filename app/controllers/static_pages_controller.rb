@@ -20,8 +20,13 @@ class StaticPagesController < ApplicationController
     #caching discussit API calls
     discuss_it = DiscussIt::DiscussItApi.cached_request(@query_url, @api_version)
 
-    @top_results ||= discuss_it.find_top
-    @all_results ||= discuss_it.find_all.all
+    @top_raw ||= discuss_it.find_top
+    @all_raw ||= discuss_it.find_all.all
+
+    @top_results, filtered_top_results = DiscussIt::Filter.filter_threads(@top_raw)
+    @all_results, filtered_all_results = DiscussIt::Filter.filter_threads(@all_raw)
+
+    @filtered_results = (filtered_all_results + filtered_top_results).uniq
 
     results = {
          total_hits: total_hits_count,
@@ -32,6 +37,10 @@ class StaticPagesController < ApplicationController
         all_results: {
                  hits: all_hits_count,
               results: @all_results
+        },
+        filtered_results: {
+                 hits: filtered_hits_count,
+              results: @filtered_results
         }
       }
 
@@ -111,6 +120,11 @@ class StaticPagesController < ApplicationController
   # returns the total number of hits for all results
   def all_hits_count
     return @all_results.length || 0
+  end
+
+  # returns the total number of hits for filtered results
+  def filtered_hits_count
+    return @filtered_results.length || 0
   end
 
 end

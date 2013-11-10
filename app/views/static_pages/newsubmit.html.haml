@@ -15,12 +15,12 @@
 
     #top-results
 
-      %table.table#top-discussions-table
+      %table.table#top-discussions-table{ :style => "width:100%"}
         %thead
           %tr
             %th.listingmetadata
             %th.listinglink
-
+            %th.listingscore{ :style => "text-align:right;"}
         %tbody
 
     %br
@@ -34,5 +34,24 @@
           %tr
             %th.listingmetadata
             %th.listinglink
+            %th.listingscore
+        %tbody
 
+    %br
+
+    %button#filtered-btn.btn.btn-block.btn-large.btn-info{"data-target" => "#filtered-results", "data-toggle" => "collapse", type: "button"}
+      %span.caret
+      CLICK TO VIEW FILTERED RESULTS
+      %span.caret
+
+    #filtered-results.collapse
+
+      %h3.small DISCUSSIONS WITHOUT COMMENTS
+
+      %table.table#filtered-discussions-table
+        %thead
+          %tr
+            %th.listingmetadata
+            %th.listinglink
+            %th.listingscore
         %tbody
