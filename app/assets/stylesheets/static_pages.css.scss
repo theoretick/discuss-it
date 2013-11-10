@@ -25,13 +25,30 @@
  **********************************************/
 
 
-/* Headings for submit table */
-.listingmetadata {
-  width: 30%;
+#top-discussions-table {
+  width: 100%;
 }
 
-.listinglink {
+#all-discussions-table {
+  width: 100%;
+}
 
+#filtered-discussions-table {
+  width: 100%;
+}
+
+/* Headings for submit table */
+
+.listing-metadata {
+  width: 20%;
+}
+
+.listing-link {
+
+}
+
+.listing-score {
+  text-align: right;
 }
 
 /*  helps format submit page so urls wrap and dont get ugly */
