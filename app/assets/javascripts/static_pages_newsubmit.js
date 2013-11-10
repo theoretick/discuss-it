@@ -65,41 +65,6 @@ $(document).ready(function(){
   // AJAX
   ////////////////////////////////////////////////////////////////////
 
-  // // fetch top_results
-  // $.get( apiUrl, function( data ) {
-  //   $topDiscussionsTable.spin(false);
-  //   var topResults = data.top_results.results;
-
-  //   $.each(topResults, function(k, result) {
-  //     var row = addRow(result);
-  //     $topDiscussionsTable.append(row);
-  //   });
-  // }, "json");
-
-
-  // // fetch all_results
-  // $.get( apiUrl, function( data ) {
-  //   $allDiscussionsTable.spin(false);
-  //   var allResults = data.all_results.results;
-
-  //   $.each(allResults, function(k, result) {
-  //     var row = addRow(result);
-  //     $allDiscussionsTable.append(row);
-  //   });
-  // }, "json");
-
-  // // fetch filtered_results
-  // $.get( apiUrl, function( data ) {
-  //   $('#filtered-btn').show();
-  //   $('#filtered-results').show();
-  //   var filteredResults = data.filtered_results.results;
-
-  //   $.each(filteredResults, function(k, result) {
-  //     var row = addRow(result);
-  //     $filteredDiscussionsTable.append(row);
-  //   });
-  // }, "json");
-
   // fetch top_results
   oboe(apiUrl)
     // for each result that comes in, add as row
