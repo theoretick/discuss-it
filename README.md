@@ -9,7 +9,7 @@
 
 Website for locating online discussions about a given article on Reddit, Hacker News, and Slashdot.
 
-Currently hosted at: [discussitapp.com](http://discussitapp.com/)
+Currently hosted at: [discussitapp.com](http://www.discussitapp.com/)
 
 ## Features
 
@@ -37,7 +37,7 @@ as listings in a database.
 
 ## Open Developer API
 
-__See more info on our [Developer Portal](http://discussitapp.com/api)__
+__See more info on our [Developer Portal](http://www.discussitapp.com/api)__
 
 Want to use our app for easy searching?
 
@@ -56,7 +56,7 @@ add a new bookmark and paste in this hunk of JS:
 javascript:(function() {
   function searchDiscussIt() {
     var url = window.location.href;
-    var discussit = 'http://discuss-it.herokuapp.com/submit?url=';
+    var discussit = 'http://www.discussitapp.com/submit?url=';
     window.location.href = discussit+url;
 }
 searchDiscussIt();
@@ -81,4 +81,4 @@ _Find a bug? Contributions welcome._
 
 ## License
 
-See [LICENSE](http://github.com/theoretick/discuss-it/blob/master/LICENSE) for the full license text.
+See [LICENSE-APACHE](http://github.com/theoretick/discuss-it/blob/master/LICENSE-APACHE) for the full license text.
