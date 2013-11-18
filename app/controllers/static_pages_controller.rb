@@ -51,57 +51,10 @@ class StaticPagesController < ApplicationController
     render json: results
   end
 
-  # new ajax-ified submit with Oboe.js
-  def newsubmit
+  def submit
     @query_url = params[:url]
     # checks for specific version number, 2 skips slashdot
     @api_version = 2 if params[:version] == '2'
-  end
-
-  def submit
-    begin
-
-      @query_url = params[:url]
-      # checks for specific version number, 2 skips slashdot
-      @api_version = 2 if params[:version] == '2'
-
-      #caching discussit API calls
-      discuss_it = DiscussIt::DiscussItApi.cached_request(@query_url, @api_version)
-
-      # result_type = params[:result_type]
-
-      @top_raw = discuss_it.find_top
-      @all_raw = discuss_it.find_all.all
-
-
-      @top_results, filtered_top_results = DiscussIt::Filter.filter_threads(@top_raw)
-      @all_results, filtered_all_results = DiscussIt::Filter.filter_threads(@all_raw)
-
-      @filtered_results = (filtered_all_results + filtered_top_results).uniq
-
-      results = {
-           total_hits: total_hits_count,
-          top_results: {
-                   hits: top_hits_count,
-                results: @top_results
-            },
-          all_results: {
-                   hits: all_hits_count,
-                results: @all_results
-          }
-        }
-
-      # provides nicely-formatted JSON return with hit count as first val
-      respond_to do |format|
-        format.html
-        format.json {
-          render json: results
-        }
-      end
-
-    rescue DiscussIt::UrlError => e
-      redirect_to :root, :flash => { :error => 'Invalid URL' }
-    end
   end
 
   def after_sign_in_path_for(user)

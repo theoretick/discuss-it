@@ -11,115 +11,47 @@
       %br
       = link_to @query_url, @query_url
 
+    %h3 TOP DISCUSSIONS
+
     #top-results
 
-      %h3 TOP DISCUSSIONS
-
-      - if @top_results.empty?
-        %p
-          Sorry, no discussions found.
-          = link_to 'Try again?', root_path
-
-      - else
-        %table.table
-          %thead
-            %tr
-              %th.listing-metadata
-              %th.listing-link
-
-          %tbody
-            - @top_results.each do |listing|
-              - unless listing.nil?
-                %tr
-                  %td
-                    = listing.site
-                    - if listing.site == 'Reddit'
-                      %p
-                        = "/r/#{listing.subreddit}"
-                    .ratings
-                      %br
-                      %p.rating-score-box{title:"Score"}
-                        - if listing.site == "Slashdot"
-                          = '-'
-                        - else
-                          = listing.score
-                      %p.rating-comment-box{title:"Comment Count"}
-                        = listing.num_comments
-                  %td.url-friendly
-                    =  link_to listing.title, listing.location
+      %table.table#top-discussions-table
+        %thead
+          %tr
+            %th.listing-metadata
+            %th.listing-link
+            %th.listing-score
+        %tbody
 
     %br
+
+    %h3 ALL DISCUSSIONS
 
     #all-results
 
-      %h3 ALL DISCUSSIONS
-
-      - if @all_results.empty?
-        %p
-          No additional results found
-
-      - else
-        %table.table
-          %thead
-            %tr
-              %th.listing-metadata
-              %th.listing-link
-
-          %tbody
-            - @all_results.each do |listing|
-              %tr
-                %td
-                  = listing.site
-                  - if listing.site == 'Reddit'
-                    %p
-                      = "/r/#{listing.subreddit}"
-                  .ratings
-                    %br
-                    %p.rating-score-box{title:"Score"}
-                      - if listing.site == "Slashdot"
-                        = '-'
-                      - else
-                        = listing.score
-                    %p.rating-comment-box{title:"Comment Count"}
-                      = listing.num_comments
-                %td.url-friendly
-                  =  link_to listing.title, listing.location
+      %table.table#all-discussions-table
+        %thead
+          %tr
+            %th.listing-metadata
+            %th.listing-link
+            %th.listing-score
+        %tbody
 
     %br
 
-    - unless @filtered_results.empty?
+    %button#filtered-btn.btn.btn-block.btn-large.btn-info{"data-target" => "#filtered-results", "data-toggle" => "collapse", type: "button"}
+      %span.caret
+      CLICK TO VIEW FILTERED RESULTS
+      %span.caret
 
-      %button.btn.btn-block.btn-large.btn-info{"data-target" => "#filtered-results", "data-toggle" => "collapse", type: "button"}
-        %span.caret
-        CLICK TO VIEW FILTERED RESULTS
-        %span.caret
+    #filtered-results.collapse
 
-      #filtered-results.collapse
+      %h3.small DISCUSSIONS WITHOUT COMMENTS
 
-        %h3.small DISCUSSIONS WITHOUT COMMENTS
-
-        %table.table
-          %thead
-            %tr
-              %th.listing-metadata
-              %th.listing-link
-
-          %tbody
-            - @filtered_results.each do |listing|
-              %tr
-                %td
-                  = listing.site
-                  - if listing.site == 'Reddit'
-                    %p
-                      = "/r/#{listing.subreddit}"
-                  .ratings
-                    %br
-                    %p.rating-score-box{title:"Score"}
-                      - if listing.site == "Slashdot"
-                        = '-'
-                      - else
-                        = listing.score
-                    %p.rating-comment-box{title:"Comment Count"}
-                      = listing.num_comments
-                %td.url-friendly
-                  =  link_to listing.title, listing.location
+      %table.table#filtered-discussions-table
+        %thead
+          %tr
+            %th.listing-metadata
+            %th.listing-link
+            %th.listing-score
+        %tbody
