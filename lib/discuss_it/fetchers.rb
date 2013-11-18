@@ -48,11 +48,6 @@ module DiscussIt
 
           return self.parse(response.body)
 
-        # if http://foo is still invalid url content, then raise error
-        # and catch/flash it in controller
-        rescue URI::InvalidURIError => e
-          raise DiscussIt::UrlError.new
-
         # if HTTP timeout or general HTTP error, don't break everything
         rescue  Timeout::Error,
                 Errno::EINVAL,
