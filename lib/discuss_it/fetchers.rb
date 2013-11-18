@@ -131,23 +131,14 @@ module DiscussIt
       #
       # Includes separate rescues to ensure failure is graceful.
       #
-      # query_string - user-submitted url to find discussions about.
+      # query_url - user-submitted url to find discussions about.
       #
       # Examples
       #
       #   reddit_results = RedditFetch.new('example.com')
       #
       # Returns nothing.
-      def initialize(query_string)
-
-        # TODO: not very DRY, find better solution
-        # ALWAYS remove trailing slash before get_response calls
-        if query_string.end_with?('/')
-          query_url = query_string.chop
-        else
-          query_url = query_string
-        end
-
+      def initialize(query_url)
         # API call #1 (no trailing slash)
         begin
           reddit_raw_a = get_response(api_url, query_url)
@@ -218,23 +209,14 @@ module DiscussIt
 
       # Public: Calls HackerNews API to search for query url.
       #
-      # query_string - user-submitted url to find discussions about.
+      # query_url - user-submitted url to find discussions about.
       #
       # Examples
       #
       #   hn_results = HnFetch.new('example.com')
       #
       # Returns nothing.
-      def initialize(query_string)
-
-        # TODO: not very DRY, find better solution
-        # ALWAYS remove trailing slash before get_response calls
-        if query_string.end_with?('/')
-          query_url = query_string.chop
-        else
-          query_url = query_string
-        end
-
+      def initialize(query_url)
         begin
           hn_raw = get_response(api_url, query_url + '/')
           @raw_master = pull_out(hn_raw)
@@ -293,16 +275,16 @@ module DiscussIt
 
       # Public: Calls Custom Slashdot API to search for query url.
       #
-      # query_string - user-submitted url to find discussions about.
+      # query_url - user-submitted url to find discussions about.
       #
       # Examples
       #
       #   slashdot_results = SlashdotFetch.new('example.com')
       #
       # Returns nothing.
-      def initialize(query_string)
+      def initialize(query_url)
         begin
-          slashdot_raw = get_response(api_url, query_string)
+          slashdot_raw = get_response(api_url, query_url)
           @raw_master = slashdot_raw
         rescue DiscussIt::TimeoutError => e
           # TODO: add status code for e homepage display 'slashdot down'

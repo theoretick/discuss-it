@@ -13,11 +13,15 @@ class StaticPagesController < ApplicationController
   # kicks off API calls for AJAX-loading on submit page
   def get_discussions
     @query_url = params[:url]
+
+    # ALWAYS remove trailing slash before get_response calls
+    @query_url.chop! if @query_url.end_with?('/')
+
     # checks for specific version number, < 3 skips slashdot
     @api_version = 2 if params[:version] == '2'
     results = {}
 
-    #caching discussit API calls
+    # caching discussit API calls
     discuss_it = DiscussIt::DiscussItApi.cached_request(@query_url, @api_version)
 
     @top_raw ||= discuss_it.find_top

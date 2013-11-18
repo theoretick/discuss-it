@@ -25,10 +25,6 @@ module DiscussIt
 
     attr_accessor :all_listings
 
-#discuss_it = DiscussIt::DiscussItApi.new(@query_url, @api_version)
-
-    # MemCachier Heroku implementation
-    #
     # Uses query_url to check cache and verify expiration before
     # initiating a new API call
     def self.cached_request(query_url, api_version)
@@ -51,7 +47,6 @@ module DiscussIt
     #   discuss_it = DiscussItApi.new('http://restorethefourth.net', 3)
     #
     # Returns nothing.
-
     def initialize(query_string, api_version=3)
 
       reddit_fetch = Fetcher::RedditFetch.new(query_string)
@@ -65,24 +60,11 @@ module DiscussIt
       @all_listings.all += slashdot_fetch.listings if slashdot_fetch
     end
 
-    # Public: accessor to return all fetched listings.
-    #
-    # Examples
-    #
-    #   all_results = discuss_it.find_all
-    #
     # returns a ListingCollection of all returned listings.
     def find_all
       return @all_listings
     end
 
-    # Public: accessor to return top listings of 1 result per site
-    # queried.  Top is currently a dead-simple score + comment_count.
-    #
-    # Examples
-    #
-    #   top_results = discuss_it.find_top
-    #
     # returns an Array of 1 listing per site.
     def find_top
       return @all_listings.tops
