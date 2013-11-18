@@ -2,7 +2,7 @@ module DiscussIt
 
   VERSION_MAJOR   = 0
   VERSION_MINOR   = 5
-  VERSION_BUILD   = 1
+  VERSION_BUILD   = 6
 
   APP_VERSION = ([
     VERSION_MAJOR,

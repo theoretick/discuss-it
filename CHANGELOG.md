@@ -1,4 +1,10 @@
 
+## 0.5.6 (2013-11-17)
+
+ * moved trailing-slash stripper into controller for now so works for ajax & caching
+ * replaced old-submit with AJAX-ified newsubmit
+ * removed excess comments
+
 ## 0.5.5 (2013-10-20)
 
  * added newsubmit page with initial rewrite for AJAX-loading of results
