@@ -72,9 +72,9 @@ searchDiscussIt();
 
 **theoretick** :: [github](https://github.com/theoretick), [twitter](https://twitter.com/theoretick)
 
-**ericalthatcher** :: [github](https://github.com/ericalthatcher), [twitter](https://twitter.com/ericalthatcher)
-
 **CodingAntecedent** :: [github](https://github.com/CodingAntecedent), [twitter](https://twitter.com/JohannBenedikt)
+
+**ericalthatcher** :: [github](https://github.com/ericalthatcher), [twitter](https://twitter.com/a_la_erica)
 
 
 _Find a bug? Contributions welcome._
