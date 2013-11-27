@@ -9,7 +9,7 @@
 
 Website for locating online discussions about a given article on Reddit, Hacker News, and Slashdot.
 
-Currently hosted at: [discussitapp.com](http://www.discussitapp.com/)
+Currently hosted at: [www.discussitapp.com](http://www.discussitapp.com/)
 
 ## Features
 
@@ -44,7 +44,7 @@ Want to use our app for easy searching?
 Discuss It results can be conveniently accessed with a JSON request to our
 submit page:
 ```
-http://discussitapp.com/submit.json?url=http://example.com/
+http://www.discussitapp.com/submit.json?url=http://example.com/
 ```
 
 ## Bookmarklet
