@@ -9,7 +9,7 @@
       %br
       %b.pull-left Discussions about:
       %br
-      = link_to @query_url, @query_url
+      = link_to @query_url, ( @query_url.start_with?('http') ? @query_url : "http://#{@query_url}")
 
     %h3 TOP DISCUSSIONS
 
