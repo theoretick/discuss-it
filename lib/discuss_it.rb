@@ -1,5 +1,5 @@
 #----------------------------------------------------------------------
-# DiscussItApi v0.4.8
+# DiscussItApi
 #
 # - interfaces with Reddit, HackerNews, and Slashdot to create sortable
 # listings by URL.
@@ -27,17 +27,17 @@ module DiscussIt
   class DiscussItApi
     include DiscussIt
 
-    attr_accessor :all_listings
+    attr_accessor :listings
 
     # Uses query_url to check cache and verify expiration before
     # initiating a new API call
     def self.cached_request(query_url, api_version)
       # TEMP: keep caching disabled in production?
       if Rails.env.development?
-        DiscussIt::DiscussItApi.new(query_url, api_version)
+        self.new(query_url, api_version)
       else
         Rails.cache.fetch query_url, :expires_in => 1.hour do
-          DiscussIt::DiscussItApi.new(query_url, api_version)
+          self.new(query_url, api_version)
         end
       end
     end
@@ -62,21 +62,21 @@ module DiscussIt
       hn_fetch     = Fetcher::HnFetch.new(query_string)
       slashdot_fetch = Fetcher::SlashdotFetch.new(query_string) if include_slashdot?
 
-      @all_listings    = ListingCollection.new
+      @listings    = ListingCollection.new
 
-      @all_listings.all = reddit_fetch.listings
-      @all_listings.all += hn_fetch.listings
-      @all_listings.all += slashdot_fetch.listings if slashdot_fetch
+      @listings.all = reddit_fetch.listings
+      @listings.all += hn_fetch.listings
+      @listings.all += slashdot_fetch.listings if slashdot_fetch
     end
 
     # returns a ListingCollection of all returned listings.
     def find_all
-      return @all_listings
+      return @listings
     end
 
     # returns an Array of 1 listing per site.
     def find_top
-      return @all_listings.tops
+      return @listings.tops
     end
 
     def include_slashdot?

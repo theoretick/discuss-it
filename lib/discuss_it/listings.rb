@@ -30,20 +30,17 @@ module DiscussIt
       return results.sort.reverse
     end
 
-    # Private: accessor to return only HN listings
-    # Returns Array of all HnListing objects
+    # Returns Array of only HnListing objects
     def hn
       all.select {|listing| listing.class == Listing::HnListing }
     end
 
-    # Private: accessor to return only Reddit listings
-    # Returns Array of all RedditListing objects
+    # Returns Array of only RedditListing objects
     def reddit
       all.select {|listing| listing.class == Listing::RedditListing }
     end
 
-    # Private: accessor to return only Slashdot listings
-    # Returns Array of all SlashdotListing objects
+    # Returns Array of only SlashdotListing objects
     def slashdot
       all.select {|listing| listing.class == Listing::SlashdotListing }
     end
