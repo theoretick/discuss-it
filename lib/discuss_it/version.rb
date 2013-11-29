@@ -1,13 +1,12 @@
 module DiscussIt
 
-  VERSION_MAJOR   = 0
-  VERSION_MINOR   = 5
-  VERSION_BUILD   = 6
+  MAJOR   = 0
+  MINOR   = 5
+  PATCH   = 6
 
-  APP_VERSION = ([
-    VERSION_MAJOR,
-    VERSION_MINOR,
-    VERSION_BUILD]).
-  join('.')
+  VERSION = ([
+    MAJOR,
+    MINOR,
+    PATCH]).join('.')
 
 end

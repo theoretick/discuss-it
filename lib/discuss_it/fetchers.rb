@@ -38,7 +38,7 @@ module DiscussIt
           conn = Faraday.new(url: api_url + query_url) do |faraday|
             faraday.response :logger      # log requests to STDOUT
             faraday.adapter  :typhoeus    # make requests with Typhoeus
-            faraday.headers["User-Agent"] = "DiscussItAPI #{APP_VERSION} at github.com/discuss-it"
+            faraday.headers["User-Agent"] = "DiscussItAPI #{VERSION} at github.com/discuss-it"
           end
 
           response = conn.get() do |req|

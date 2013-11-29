@@ -80,7 +80,7 @@ module DiscussIt
     end
 
     def include_slashdot?
-      if VERSION_MAJOR >= 0 && VERSION_MINOR >= 3
+      if MAJOR >= 0 && MINOR >= 3
         return true
       else
         return false
