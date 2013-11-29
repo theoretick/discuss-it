@@ -19,9 +19,9 @@ describe "DiscussIt" do
 
       end
 
-      describe 'initialization' do
+      describe '#initialize' do
 
-        it "Listing.new should return a Listing object" do
+        it "returns a Listing object" do
           expect(DiscussIt::Listing::BaseListing.new({})).to be_an_instance_of(DiscussIt::Listing::BaseListing)
         end
 
@@ -29,31 +29,31 @@ describe "DiscussIt" do
 
       describe 'accessors' do
 
-        it "should have a location accessor on RedditListing" do
+        it "has a location accessor on RedditListing" do
           expect(@reddit_listing.location).to eq('http://www.reddit.com/r/technology/comments/1j8h6p/edavid_a_robotic_system_built_by_researchers_at/')
         end
 
-        it "should have a ranking accessor on RedditListing" do
+        it "has a ranking accessor on RedditListing" do
           expect(@reddit_listing.ranking).to eq(3)
         end
 
-        it "should have a subreddit accessor on RedditListing" do
+        it "has a subreddit accessor on RedditListing" do
           expect(@reddit_listing.subreddit).to eq('technology')
         end
 
-        it "should have a location accessor on HnListing" do
+        it "has a location accessor on HnListing" do
           expect(@hn_listing.location).to eq('http://news.ycombinator.com/item?id=6118451')
         end
 
-        it "should have a ranking accessor on HnListing" do
+        it "has a ranking accessor on HnListing" do
           expect(@hn_listing.ranking).to eq(2)
         end
 
-        it "should have a location accessor on SlashdotListing" do
+        it "has a location accessor on SlashdotListing" do
           expect(@slashdot_listing.location).to eq('http://hardware.slashdot.org/story/13/07/28/2056210/robot-produces-paintings-with-that-imperfect-human-look')
         end
 
-        it "should have a ranking accessor on SlashdotListing" do
+        it "has a ranking accessor on SlashdotListing" do
           expect(@slashdot_listing.ranking).to eq(74)
         end
 
@@ -75,9 +75,9 @@ describe "DiscussIt" do
 
       end
 
-      describe "initialization" do
+      describe "#initialize" do
 
-        it "should initialize as all_listings on DiscussItApi" do
+        it "equates to all_listings on DiscussItApi" do
           expect(@one_result_each.all_listings).to be_an_instance_of(DiscussIt::ListingCollection)
         end
 
@@ -85,19 +85,19 @@ describe "DiscussIt" do
 
       describe "accessors" do
 
-        it "should return only HnListings from hn method" do
+        it "returns only HnListings from hn method" do
           expect(@hn_listings.all? { |listing|
             listing.is_a?(DiscussIt::Listing::HnListing)
           }).to be_true
         end
 
-        it "should return only RedditListings from reddit method" do
+        it "returns only RedditListings from reddit method" do
           expect(@reddit_listings.all? { |listing|
             listing.is_a?(DiscussIt::Listing::RedditListing)
           }).to be_true
         end
 
-        it "should return only SlashdotListings from slashdot method" do
+        it "returns only SlashdotListings from slashdot method" do
           expect(@slashdot_listings.all? { |listing|
             listing.is_a?(DiscussIt::Listing::SlashdotListing)
           }).to be_true
@@ -105,21 +105,21 @@ describe "DiscussIt" do
 
       end
 
-      describe "tops" do
+      describe "#tops" do
 
-        it "should return 1 top listings for reddit" do
+        it "returns 1 top listings for reddit" do
           expect(@one_result_each.all_listings.tops.select { |listing|
-            listing.class == DiscussIt::Listing::RedditListing }.length).to eq(1)
+            listing.class == DiscussIt::Listing::RedditListing }).to have_at_least(1).things
         end
 
-        it "should return 1 top listings for hn" do
+        it "returns 1 top listings for hn" do
           expect(@one_result_each.all_listings.tops.select { |listing|
-            listing.class == DiscussIt::Listing::HnListing }.length).to eq(1)
+            listing.class == DiscussIt::Listing::HnListing }).to have_at_least(1).things
         end
 
-        it "should return 1 top listings for slashdot" do
+        it "returns 1 top listings for slashdot" do
           expect(@one_result_each.all_listings.tops.select { |listing|
-            listing.class == DiscussIt::Listing::SlashdotListing }.length).to eq(1)
+            listing.class == DiscussIt::Listing::SlashdotListing }).to have_at_least(1).things
         end
 
       end

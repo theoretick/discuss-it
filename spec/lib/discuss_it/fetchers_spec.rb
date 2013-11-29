@@ -20,23 +20,23 @@ describe "DiscussIt" do
 
       describe "initialize", :vcr do
 
-        it "should init with 1 arg" do
+        it "inits with 1 arg" do
           expect(@big_reddit).to be_an_instance_of(DiscussIt::Fetcher::RedditFetch)
         end
 
-        it "should not init with 0 arg" do
+        it "wont init with 0 arg" do
           expect{ DiscussIt::Fetcher::RedditFetch.new() }.to raise_error(ArgumentError)
         end
 
-        it "should not init with 1+ args" do
+        it "wont init with 1+ args" do
           expect{ DiscussIt::Fetcher::RedditFetch.new("restorethefourth.net", "example.com") }.to raise_error(ArgumentError)
         end
 
       end
 
-      describe "pull_out" do
+      describe "#pull_out" do
 
-        it "should return [data][children] from parent hash" do
+        it "returns [data][children] from parent hash" do
 
           fake_reddit_raw = {
             "data" => {
@@ -51,28 +51,28 @@ describe "DiscussIt" do
           ])
         end
 
-        it "should rescue and return empty hash if called on empty return" do
+        it "rescues and returns empty hash if called on empty return" do
           expect(@big_reddit.pull_out(nil)).to eq([])
         end
 
       end
 
-      describe "build_listing" do
+      describe "#build_listing" do
 
-        it "should return a RedditListing object" do
+        it "returns a RedditListing object" do
           fake_json = {}
           expect(@small_reddit.build_listing(fake_json)).to be_an_instance_of(DiscussIt::Listing::RedditListing)
         end
 
       end
 
-      describe "build_all_listings" do
+      describe "#build_all_listings" do
 
-        it "should return an array of Listing objects" do
+        it "returns an array of Listing objects" do
           expect(@small_reddit.build_all_listings).to be_an_instance_of(Array)
         end
 
-        it "should have instance elements of RedditListing" do
+        it "has listing instances of RedditListing" do
           expect(@small_reddit.build_all_listings.first).to be_an_instance_of(DiscussIt::Listing::RedditListing)
         end
 
@@ -93,26 +93,26 @@ describe "DiscussIt" do
 
       end
 
-      describe "initialize", :vcr do
+      describe "#initialize", :vcr do
 
         # FIXME: specify args. what are they
-        it "should init with " do
+        it "inits with " do
           expect(DiscussIt::Fetcher::HnFetch.new("restorethefourth.net")).to be_an_instance_of(DiscussIt::Fetcher::HnFetch)
         end
 
-        it "should not init with 0 arg" do
+        it "wont init with 0 arg" do
           expect{ DiscussIt::Fetcher::HnFetch.new() }.to raise_error(ArgumentError)
         end
 
-        it "should not init with 1+ args" do
+        it "wont init with 1+ args" do
           expect{ DiscussIt::Fetcher::HnFetch.new("restorethefourth.net", "example.com") }.to raise_error(ArgumentError)
         end
 
       end
 
-      describe "pull_out" do
+      describe "#pull_out" do
 
-        it "should return [results] from parent hash" do
+        it "returns [results] from parent hash" do
 
           fake_hn_raw = {
               "results" => [
@@ -123,28 +123,28 @@ describe "DiscussIt" do
           expect(@small_hn_fetch.pull_out(fake_hn_raw)).to eq([{"foo" => "bar"}])
         end
 
-        it "should rescue and return empty hash if called on empty return" do
+        it "rescues and returns empty hash if called on empty return" do
           expect(@small_hn_fetch.pull_out(nil)).to eq([])
         end
 
       end
 
-      describe "build_listing" do
+      describe "#build_listing" do
 
-        it "should return a HnListing object" do
+        it "returns a HnListing object" do
           fake_json = {}
           expect(@small_hn_fetch.build_listing(fake_json)).to be_an_instance_of(DiscussIt::Listing::HnListing)
         end
 
       end
 
-      describe "build_all_listings" do
+      describe "#build_all_listings" do
 
-        it "should be an array of Listing objects" do
+        it "is an array of Listing objects" do
           expect(@small_hn_fetch.build_all_listings).to be_an_instance_of(Array)
         end
 
-        it "should have instance elements of HnListing" do
+        it "has listing instances of HnListing" do
           expect(@small_hn_fetch.build_all_listings.first).to be_an_instance_of(DiscussIt::Listing::HnListing)
         end
 
@@ -167,41 +167,41 @@ describe "DiscussIt" do
 
       end
 
-      describe "initialization" do
+      describe "#initialization" do
 
-        it "should init small fetch with 1 arg" do
+        it "inits small fetch with 1 arg" do
           expect(@small_slashdot).to be_an_instance_of(DiscussIt::Fetcher::SlashdotFetch)
         end
 
-        it "should init big fetch with 1 arg" do
+        it "inits big fetch with 1 arg" do
           expect(@big_slashdot).to be_an_instance_of(DiscussIt::Fetcher::SlashdotFetch)
         end
 
-        it "should not init with 0 arg" do
+        it "wont init with 0 arg" do
           expect{ DiscussIt::Fetcher::SlashdotFetch.new() }.to raise_error(ArgumentError)
         end
 
-        it "should not init with 1+ args" do
+        it "wont init with 1+ args" do
           expect{ DiscussIt::Fetcher::SlashdotFetch.new("restorethefourth.net", "example.com") }.to raise_error(ArgumentError)
         end
       end
 
-      describe "build_listing" do
+      describe "#build_listing" do
 
-        it "should return a SlashdotListing object" do
+        it "returns a SlashdotListing object" do
           fake_json = {}
           expect(@small_slashdot.build_listing(fake_json)).to be_an_instance_of(DiscussIt::Listing::SlashdotListing)
         end
 
       end
 
-      describe "build_all_listings" do
+      describe "#build_all_listings" do
 
-        it "should be an array of Listing objects" do
+        it "is an array of Listing objects" do
           expect(@big_slashdot.build_all_listings).to be_an_instance_of(Array)
         end
 
-        it "should have instance elements of SlashdotListing" do
+        it "has listing instances of SlashdotListing" do
           expect(@big_slashdot.build_all_listings.first).to be_an_instance_of(DiscussIt::Listing::SlashdotListing)
         end
 
@@ -210,41 +210,40 @@ describe "DiscussIt" do
     end
 
 
-    # TODO: rename Fetch to BaseFetch?
 describe "BaseFetch" do
 
-  describe "http_add" do
+  describe "#ensure_http" do
 
     before(:all) do
       @fetcher = DiscussIt::Fetcher::BaseFetch.new
     end
 
-    it "should add http if not found" do
+    it "adds http if not found" do
       expect(@fetcher.ensure_http('restorethefourth.net')).to eq('http://restorethefourth.net')
     end
 
-    it "should not add http if 'http://' found" do
+    it "wont add http if 'http://' is found" do
       expect(@fetcher.ensure_http('http://restorethefourth.net')).to eq('http://restorethefourth.net')
     end
 
-    it "should not add http if 'https://' found" do
+    it "wont add http if 'https://' is found" do
       expect(@fetcher.ensure_http('https://restorethefourth.net')).to eq('https://restorethefourth.net')
     end
 
   end
 
-  describe "parse" do
+  describe "#parse" do
 
     before(:all) do
       @fetcher = DiscussIt::Fetcher::BaseFetch.new
     end
 
-    it "should return a ruby hash with correctly formed response" do
+    it "returns a ruby hash with correctly formed response" do
       fake_json = {"name" => "discussit"}.to_json
       expect(@fetcher.parse(fake_json)).to be_an_instance_of(Hash)
     end
 
-    it "should return a ruby array with empty response" do
+    it "returns a ruby array with empty response" do
       fake_nil_json = [].to_json
       expect(@fetcher.parse(fake_nil_json)).to be_an_instance_of(Array)
     end
@@ -253,7 +252,7 @@ describe "BaseFetch" do
 
   end
 
-  describe "get_response", :vcr do
+  describe "#get_response", :vcr do
 
     before(:all) do
       @reddit_api_url   = 'http://www.reddit.com/api/info.json?url='
@@ -263,29 +262,29 @@ describe "BaseFetch" do
       @fetcher = DiscussIt::Fetcher::BaseFetch.new
     end
 
-    it "should return no results gracefully from reddit string" do
+    it "returns no results gracefully from reddit string" do
       expect(@fetcher.get_response(@reddit_api_url, 'restorethefourth.net')).to be_an_instance_of(Hash)
     end
 
-    it "should return no results gracefully from a nil reddit string" do
+    it "returns no results gracefully from a nil reddit string" do
       expect(@fetcher.get_response(@reddit_api_url, '')).to be_an_instance_of(Hash)
     end
 
-    it "should return valid hash content from hn string" do
+    it "returns valid hash content from hn string" do
       expect(@fetcher.get_response(@hn_api_url, 'restorethefourth.net')).to be_an_instance_of(Hash)
     end
 
     # FIXME: make a special catch for nil hn? weird valid case that returns results, potentially bad
-    it "should return no results gracefully from a nil hn string" do
+    it "returns no results gracefully from a nil hn string" do
       expect(@fetcher.get_response(@hn_api_url, '')).to be_an_instance_of(Hash)
     end
 
     # TODO: serialize JSON response
-    it "should return ruby hash from slashdot string" do
+    it "returns ruby hash from slashdot string" do
       expect(@fetcher.get_response(@slashdot_api_url, 'http://singularityhub.com/2013/07/27/canvas-camera-brush-and-algorithms-enable-robot-artists-beautiful-paintings/')).to be_an_instance_of(Array)
     end
 
-    it "should return no results gracefully from a nil slashdot string" do
+    it "returns no results gracefully from a nil slashdot string" do
       expect(@fetcher.get_response(@slashdot_api_url, '')).to be_an_instance_of(Array)
     end
 
