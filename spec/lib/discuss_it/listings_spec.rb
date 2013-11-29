@@ -42,32 +42,23 @@ describe "DiscussIt" do
 
       describe 'accessors' do
 
-        it "has a location accessor on RedditListing" do
-          expect(@reddit_listing.location).to eq('http://www.reddit.com/r/technology/comments/1j8h6p/edavid_a_robotic_system_built_by_researchers_at/')
+        it "has a location accessor for any descendant" do
+          expect(@reddit_listing.location).to eq(
+            'http://www.reddit.com/r/technology/comments/1j8h6p/edavid_a_robotic_system_built_by_researchers_at/')
+          expect(@hn_listing.location).to eq(
+            'http://news.ycombinator.com/item?id=6118451')
+          expect(@slashdot_listing.location).to eq(
+            'http://hardware.slashdot.org/story/13/07/28/2056210/robot-produces-paintings-with-that-imperfect-human-look')
         end
 
-        it "has a ranking accessor on RedditListing" do
-          expect(@reddit_listing.ranking).to be_kind_of(Fixnum)
+        it "has a ranking accessor for any descendant" do
+          expect(@reddit_listing.ranking).to    be_kind_of(Fixnum)
+          expect(@hn_listing.ranking).to        be_kind_of(Fixnum)
+          expect(@slashdot_listing.ranking).to  be_kind_of(Fixnum)
         end
 
         it "has a subreddit accessor on RedditListing" do
           expect(@reddit_listing.subreddit).to eq('technology')
-        end
-
-        it "has a location accessor on HnListing" do
-          expect(@hn_listing.location).to eq('http://news.ycombinator.com/item?id=6118451')
-        end
-
-        it "has a ranking accessor on HnListing" do
-          expect(@hn_listing.ranking).to be_kind_of(Fixnum)
-        end
-
-        it "has a location accessor on SlashdotListing" do
-          expect(@slashdot_listing.location).to eq('http://hardware.slashdot.org/story/13/07/28/2056210/robot-produces-paintings-with-that-imperfect-human-look')
-        end
-
-        it "has a ranking accessor on SlashdotListing" do
-          expect(@slashdot_listing.ranking).to be_kind_of(Fixnum)
         end
 
       end
@@ -77,7 +68,6 @@ describe "DiscussIt" do
     describe "ListingCollection" do
 
       before(:all) do
-
         VCR.use_cassette("one_result_each", :record => :new_episodes) do
           @one_result_each = DiscussIt::DiscussItApi.new('http://singularityhub.com/2013/07/27/canvas-camera-brush-and-algorithms-enable-robot-artists-beautiful-paintings/')
         end
@@ -135,6 +125,7 @@ describe "DiscussIt" do
         end
 
         it "returns 1 top listings for hn" do
+
           hn_listings_in_results = @one_result_each.listings.tops.select do |listing|
             listing.class == DiscussIt::Listing::HnListing
           end
