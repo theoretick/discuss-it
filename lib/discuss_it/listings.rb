@@ -54,14 +54,11 @@ module DiscussIt
   module Listing
 
     #----------------------------------------------------------------------
-    # creates a Listing object from listing hash w/ sort & dot-notation
+    # creates a Listing object from hash w/ sortability & dot-notation
     # accessors.
     #
-    # ABSTRACT ONLY, instantiated w/ HnListing and RedditListing
+    # ABSTRACT - init w/ HnListing, SlashdotListing, and RedditListing
     #----------------------------------------------------------------------
-    #
-    # FIXME: try moving this below Reddit/HnListings and watch it explode
-    # WHAT?? does order now matter in Ruby
     class BaseListing < Hashie::Mash
       # provides sort method
       include Comparable
@@ -69,61 +66,7 @@ module DiscussIt
       def <=>(a)
         return self.ranking <=> a.ranking
       end
-
-    end
-
-    #----------------------------------------------------------------------
-    # Listing class for Reddit with custom accessors
-    #----------------------------------------------------------------------
-    class RedditListing < BaseListing
-
-      def score
-        return self["score"] || 0
-      end
-
-      # for custom ranking algorithm
-      def ranking
-        # self["score"] + ( subreddit_subscribers(self["subreddit"]) + self["num_comments"] )
-        self['ranking'] = score + self['num_comments']
-      end
-
-    end
-
-
-    #----------------------------------------------------------------------
-    # Listing class for HN with custom accessors
-    #----------------------------------------------------------------------
-    class HnListing < BaseListing
-
-      def score
-        return self["points"] || 0
-      end
-
-      # for custom ranking algorithm
-      def ranking
-        self['ranking'] = score + self['num_comments']
-      end
-
-    end
-
-
-    #----------------------------------------------------------------------
-    # Listing class for Slashdot with custom accessors
-    #----------------------------------------------------------------------
-    class SlashdotListing < BaseListing
-
-      # TODO: future-proof if we want to integrate num_comments globally
-      def score
-        return 0
-      end
-
-      # for custom ranking algorithm
-      def ranking
-        self['ranking'] = score + self['num_comments']
-      end
-
     end
 
   end
-
 end

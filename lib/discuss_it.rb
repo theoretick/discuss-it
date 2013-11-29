@@ -13,6 +13,10 @@ require 'discuss_it/fetchers'
 require 'discuss_it/filter'
 require 'discuss_it/version'
 
+require 'discuss_it/listings/reddit_listing'
+require 'discuss_it/listings/hn_listing'
+require 'discuss_it/listings/slashdot_listing'
+
 module DiscussIt
 
   #----------------------------------------------------------------------
