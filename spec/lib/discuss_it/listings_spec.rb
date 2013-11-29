@@ -69,16 +69,16 @@ describe "DiscussIt" do
           @one_result_each = DiscussIt::DiscussItApi.new('http://singularityhub.com/2013/07/27/canvas-camera-brush-and-algorithms-enable-robot-artists-beautiful-paintings/')
         end
 
-        @reddit_listings   = @one_result_each.all_listings.reddit
-        @hn_listings       = @one_result_each.all_listings.hn
-        @slashdot_listings = @one_result_each.all_listings.slashdot
+        @reddit_listings   = @one_result_each.listings.reddit
+        @hn_listings       = @one_result_each.listings.hn
+        @slashdot_listings = @one_result_each.listings.slashdot
 
       end
 
       describe "#initialize" do
 
-        it "equates to all_listings on DiscussItApi" do
-          expect(@one_result_each.all_listings).to be_an_instance_of(DiscussIt::ListingCollection)
+        it "equates to listings on DiscussItApi" do
+          expect(@one_result_each.listings).to be_an_instance_of(DiscussIt::ListingCollection)
         end
 
       end
@@ -108,17 +108,17 @@ describe "DiscussIt" do
       describe "#tops" do
 
         it "returns 1 top listings for reddit" do
-          expect(@one_result_each.all_listings.tops.select { |listing|
+          expect(@one_result_each.listings.tops.select { |listing|
             listing.class == DiscussIt::Listing::RedditListing }).to have_at_least(1).things
         end
 
         it "returns 1 top listings for hn" do
-          expect(@one_result_each.all_listings.tops.select { |listing|
+          expect(@one_result_each.listings.tops.select { |listing|
             listing.class == DiscussIt::Listing::HnListing }).to have_at_least(1).things
         end
 
         it "returns 1 top listings for slashdot" do
-          expect(@one_result_each.all_listings.tops.select { |listing|
+          expect(@one_result_each.listings.tops.select { |listing|
             listing.class == DiscussIt::Listing::SlashdotListing }).to have_at_least(1).things
         end
 
