@@ -7,16 +7,29 @@ describe "DiscussIt" do
     describe "Listing" do
 
       before(:all) do
-        @reddit_listing   = DiscussIt::Listing::RedditListing.new(
-          {"domain"=>"singularityhub.com", "banned_by"=>nil, "media_embed"=>{}, "subreddit"=>"technology", "selftext_html"=>nil, "selftext"=>"", "likes"=>nil, "link_flair_text"=>nil, "id"=>"1j8h6p", "clicked"=>false, "stickied"=>false, "title"=> "e-David, a robotic system built by researchers at the U of Konstanz, employs a variety of styles to produce paintings remarkably similar to their human counterparts -- \"the final products seem to display that perfectly imperfect quality we generally associate with human works of art\"", "media"=>nil, "score"=>3, "approved_by"=>nil, "over_18"=>false, "hidden"=>false, "thumbnail"=>"", "subreddit_id"=>"t5_2qh16", "edited"=>false, "link_flair_css_class"=>nil, "author_flair_css_class"=>nil, "downs"=>11, "saved"=>false, "is_self"=>false, "permalink"=> "/r/technology/comments/1j8h6p/edavid_a_robotic_system_built_by_researchers_at/", "name"=>"t3_1j8h6p", "created"=>1375074720.0, "url"=> "http://singularityhub.com/2013/07/27/canvas-camera-brush-and-algorithms-enable-robot-artists-beautiful-paintings/", "author_flair_text"=>nil, "author"=>"mepper", "created_utc"=>1375045920.0, "ups"=>14, "num_comments"=>0, "num_reports"=>nil, "distinguished"=>nil}
-        )
-        @hn_listing       = DiscussIt::Listing::HnListing.new(
-          {"username"=>"chewxy", "parent_sigid"=>nil, "domain"=>"singularityhub.com", "title"=>"Robots paint with flaws too, like humans", "url"=>"http://singularityhub.com/2013/07/27/canvas-camera-brush-and-algorithms-enable-robot-artists-beautiful-paintings/", "text"=>nil, "discussion"=>nil, "id"=>6118451, "parent_id"=>nil, "points"=>2, "create_ts"=>"2013-07-28T22:58:13Z", "num_comments"=>0, "cache_ts"=>"2013-08-05T07:36:41Z", "_id"=>"6118451-780d6", "type"=>"submission", "_noindex"=>false, "_update_ts"=>1375688234296273}
-          )
-        @slashdot_listing = DiscussIt::Listing::SlashdotListing.new(
-          {"id"=>112, "title"=>"Robot Produces Paintings With That ImperfectHuman Look - Slashdot", "permalink"=>"http://hardware.slashdot.org/story/13/07/28/2056210/robot-produces-paintings-with-that-imperfect-human-look", "created_at"=>"2013-08-02T02:58:52.944Z", "updated_at"=>"2013-08-02T02:58:52.944Z", "site"=>"slashdot", "author"=>"timothy", "comment_count"=>74, "post_date"=>"on Sunday July 28, 2013 @04:57PM"}
-        )
+        @reddit_listing   = DiscussIt::Listing::RedditListing.new({
+          "subreddit" => "technology",
+          "title" => "e-David, a robotic system built by researchers at the U of Konstanz, employs a variety of styles to produce paintings remarkably similar to their human counterparts -- \"the final products seem to display that perfectly imperfect quality we generally associate with human works of art\"",
+          "permalink" => "/r/technology/comments/1j8h6p/edavid_a_robotic_system_built_by_researchers_at/",
+          "url" => "http://singularityhub.com/2013/07/27/canvas-camera-brush-and-algorithms-enable-robot-artists-beautiful-paintings/",
+          "ups" => 14,
+          "downs" => 11,
+          "score" => 3,
+          "num_comments" => 0
+        })
 
+        @hn_listing = DiscussIt::Listing::HnListing.new({
+          "title" => "Robots paint with flaws too, like humans",
+          "url" => "http://singularityhub.com/2013/07/27/canvas-camera-brush-and-algorithms-enable-robot-artists-beautiful-paintings/",
+          "points" => 2,
+          "num_comments" => 0
+        })
+
+        @slashdot_listing = DiscussIt::Listing::SlashdotListing.new({
+          "title" => "Robot Produces Paintings With That Imperfect Human Look - Slashdot",
+          "permalink" => "http://hardware.slashdot.org/story/13/07/28/2056210/robot-produces-paintings-with-that-imperfect-human-look",
+          "comment_count" => 74
+        })
       end
 
       describe '#initialize' do
@@ -34,7 +47,7 @@ describe "DiscussIt" do
         end
 
         it "has a ranking accessor on RedditListing" do
-          expect(@reddit_listing.ranking).to eq(3)
+          expect(@reddit_listing.ranking).to be_kind_of(Fixnum)
         end
 
         it "has a subreddit accessor on RedditListing" do
@@ -46,7 +59,7 @@ describe "DiscussIt" do
         end
 
         it "has a ranking accessor on HnListing" do
-          expect(@hn_listing.ranking).to eq(2)
+          expect(@hn_listing.ranking).to be_kind_of(Fixnum)
         end
 
         it "has a location accessor on SlashdotListing" do
@@ -54,7 +67,7 @@ describe "DiscussIt" do
         end
 
         it "has a ranking accessor on SlashdotListing" do
-          expect(@slashdot_listing.ranking).to eq(74)
+          expect(@slashdot_listing.ranking).to be_kind_of(Fixnum)
         end
 
       end
@@ -86,21 +99,27 @@ describe "DiscussIt" do
       describe "accessors" do
 
         it "returns only HnListings from hn method" do
-          expect(@hn_listings.all? { |listing|
-            listing.is_a?(DiscussIt::Listing::HnListing)
-          }).to be_true
+          has_only_hn_listings = @hn_listings.all? do |listing|
+            listing.instance_of?(DiscussIt::Listing::HnListing)
+          end
+
+          expect(has_only_hn_listings).to be_true
         end
 
         it "returns only RedditListings from reddit method" do
-          expect(@reddit_listings.all? { |listing|
-            listing.is_a?(DiscussIt::Listing::RedditListing)
-          }).to be_true
+          has_only_reddit_listings = @reddit_listings.all? do |listing|
+            listing.instance_of?(DiscussIt::Listing::RedditListing)
+          end
+
+          expect(has_only_reddit_listings).to be_true
         end
 
         it "returns only SlashdotListings from slashdot method" do
-          expect(@slashdot_listings.all? { |listing|
-            listing.is_a?(DiscussIt::Listing::SlashdotListing)
-          }).to be_true
+          has_only_slashdot_listings = @slashdot_listings.all? do |listing|
+            listing.instance_of?(DiscussIt::Listing::SlashdotListing)
+          end
+
+          expect(has_only_slashdot_listings).to be_true
         end
 
       end
@@ -108,18 +127,27 @@ describe "DiscussIt" do
       describe "#tops" do
 
         it "returns 1 top listings for reddit" do
-          expect(@one_result_each.listings.tops.select { |listing|
-            listing.class == DiscussIt::Listing::RedditListing }).to have_at_least(1).things
+          reddit_listings_in_results = @one_result_each.listings.tops.select do |listing|
+            listing.class == DiscussIt::Listing::RedditListing
+          end
+
+          expect(reddit_listings_in_results).to have_at_least(1).things
         end
 
         it "returns 1 top listings for hn" do
-          expect(@one_result_each.listings.tops.select { |listing|
-            listing.class == DiscussIt::Listing::HnListing }).to have_at_least(1).things
+          hn_listings_in_results = @one_result_each.listings.tops.select do |listing|
+            listing.class == DiscussIt::Listing::HnListing
+          end
+
+          expect(hn_listings_in_results).to have_at_least(1).things
         end
 
         it "returns 1 top listings for slashdot" do
-          expect(@one_result_each.listings.tops.select { |listing|
-            listing.class == DiscussIt::Listing::SlashdotListing }).to have_at_least(1).things
+          slashdot_listings_in_results = @one_result_each.listings.tops.select do |listing|
+            listing.class == DiscussIt::Listing::SlashdotListing
+          end
+
+          expect(slashdot_listings_in_results).to have_at_least(1).things
         end
 
       end
