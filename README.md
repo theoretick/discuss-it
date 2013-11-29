@@ -9,7 +9,7 @@
 
 Website for locating online discussions about a given article on Reddit, Hacker News, and Slashdot.
 
-Currently hosted at: [discussitapp.com](http://www.discussitapp.com/)
+Currently hosted at: [www.discussitapp.com](http://www.discussitapp.com/)
 
 ## Features
 
@@ -44,7 +44,7 @@ Want to use our app for easy searching?
 Discuss It results can be conveniently accessed with a JSON request to our
 submit page:
 ```
-http://discussitapp.com/submit.json?url=http://example.com/
+http://www.discussitapp.com/submit.json?url=http://example.com/
 ```
 
 ## Bookmarklet
@@ -72,9 +72,9 @@ searchDiscussIt();
 
 **theoretick** :: [github](https://github.com/theoretick), [twitter](https://twitter.com/theoretick)
 
-**ericalthatcher** :: [github](https://github.com/ericalthatcher), [twitter](https://twitter.com/ericalthatcher)
-
 **CodingAntecedent** :: [github](https://github.com/CodingAntecedent), [twitter](https://twitter.com/JohannBenedikt)
+
+**ericalthatcher** :: [github](https://github.com/ericalthatcher), [twitter](https://twitter.com/a_la_erica)
 
 
 _Find a bug? Contributions welcome._
