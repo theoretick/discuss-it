@@ -34,16 +34,27 @@ module DiscussIt
       def get_response(api_url, query_string)
         begin
           query_url = ensure_http(query_string)
+          fetcher_url = api_url + query_url
 
-          conn = Faraday.new(url: api_url + query_url) do |faraday|
+          conn = Faraday.new(url: fetcher_url) do |faraday|
             faraday.response :logger      # log requests to STDOUT
             faraday.adapter  :typhoeus    # make requests with Typhoeus
             faraday.headers["User-Agent"] = "DiscussItAPI #{VERSION} at github.com/discuss-it"
           end
 
-          response = conn.get() do |req|
-            req.options[:timeout] = 4           # open/read timeout in seconds
-            req.options[:open_timeout] = 2      # connection open timeout in seconds
+          # make fresh calls in development, otherwise cache for 1 hour
+          if Rails.env.development? || Rails.env.test?
+            response = conn.get() do |req|
+              req.options[:timeout] = 4           # open/read timeout in seconds
+              req.options[:open_timeout] = 2      # connection open timeout in seconds
+            end
+          else
+            Rails.cache.fetch fetcher_url, :expires_in => 1.hour do
+              response = conn.get() do |req|
+                req.options[:timeout] = 4           # open/read timeout in seconds
+                req.options[:open_timeout] = 2      # connection open timeout in seconds
+              end
+            end
           end
 
           return self.parse(response.body)
