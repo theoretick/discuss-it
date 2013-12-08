@@ -1,4 +1,16 @@
 
+## 0.5.8 (2013-12-08)
+
+ * fixed submit-page issue with displaying ranking as 'undefined'
+ * added error message display to submit-page for DI internal server error
+ * updated specs with let syntax and clearer messages
+
+## 0.5.7 (???)
+
+ * added response caching per API-call along with full listing fetch
+ * changed response caching to full-listing for DEV environment only,
+   else cache per call
+
 ## 0.5.6 (2013-11-17)
 
  * moved trailing-slash stripper into controller for now so works for ajax & caching
@@ -11,7 +23,7 @@
  * now filters zero-comment threads for BOTH top and all results on
    submit page
 
-## 0.5.3 (2013-10-20)
+## 0.5.4 (2013-10-20)
 
  * added filtering of zero-comment threads to submit page
 
