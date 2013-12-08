@@ -61,6 +61,14 @@ $(document).ready(function(){
     return $noResultP;
   };
 
+  var showServerError = function(){
+    var $serverErrorP = $(document.createElement('p'));
+    $serverErrorP.addClass('text-center');
+    $serverErrorP.html('INTERNAL SERVER ERROR');
+    return $serverErrorP;
+  };
+
+
   ////////////////////////////////////////////////////////////////////
   // AJAX
   ////////////////////////////////////////////////////////////////////
@@ -81,6 +89,10 @@ $(document).ready(function(){
       if ( hasNoResults('top') ){
         $('#top-results').append(showNoResults('top'));
       }
+    })
+    .fail(function(){
+      $topDiscussionsTable.spin(false);
+      $('#top-results').append(showServerError());
     });
 
   // fetch all_results
@@ -99,6 +111,10 @@ $(document).ready(function(){
       if ( hasNoResults('all') ){
         $('#all-results').append(showNoResults('all'));
       }
+    })
+    .fail(function(){
+      $allDiscussionsTable.spin(false);
+      $('#all-results').append(showServerError());
     });
 
   // fetch filtered_results
