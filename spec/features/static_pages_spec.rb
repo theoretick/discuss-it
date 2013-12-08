@@ -38,18 +38,6 @@ describe "StaticPages" do
 
     end
 
-    it "should have anchor results in top_results" do
-      within("#top-results") do
-        expect(page).to have_selector('a')
-      end
-    end
-
-    it "should have anchor results in top_results" do
-      within("#all-results") do
-        expect(page).to have_selector('a')
-      end
-    end
-
   end
 
   # it "should have 'try again' anchor if no results found"
