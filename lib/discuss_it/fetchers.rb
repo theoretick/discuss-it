@@ -201,7 +201,9 @@ module DiscussIt
         listing = parent_hash['data']
         listing['site'] = 'Reddit'
         listing['location'] = 'http://www.reddit.com' + listing['permalink']
-        return DiscussIt::Listing::RedditListing.new(listing)
+        reddit_listing =  DiscussIt::Listing::RedditListing.new(listing)
+        reddit_listing.ranking
+        return reddit_listing
       end
 
     end
@@ -268,7 +270,9 @@ module DiscussIt
         listing = parent_hash['item']
         listing['site'] = 'HackerNews'
         listing['location'] = 'http://news.ycombinator.com/item?id=' + listing['id'].to_s
-        return DiscussIt::Listing::HnListing.new(listing)
+        hn_listing = DiscussIt::Listing::HnListing.new(listing)
+        hn_listing.ranking
+        return hn_listing
       end
     end
 
@@ -337,7 +341,9 @@ module DiscussIt
         listing['site'] = 'Slashdot'
         listing['location'] = location
         listing['num_comments'] = comment_count
-        return DiscussIt::Listing::SlashdotListing.new(listing)
+        slash_listing = DiscussIt::Listing::SlashdotListing.new(listing)
+        slash_listing.ranking
+        return slash_listing
       end
 
     end
