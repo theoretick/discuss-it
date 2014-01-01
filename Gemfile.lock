@@ -176,6 +176,8 @@ GEM
       pry (>= 0.9.11)
     puma (2.4.0)
       rack (>= 1.1, < 2.0)
+    quiet_assets (1.0.2)
+      railties (>= 3.1, < 5.0)
     rack (1.5.2)
     rack-contrib (1.1.0)
       rack (>= 0.9.1)
@@ -325,6 +327,7 @@ DEPENDENCIES
   pry-rails
   pry-stack_explorer
   puma
+  quiet_assets
   rails (= 4.0.0)
   rails_12factor
   rails_admin

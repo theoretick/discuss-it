@@ -29,6 +29,7 @@ group :development do
   gem 'pry-stack_explorer'
   # save_and_open pages for integration testing
   gem 'launchy'
+  gem 'quiet_assets'
 end
 
 group :development, :test do

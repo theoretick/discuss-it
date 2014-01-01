@@ -70,14 +70,11 @@ $(document).ready(function(){
     })
     // for each result that comes in, add as row
     .node('!.top_results.results*', function( result ){
-      console.log(result);
       var row = addRow(result);
       $topDiscussionsTable.append(row);
     })
     // for each result that comes in, add as row
     .node('!.all_results.results*', function( result ){
-            console.log(result);
-      console.log(result);
       var row = addRow(result);
       $allDiscussionsTable.append(row);
     })
