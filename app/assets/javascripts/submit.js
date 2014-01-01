@@ -1,5 +1,6 @@
-// static_pages/submit AJAX result loading
-// hits API endpoint /api/get_discussions
+////////////////////////////////////////////////////////////////////
+// static_pages#submit JS for AJAX result loading
+////////////////////////////////////////////////////////////////////
 
 $(document).ready(function(){
 
@@ -9,9 +10,11 @@ $(document).ready(function(){
   var $allDiscussionsTable = $('#all-discussions-table tbody');
   var $filteredDiscussionsTable = $('#filtered-discussions-table tbody');
 
-  // init loading spinners and hide filtered results unless they exist
+  // init loading spinners
   $topDiscussionsTable.spin('small');
   $allDiscussionsTable.spin('small');
+
+  // hide filtered results unless they exist
   $('#filtered-btn').hide();
   $('#filtered-results').hide();
 
@@ -58,26 +61,26 @@ $(document).ready(function(){
   // AJAX
   ////////////////////////////////////////////////////////////////////
 
-  // fetch top_results
   oboe(apiUrl)
     // on first datum, disable spinner
     .node('!.top_results', function(){
       $topDiscussionsTable.spin(false);
     })
-    // on first datum, disable spinner
     .node('!.all_results', function(){
       $allDiscussionsTable.spin(false);
     })
+
     // for each result that comes in, add as row
     .node('!.top_results.results*', function( result ){
       var row = addRow(result);
       $topDiscussionsTable.append(row);
     })
-    // for each result that comes in, add as row
     .node('!.all_results.results*', function( result ){
       var row = addRow(result);
       $allDiscussionsTable.append(row);
     })
+
+    // display if has filtered results
     .node('!.filtered_results.results*', function( result ){
       if (result) {
         $('#filtered-btn').show();
@@ -86,8 +89,9 @@ $(document).ready(function(){
       var row = addRow(result);
       $filteredDiscussionsTable.append(row);
     })
-    // once done, if empty, add 'no results' p element
-    .done(function(allResults){
+
+    // once done, if empty, add 'no results' p elements
+    .done(function(allResults) {
       if (allResults.errors.length > 0) {
         for (var error in allResults.errors) {
           console.log(error);
@@ -104,17 +108,5 @@ $(document).ready(function(){
       // $('#top-results').append(showServerError());
       // $('#all-results').append(showServerError());
     });
-
-  // // fetch filtered_results
-  // oboe(apiUrl)
-  //   // for each result that comes in, add as row
-  //   .node('!.filtered_results.results*', function( result ){
-  //     if (result) {
-  //       $('#filtered-btn').show();
-  //       $('#filtered-results').show();
-  //     }
-  //     var row = addRow(result);
-  //     $filteredDiscussionsTable.append(row);
-  //   });
 
 });
