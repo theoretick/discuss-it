@@ -56,4 +56,5 @@
             %th.listing-score
         %tbody
 
-=javascript_include_tag 'submit'
+- content_for :scripts do
+  = javascript_include_tag 'submit'
