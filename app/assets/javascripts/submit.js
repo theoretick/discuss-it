@@ -1,7 +1,5 @@
-
-
-
-// new_submit page result loading
+// static_pages/submit AJAX result loading
+// hits API endpoint /api/get_discussions
 
 $(document).ready(function(){
 
@@ -35,19 +33,6 @@ $(document).ready(function(){
     return tRow;
   };
 
-  // boolean check if results were retrieved
-  var hasNoResults = function(resultSet){
-    if (resultSet == 'top') {
-      return ($topDiscussionsTable[0].children.length < 1) ? true : false;
-    }
-    else if (resultSet == 'all') {
-      return ($allDiscussionsTable[0].children.length < 1) ? true : false;
-    }
-    else if (resultSet == 'filtered') {
-      return ($filteredDiscussionsTable[0].children.length < 1) ? true : false;
-    }
-  };
-
   // displays 'no results found' p element
   var showNoResults = function(resultSet){
     var $noResultP = $(document.createElement('p'));
@@ -75,51 +60,27 @@ $(document).ready(function(){
 
   // fetch top_results
   oboe(apiUrl)
-    // for each result that comes in, add as row
-    .node('!.top_results.results*', function( result ){
-      var row = addRow(result);
-      $topDiscussionsTable.append(row);
-    })
     // on first datum, disable spinner
     .node('!.top_results', function(){
       $topDiscussionsTable.spin(false);
-    })
-    // once done, if empty, add 'no results' p element
-    .done( function(allResults){
-      if ( hasNoResults('top') ){
-        $('#top-results').append(showNoResults('top'));
-      }
-    })
-    .fail(function(){
-      $topDiscussionsTable.spin(false);
-      $('#top-results').append(showServerError());
-    });
-
-  // fetch all_results
-  oboe(apiUrl)
-    // for each result that comes in, add as row
-    .node('!.all_results.results*', function( result ){
-      var row = addRow(result);
-      $allDiscussionsTable.append(row);
     })
     // on first datum, disable spinner
     .node('!.all_results', function(){
       $allDiscussionsTable.spin(false);
     })
-    // once done, if empty, add 'no results' p element
-    .done( function(allResults){
-      if ( hasNoResults('all') ){
-        $('#all-results').append(showNoResults('all'));
-      }
-    })
-    .fail(function(){
-      $allDiscussionsTable.spin(false);
-      $('#all-results').append(showServerError());
-    });
-
-  // fetch filtered_results
-  oboe(apiUrl)
     // for each result that comes in, add as row
+    .node('!.top_results.results*', function( result ){
+      console.log(result);
+      var row = addRow(result);
+      $topDiscussionsTable.append(row);
+    })
+    // for each result that comes in, add as row
+    .node('!.all_results.results*', function( result ){
+            console.log(result);
+      console.log(result);
+      var row = addRow(result);
+      $allDiscussionsTable.append(row);
+    })
     .node('!.filtered_results.results*', function( result ){
       if (result) {
         $('#filtered-btn').show();
@@ -127,6 +88,36 @@ $(document).ready(function(){
       }
       var row = addRow(result);
       $filteredDiscussionsTable.append(row);
+    })
+    // once done, if empty, add 'no results' p element
+    .done(function(allResults){
+      if (allResults.errors.length > 0) {
+        for (var error in allResults.errors) {
+          console.log(error);
+        }
+      }
+      if (allResults.total_hits === 0) {
+        $('#top-results').append(showNoResults('top'));
+        $('#all-results').append(showNoResults('all'));
+      }
+    })
+    .fail(function() {
+      $topDiscussionsTable.spin(false);
+      $allDiscussionsTable.spin(false);
+      // $('#top-results').append(showServerError());
+      // $('#all-results').append(showServerError());
     });
+
+  // // fetch filtered_results
+  // oboe(apiUrl)
+  //   // for each result that comes in, add as row
+  //   .node('!.filtered_results.results*', function( result ){
+  //     if (result) {
+  //       $('#filtered-btn').show();
+  //       $('#filtered-results').show();
+  //     }
+  //     var row = addRow(result);
+  //     $filteredDiscussionsTable.append(row);
+  //   });
 
 });
