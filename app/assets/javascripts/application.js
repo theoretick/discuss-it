@@ -16,3 +16,4 @@
 //= require Spin
 //= require jquery.spin
 //= require oboe-browser
+//= require submit
