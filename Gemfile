@@ -22,6 +22,10 @@ gem 'rails_admin'
 gem 'devise'
 gem 'cancan'
 
+# caching
+gem 'memcachier'
+gem 'dalli'
+
 group :development do
   gem 'better_errors'
   gem 'pry-rails'

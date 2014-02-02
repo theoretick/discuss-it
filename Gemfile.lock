@@ -72,6 +72,7 @@ GEM
       thor
     crack (0.4.0)
       safe_yaml (~> 0.9.0)
+    dalli (2.7.0)
     debug_inspector (0.0.2)
     devise (3.0.2)
       bcrypt-ruby (~> 3.0)
@@ -145,6 +146,7 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    memcachier (0.0.2)
     meta_request (0.2.7)
       callsite
       rack-contrib
@@ -306,6 +308,7 @@ DEPENDENCIES
   cancan
   capybara
   coveralls
+  dalli
   devise
   faraday
   flat-ui-rails
@@ -319,6 +322,7 @@ DEPENDENCIES
   jbuilder (~> 1.2)
   jquery-rails
   launchy
+  memcachier
   meta_request
   newrelic_rpm
   nokogiri
