@@ -43,19 +43,19 @@ module DiscussIt
           end
 
           # make fresh calls in development, otherwise cache for 1 hour
-          if Rails.env.development? || Rails.env.test?
+          # if Rails.env.development? || Rails.env.test?
             response = conn.get() do |req|
               req.options[:timeout] = 4           # open/read timeout in seconds
               req.options[:open_timeout] = 2      # connection open timeout in seconds
             end
-          else
-            Rails.cache.fetch fetcher_url, :expires_in => 1.hour do
-              response = conn.get() do |req|
-                req.options[:timeout] = 4           # open/read timeout in seconds
-                req.options[:open_timeout] = 2      # connection open timeout in seconds
-              end
-            end
-          end
+          # else
+          #   Rails.cache.fetch fetcher_url, :expires_in => 1.hour do
+          #     response = conn.get() do |req|
+          #       req.options[:timeout] = 4           # open/read timeout in seconds
+          #       req.options[:open_timeout] = 2      # connection open timeout in seconds
+          #     end
+          #   end
+          # end
 
           return self.parse(response.body)
 
