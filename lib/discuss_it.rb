@@ -27,6 +27,7 @@ module DiscussIt
   class DiscussItApi
 
     attr_accessor :listings
+    attr_accessor :errors
 
     # Equivalent to DiscussItApi.new but with caching!
     def self.cached_request(query_url, opts={})
@@ -36,11 +37,16 @@ module DiscussIt
       if Rails.env.development?
         request_cache_key = "#{query_url}_#{opts[:source]}"
 
-        Rails.cache.fetch request_cache_key, :expires_in => 12.hours do
-          puts '*'*80
-          puts '=== CACHING REQUEST ==='
-          self.new(query_url, opts)
-        end
+        inst =  Rails.cache.fetch request_cache_key, :expires_in => 12.hours do
+                  puts '*'*80
+                  puts '=== CACHING REQUEST ==='
+                  self.new(query_url, opts)
+                end
+
+        # Expire the cache if it was a bad request (has errors)
+        Rails.cache.delete(request_cache_key) unless inst.errors.empty?
+
+        return inst
       else
         self.new(query_url, opts)
       end
@@ -60,7 +66,7 @@ module DiscussIt
     #
     #   discuss_it = DiscussItApi.new('http://restorethefourth.net')
     #
-    #   discuss_it = DiscussItApi.new('http://restorethefourth.net', 'hn', 3)
+    #   discuss_it = DiscussItApi.new('http://restorethefourth.net', source: 'hn', api_version: 3)
     #
     # Returns nothing.
     def initialize(query_string, opts={})
@@ -68,6 +74,7 @@ module DiscussIt
       opts[:api_version] ||= 3
 
       @query_string = query_string
+      @errors = []
 
       results = case opts[:source]
                 when 'reddit'
@@ -101,15 +108,23 @@ module DiscussIt
     end
 
     def get_reddit
-      Fetcher::RedditFetch.new(@query_string)
+      fetcher = Fetcher::RedditFetch.new(@query_string)
+      @errors += fetcher.errors
+      return fetcher
     end
 
     def get_hn
-      Fetcher::HnFetch.new(@query_string)
+      fetcher = Fetcher::HnFetch.new(@query_string)
+      @errors += fetcher.errors
+      return fetcher
     end
 
     def get_slashdot
-      Fetcher::SlashdotFetch.new(@query_string) if include_slashdot?
+      if include_slashdot?
+        fetcher = Fetcher::SlashdotFetch.new(@query_string)
+      @errors += fetcher.errors
+        return fetcher
+      end
     end
 
     def include_slashdot?

@@ -11,6 +11,12 @@ module DiscussIt
     #----------------------------------------------------------------------
     class BaseFetch
 
+      attr_reader :errors
+
+      def initialize
+        @errors = []
+      end
+
       # Public: makes http req with query_string.
       #
       # api_url      - base url of current discussion site to be queried.
@@ -42,20 +48,10 @@ module DiscussIt
             faraday.headers["User-Agent"] = "DiscussItAPI #{VERSION} at github.com/discuss-it"
           end
 
-          # make fresh calls in development, otherwise cache for 1 hour
-          # if Rails.env.development? || Rails.env.test?
-            response = conn.get() do |req|
-              req.options[:timeout] = 4           # open/read timeout in seconds
-              req.options[:open_timeout] = 2      # connection open timeout in seconds
-            end
-          # else
-          #   Rails.cache.fetch fetcher_url, :expires_in => 1.hour do
-          #     response = conn.get() do |req|
-          #       req.options[:timeout] = 4           # open/read timeout in seconds
-          #       req.options[:open_timeout] = 2      # connection open timeout in seconds
-          #     end
-          #   end
-          # end
+          response = conn.get() do |req|
+            req.options[:timeout] = 4           # open/read timeout in seconds
+            req.options[:open_timeout] = 2      # connection open timeout in seconds
+          end
 
           return self.parse(response.body)
 
@@ -145,6 +141,8 @@ module DiscussIt
       #
       # Returns nothing.
       def initialize(query_url)
+        @errors = []
+
         # API call #1 (no trailing slash)
         begin
           reddit_raw_a = get_response(api_url, query_url)
@@ -152,6 +150,7 @@ module DiscussIt
         rescue DiscussIt::TimeoutError => e
           # TODO: add status code for e homepage display 'reddit down'
           @raw_master = []
+          @errors << e
         end
 
         # API call #2 (with trailing slash)
@@ -162,6 +161,7 @@ module DiscussIt
         rescue DiscussIt::TimeoutError => e
           # TODO: add status code for e homepage display 'reddit down'
           @raw_master += []
+          @errors << e
         end
       end
 
@@ -225,12 +225,14 @@ module DiscussIt
       #
       # Returns nothing.
       def initialize(query_url)
+        @errors = []
         begin
           hn_raw = get_response(api_url, query_url + '/')
           @raw_master = pull_out(hn_raw)
         rescue DiscussIt::TimeoutError => e
           # TODO: add status code for e homepage display 'hn down'
           @raw_master = []
+          @errors << e
         end
       end
 
@@ -293,11 +295,13 @@ module DiscussIt
       #
       # Returns nothing.
       def initialize(query_url)
+        @errors = []
         begin
           slashdot_raw = get_response(api_url, query_url)
           @raw_master = slashdot_raw
         rescue DiscussIt::TimeoutError => e
           # TODO: add status code for e homepage display 'slashdot down'
+          @errors << e
           @raw_master = []
         end
       end
