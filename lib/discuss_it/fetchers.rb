@@ -244,13 +244,13 @@ module DiscussIt
       end
 
       def api_url
-        return 'http://api.thriftdb.com/api.hnsearch.com/items/_search?filter[fields][url]='
+        return 'http://hn.algolia.io/api/v1/search?tags=story&query='
       end
 
       # Private: selects relevant subarray of raw hash listings
       # Returns Array of raw listings
       def pull_out(parent_hash)
-        return parent_hash["results"]
+        return parent_hash["hits"]
       rescue
         return []
       end
@@ -267,9 +267,9 @@ module DiscussIt
 
       # Private: Takes raw hash and creates Listing instance from it
       def build_listing(parent_hash)
-        listing = parent_hash['item']
+        listing = parent_hash
         listing['site'] = 'HackerNews'
-        listing['location'] = 'http://news.ycombinator.com/item?id=' + listing['id'].to_s
+        listing['location'] = 'http://news.ycombinator.com/item?id=' + listing['objectID'].to_s
         hn_listing = DiscussIt::Listing::HnListing.new(listing)
         hn_listing.ranking
         return hn_listing
