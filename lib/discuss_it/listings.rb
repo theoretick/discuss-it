@@ -9,6 +9,10 @@ module DiscussIt
     # access ALL listings
     attr_accessor :all
 
+    def initialize(listings=[])
+      @all = listings
+    end
+
     # Public: accessor to return top Listing instances in collection.
     # Top results returns a maximum of 1 result per site on which query
     # was found.

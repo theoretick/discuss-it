@@ -22,7 +22,8 @@ class StaticPagesController < ApplicationController
     results = {}
 
     # caching discussit API calls
-    discuss_it = DiscussIt::DiscussItApi.cached_request(@query_url, @api_version)
+    # TODO: breakup this caching for individual calls.
+    discuss_it = DiscussIt::DiscussItApi.cached_request(@query_url, source: 'all', api_version: @api_version)
 
     @top_raw ||= discuss_it.find_top
     @all_raw ||= discuss_it.find_all.all
