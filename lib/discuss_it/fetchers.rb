@@ -1,5 +1,5 @@
 
-require 'typhoeus/adapters/faraday'
+require 'typhoeus'
 
 module DiscussIt
 
@@ -38,35 +38,34 @@ module DiscussIt
       #
       # Returns parsed hash of matching discussions from external APIs
       def get_response(api_url, query_string)
-        begin
-          query_url = ensure_http(query_string)
-          fetcher_url = api_url + query_url
+        query_url = ensure_http(query_string)
+        fetcher_url = api_url + query_url
 
-          conn = Faraday.new(url: fetcher_url) do |faraday|
-            faraday.response :logger      # log requests to STDOUT
-            faraday.adapter  :typhoeus    # make requests with Typhoeus
-            faraday.headers["User-Agent"] = "DiscussItAPI #{VERSION} at github.com/discuss-it"
+        request = Typhoeus::Request.new(
+          fetcher_url,
+          method: :get,
+          headers: {
+            "User-Agent" => "DiscussItAPI #{VERSION} at github.com/discuss-it"
+          }
+        )
+
+        request.on_complete do |response|
+          if response.success?
+            # hurrah!
+          elsif response.timed_out?
+            @errors << DiscussIt::TimeoutError.new("Resource timed out")
+          elsif response.code == 0
+            # Could not get an http response, something's wrong.
+            @errors << StandardError.new("response.return_message")
+          elsif [404, 503, 504].include? response.code
+            @errors << DiscussIt::SourceDownError.new("#{source_name} appears to be down")
+          else
+            @errors << StandardError.new("HTTP request failed: #{response.code.to_s}")
           end
-
-          response = conn.get() do |req|
-            req.options[:timeout] = 4           # open/read timeout in seconds
-            req.options[:open_timeout] = 2      # connection open timeout in seconds
-          end
-
-          return self.parse(response.body)
-
-        # if HTTP timeout or general HTTP error, don't break everything
-        rescue  Timeout::Error,
-                Errno::EINVAL,
-                Errno::ECONNRESET,
-                EOFError,
-                Net::HTTPBadResponse,
-                Net::HTTPHeaderSyntaxError,
-                Net::ProtocolError,
-                Faraday::Error::TimeoutError => e
-          raise DiscussIt::TimeoutError.new
         end
+        request.run
 
+        return self.parse(request.response.body)
       end
 
       # Private: parses HTTP responses into something usable.
@@ -144,25 +143,13 @@ module DiscussIt
         @errors = []
 
         # API call #1 (no trailing slash)
-        begin
-          reddit_raw_a = get_response(api_url, query_url)
-          @raw_master = pull_out(reddit_raw_a)
-        rescue DiscussIt::TimeoutError => e
-          # TODO: add status code for e homepage display 'reddit down'
-          @raw_master = []
-          @errors << e
-        end
+        reddit_raw_a = get_response(api_url, query_url)
+        @raw_master = pull_out(reddit_raw_a)
 
         # API call #2 (with trailing slash)
-        begin
-          reddit_raw_b = get_response(api_url, query_url + '/')
-          # sets master hash of both combined API calls
-          @raw_master += pull_out(reddit_raw_b)
-        rescue DiscussIt::TimeoutError => e
-          # TODO: add status code for e homepage display 'reddit down'
-          @raw_master += []
-          @errors << e
-        end
+        reddit_raw_b = get_response(api_url, query_url + '/')
+        # sets master hash of both combined API calls
+        @raw_master += pull_out(reddit_raw_b)
       end
 
       # Public: Return Reddit listings or build if not already built.
@@ -199,11 +186,15 @@ module DiscussIt
       # Private: Takes raw hash and creates Listing instance from it
       def build_listing(parent_hash)
         listing = parent_hash['data']
-        listing['site'] = 'Reddit'
+        listing['site'] = source_name
         listing['location'] = 'http://www.reddit.com' + listing['permalink']
         reddit_listing =  DiscussIt::Listing::RedditListing.new(listing)
         reddit_listing.ranking
         return reddit_listing
+      end
+
+      def source_name
+        'Reddit'
       end
 
     end
@@ -226,14 +217,9 @@ module DiscussIt
       # Returns nothing.
       def initialize(query_url)
         @errors = []
-        begin
-          hn_raw = get_response(api_url, query_url + '/')
-          @raw_master = pull_out(hn_raw)
-        rescue DiscussIt::TimeoutError => e
-          # TODO: add status code for e homepage display 'hn down'
-          @raw_master = []
-          @errors << e
-        end
+
+        hn_raw = get_response(api_url, query_url + '/')
+        @raw_master = pull_out(hn_raw)
       end
 
       # Public: Return Hn listings or build if not already built.
@@ -270,12 +256,17 @@ module DiscussIt
       # Private: Takes raw hash and creates Listing instance from it
       def build_listing(parent_hash)
         listing = parent_hash
-        listing['site'] = 'HackerNews'
+        listing['site'] = source_name
         listing['location'] = 'http://news.ycombinator.com/item?id=' + listing['objectID'].to_s
         hn_listing = DiscussIt::Listing::HnListing.new(listing)
         hn_listing.ranking
         return hn_listing
       end
+
+      def source_name
+        'HackerNews'
+      end
+
     end
 
 
@@ -296,14 +287,9 @@ module DiscussIt
       # Returns nothing.
       def initialize(query_url)
         @errors = []
-        begin
-          slashdot_raw = get_response(api_url, query_url)
-          @raw_master = slashdot_raw
-        rescue DiscussIt::TimeoutError => e
-          # TODO: add status code for e homepage display 'slashdot down'
-          @errors << e
-          @raw_master = []
-        end
+
+        slashdot_raw = get_response(api_url, query_url)
+        @raw_master = slashdot_raw
       end
 
       # Public: Return Slashdot listings or build if not already built.
@@ -316,12 +302,7 @@ module DiscussIt
       end
 
       def api_url
-        # FIXME: should this stay around or is it too hacky?
-        # if Rails.env.development? || Rails.env.test?
-        #   return 'http://localhost:5100/slashdot_postings/search?url='
-        # else
-          return 'https://slashdot-api.herokuapp.com/slashdot_postings/search?url='
-        # end
+        return 'https://slashdot-api.herokuapp.com/slashdot_postings/search?url='
       end
 
       # Private: creates array of listing objects for all responses.
@@ -342,12 +323,16 @@ module DiscussIt
         parent_hash.delete('comment_count')
         listing  = parent_hash
 
-        listing['site'] = 'Slashdot'
+        listing['site'] = source_name
         listing['location'] = location
         listing['num_comments'] = comment_count
         slash_listing = DiscussIt::Listing::SlashdotListing.new(listing)
         slash_listing.ranking
         return slash_listing
+      end
+
+      def source_name
+        'Slashdot'
       end
 
     end

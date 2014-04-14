@@ -43,8 +43,8 @@ module DiscussIt
                   self.new(query_url, opts)
                 end
 
-        # Expire the cache if it was a bad request (has errors)
-        Rails.cache.delete(request_cache_key) unless inst.errors.empty?
+        # # Expire the cache if it was a bad request (has errors)
+        # Rails.cache.delete(request_cache_key) unless inst.errors.empty?
 
         return inst
       else

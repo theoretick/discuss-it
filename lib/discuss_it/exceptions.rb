@@ -3,14 +3,16 @@ module DiscussIt
   #----------------------------------------------------------------------
   # Exception class to catch invalid URL Errors
   #----------------------------------------------------------------------
-  class UrlError < Exception; end
-
+  class UrlError < StandardError; end
 
   #----------------------------------------------------------------------
-  # FIXME: should this have a more general name?
   # Exception class to catch Timeouts and general HTTP Errors
   #----------------------------------------------------------------------
-  class TimeoutError < Exception; end
+  class TimeoutError < StandardError; end
 
+  #----------------------------------------------------------------------
+  # Exception class to catch Sources unreachable and downtime
+  #----------------------------------------------------------------------
+  class SourceDownError < StandardError; end
 
 end

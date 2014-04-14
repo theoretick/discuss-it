@@ -25,11 +25,12 @@ class StaticPagesController < ApplicationController
     # TODO: breakup this caching for individual calls.
     discuss_it = DiscussIt::DiscussItApi.cached_request(@query_url, source: 'all', api_version: @api_version)
 
-    @top_raw ||= discuss_it.find_top
-    @all_raw ||= discuss_it.find_all.all
+    top_raw ||= discuss_it.find_top
+    all_raw ||= discuss_it.find_all.all
+    @errors = discuss_it.errors.collect(&:message)
 
-    @top_results, filtered_top_results = DiscussIt::Filter.filter_threads(@top_raw)
-    @all_results, filtered_all_results = DiscussIt::Filter.filter_threads(@all_raw)
+    @top_results, filtered_top_results = DiscussIt::Filter.filter_threads(top_raw)
+    @all_results, filtered_all_results = DiscussIt::Filter.filter_threads(all_raw)
 
     @filtered_results = (filtered_all_results + filtered_top_results).uniq
 
@@ -46,7 +47,8 @@ class StaticPagesController < ApplicationController
         filtered_results: {
                  hits: filtered_hits_count,
               results: @filtered_results
-        }
+        },
+        errors: @errors
       }
 
     render json: results
