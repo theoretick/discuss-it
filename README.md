@@ -1,7 +1,7 @@
 # Discuss-it
 #### Online link discussion tracker
 
-## Version 0.5.8
+## Version 0.6.0
 
 [![Code Climate](https://codeclimate.com/github/theoretick/discuss-it.png)](https://codeclimate.com/github/theoretick/discuss-it)
 
@@ -35,14 +35,13 @@ Slashdot does not have an API so results from Slashdot are aggregated
 by our custom API which scrapes the most recent postings and stores them
 as listings in a database.
 
-## Open Developer API
+## Developer API
 
 __See more info on our [Developer Portal](http://www.discussitapp.com/api)__
 
 Want to use our app for easy searching?
 
-Discuss It results can be conveniently accessed with a JSON request to our
-submit page:
+Discuss It results can be conveniently accessed via our submit page:
 ```
 http://www.discussitapp.com/submit.json?url=http://example.com/
 ```

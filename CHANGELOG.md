@@ -1,4 +1,13 @@
 
+## 0.6.0 (2014-04-14)
+
+ * Updated HNSearch to new Algolia host and path
+ * Much improved error handling (it exists now and isn't a massive pile of rescues)
+ * More Error conditions and reporting of downed sources
+ * Cleaned up some minor method calls
+ * DiscussItApp class now takes optional source argument for queries to a single site
+ * Updated docs
+
 ## 0.5.8 (2013-12-08)
 
  * fixed submit-page issue with displaying ranking as 'undefined'
