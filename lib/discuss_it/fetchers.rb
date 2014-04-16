@@ -217,8 +217,8 @@ module DiscussIt
       # Returns nothing.
       def initialize(query_url)
         @errors = []
-
-        hn_raw = get_response(api_url, query_url + '/')
+        full_query = "%22#{query_url}%22"
+        hn_raw = get_response(api_url, full_query)
         @raw_master = pull_out(hn_raw)
       end
 
@@ -232,7 +232,7 @@ module DiscussIt
       end
 
       def api_url
-        return 'http://hn.algolia.io/api/v1/search?tags=story&query='
+        return 'http://hn.algolia.io/api/v1/search_by_date?tags=story&minWordSizefor1Typo=1000&minWordSizefor2Typos=1000&query='
       end
 
       # Private: selects relevant subarray of raw hash listings
