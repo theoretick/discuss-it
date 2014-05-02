@@ -11,31 +11,33 @@
       %br
       = link_to @query_url, ( @query_url.start_with?('http') ? @query_url : "http://#{@query_url}")
 
-    %h3 TOP DISCUSSIONS
+    %section#top-discussions
+      %h3 TOP DISCUSSIONS
 
-    #top-results
+      #top-results
 
-      %table.table#top-discussions-table
-        %thead
-          %tr
-            %th.listing-metadata
-            %th.listing-link
-            %th.listing-score
-        %tbody
+        %table.table#top-discussions-table
+          %thead
+            %tr
+              %th.listing-metadata
+              %th.listing-link
+              %th.listing-score
+          %tbody
 
     %br
 
-    %h3 ALL DISCUSSIONS
+    %section#all-discussions
+      %h3 ALL DISCUSSIONS
 
-    #all-results
+      #all-results
 
-      %table.table#all-discussions-table
-        %thead
-          %tr
-            %th.listing-metadata
-            %th.listing-link
-            %th.listing-score
-        %tbody
+        %table.table#all-discussions-table
+          %thead
+            %tr
+              %th.listing-metadata
+              %th.listing-link
+              %th.listing-score
+          %tbody
 
     %br
 

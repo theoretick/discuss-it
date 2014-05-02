@@ -5,6 +5,7 @@ $(document).ready(function(){
 
   // window.location.search contains all url content after '?' (params)
   var apiUrl = "/api/get_discussions" + window.location.search;
+  var searchParam = window.location.search;
   var $topDiscussionsTable = $('#top-discussions-table tbody');
   var $allDiscussionsTable = $('#all-discussions-table tbody');
   var $filteredDiscussionsTable = $('#filtered-discussions-table tbody');
@@ -100,7 +101,7 @@ $(document).ready(function(){
         }
         if (allResults.total_hits === 0) {
           $('#top-results').append(showNoResults('top'));
-          $('#all-results').append(showNoResults('all'));
+          $('#all-discussions').hide();
         }
       })
 
