@@ -1,4 +1,10 @@
 
+## 0.7.0 (2014-05-10)
+
+ * Now a sinatra app!  simpler and junk
+ * Has caching through redis
+ * Allow selection of sources to search
+
 ## 0.6.0 (2014-04-14)
 
  * Updated HNSearch to new Algolia host and path

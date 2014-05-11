@@ -5,8 +5,6 @@
 
 [![Code Climate](https://codeclimate.com/github/theoretick/discuss-it.png)](https://codeclimate.com/github/theoretick/discuss-it)
 
-[![Coverage Status](https://coveralls.io/repos/theoretick/discuss-it/badge.png?branch=master)](https://coveralls.io/r/theoretick/discuss-it?branch=master)
-
 Website for locating online discussions about a given article on Reddit, Hacker News, and Slashdot.
 
 Currently hosted at: [www.discussitapp.com](http://www.discussitapp.com/)
