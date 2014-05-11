@@ -1,0 +1,66 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    backports (3.6.0)
+    coderay (1.1.0)
+    daemons (1.1.9)
+    ethon (0.7.0)
+      ffi (>= 1.3.0)
+    eventmachine (1.0.3)
+    faraday (0.9.0)
+      multipart-post (>= 1.2, < 3)
+    ffi (1.9.3)
+    haml (4.0.5)
+      tilt
+    hashie (2.1.1)
+    json (1.8.1)
+    method_source (0.8.2)
+    multi_json (1.10.0)
+    multipart-post (2.0.0)
+    pry (0.9.12.6)
+      coderay (~> 1.0)
+      method_source (~> 0.8)
+      slop (~> 3.4)
+    rack (1.5.2)
+    rack-contrib (1.1.0)
+      rack (>= 0.9.1)
+    rack-protection (1.5.3)
+      rack
+    rack-test (0.6.2)
+      rack (>= 1.0)
+    redis (3.0.7)
+    sinatra (1.4.5)
+      rack (~> 1.4)
+      rack-protection (~> 1.4)
+      tilt (~> 1.3, >= 1.3.4)
+    sinatra-contrib (1.4.2)
+      backports (>= 2.0)
+      multi_json
+      rack-protection
+      rack-test
+      sinatra (~> 1.4.0)
+      tilt (~> 1.3)
+    slop (3.5.0)
+    thin (1.6.2)
+      daemons (>= 1.0.9)
+      eventmachine (>= 1.0.0)
+      rack (>= 1.0.0)
+    tilt (1.4.1)
+    typhoeus (0.6.8)
+      ethon (>= 0.7.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  faraday
+  haml
+  hashie
+  json
+  pry
+  rack-contrib
+  redis
+  sinatra
+  sinatra-contrib
+  thin
+  typhoeus

@@ -1,0 +1,63 @@
+
+%link{:rel => "stylesheet", :href => "/css/application.css"}
+
+  %body
+    .navbar.navbar-fluid-top
+      .navbar-inner
+        .container-fluid
+          %a{:href => "/", :class => "brand"}
+            Discuss It
+          %ul.nav
+            %li
+              %a{:href => "/about"}
+                About
+          %ul.nav.pull-right.signin-navbar
+            %li#devlink
+              %a{:href => "/api"}
+                developers
+    .container-fluid
+      %br
+      .row-fluid
+        .span9.offset1
+
+          / CONTENT!
+
+          .hero-unit
+            %h1 Discuss It!
+            %p Online discussion tracker for finding conversations
+
+            .row-fluid
+              %form{ :action => "/submit", :method => "GET"}
+                .field
+                  %label{:for => "url"}
+                    Paste your link:
+                  %input{:type=>"text", :required => true, :placeholder => "http://example.com/article.html", :autofocus => true, :id => "search-field", :name => "url"}
+                  %input{:type=>"submit", :class => "btn btn-primary", :value => "Discuss This!"}
+                  %label{:for => "strip_params", :class => "muted", :alt_text => "Remove extraneous parameters, may yield better results"}
+                    Strip url params?
+                    %input{:type=>"checkbox", :id => "strip_params", :value => "true", :name => "strip_params", :checked => 'checked'}
+                  %label{:for => "source[]", :class => "muted", :alt_text => "Sources to query for discussions"}
+                    Source:
+                    %input{:type=>"checkbox", :value => "reddit", :name => "source[]", :checked => "checked"}
+                      Reddit
+                    %input{:type=>"checkbox", :value => "hn", :name => "source[]", :checked => "checked"}
+                      HackerNews
+                    %input{:type=>"checkbox", :value => "slashdot", :name => "source[]", :checked => "checked"}
+                      Slashdot
+            .row-fluid
+              %h6 Suggested Searches
+              %p.suggested
+                %a{:href => "/submit?url=http://singularityhub.com/2013/07/27/canvas-camera-brush-and-algorithms-enable-robot-artists-beautiful-paintings/"}
+                  "Robot Produces Paintings With That 'Imperfect' Human Look - singularityhub.com"
+              %p.suggested
+                %a{:href => "/submit?url=http://www.theguardian.com/world/2013/sep/05/nsa-gchq-encryption-codes-security"}
+                  "Revealed: how US and UK spy agencies defeat internet privacy and security - theguardian.com"
+              %p.suggested
+                %a{:href => "/submit?url=http://i.imgur.com/gOLvZVO.jpg"}
+                  "Photo of all-black house in Germany - imgur.com"
+
+        %footer.span3
+          %p
+            Discuss It 2014 -
+            = " v" + DiscussIt::VERSION
+          %br/
