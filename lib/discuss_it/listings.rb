@@ -1,3 +1,4 @@
+require 'hashie'
 
 module DiscussIt
 
