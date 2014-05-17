@@ -1,3 +1,6 @@
+
+require_relative 'base'
+
 #----------------------------------------------------------------------
 # Listing class for HN with custom accessors
 #----------------------------------------------------------------------
@@ -10,7 +13,7 @@ module DiscussIt
         return self["points"] || 0
       end
 
-      # for custom ranking algorithm
+      # base ranking algo
       def ranking
         self['ranking'] = score + self['num_comments']
       end

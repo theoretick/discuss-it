@@ -1,4 +1,7 @@
-require 'hashie'
+
+require_relative 'listings/reddit_listing'
+require_relative 'listings/hn_listing'
+require_relative 'listings/slashdot_listing'
 
 module DiscussIt
 
@@ -52,23 +55,4 @@ module DiscussIt
 
   end
 
-
-  module Listing
-
-    #----------------------------------------------------------------------
-    # creates a Listing object from hash w/ sortability & dot-notation
-    # accessors.
-    #
-    # ABSTRACT - init w/ HnListing, SlashdotListing, and RedditListing
-    #----------------------------------------------------------------------
-    class BaseListing < Hashie::Mash
-      # provides sort method
-      include Comparable
-
-      def <=>(a)
-        return self.ranking <=> a.ranking
-      end
-    end
-
-  end
 end
