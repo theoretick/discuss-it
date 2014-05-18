@@ -8,6 +8,8 @@ require './lib/discuss_it'
 module DiscussIt
   class App < Sinatra::Base
 
+    include DiscussIt
+
     configure do
       enable :logging
       set :root, File.dirname(__FILE__)
@@ -25,6 +27,7 @@ module DiscussIt
     configure :development do
       register Sinatra::Reloader
     end
+
 
     get '/' do
       haml :index
@@ -53,17 +56,17 @@ module DiscussIt
       @query_url.chop! if has_trailing_slash?
 
       if ENV['RACK_ENV'] == 'production' || ENV['CACHING'] == 'true'
-        discuss_it = DiscussIt::DiscussItApi.cached_request(@query_url, source: source)
+        discuss_it = Caching::Redis.fetch(@query_url, source: source)
       else
-        discuss_it = DiscussIt::DiscussItApi.new(@query_url, source: source)
+        discuss_it = DiscussItApi.new(@query_url, source: source)
       end
 
       top_raw ||= discuss_it.find_top
       all_raw ||= discuss_it.find_all.all
       @errors = discuss_it.errors.collect(&:message)
 
-      @top_results, filtered_top_results = DiscussIt::Filter.filter_threads(top_raw)
-      @all_results, filtered_all_results = DiscussIt::Filter.filter_threads(all_raw)
+      @top_results, filtered_top_results = Filter.filter_threads(top_raw)
+      @all_results, filtered_all_results = Filter.filter_threads(all_raw)
       @other_results = @all_results - @top_results
       @filtered_results = (filtered_all_results + filtered_top_results).uniq
 

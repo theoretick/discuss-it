@@ -1,7 +1,7 @@
 # Discuss-it
 #### Online link discussion tracker
 
-## Version 0.6.0
+## Version 0.7.1
 
 [![Code Climate](https://codeclimate.com/github/theoretick/discuss-it.png)](https://codeclimate.com/github/theoretick/discuss-it)
 

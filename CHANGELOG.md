@@ -1,4 +1,10 @@
 
+## 0.7.1 (2014-05-18)
+
+ * Much more/better logging. Log file, per request, cleaner msgs
+ * Better caching organization
+ * Re-added ENV-specific caching
+
 ## 0.7.0 (2014-05-10)
 
  * Now a sinatra app!  simpler and junk
