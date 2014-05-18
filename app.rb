@@ -4,6 +4,7 @@ Bundler.require
 require 'sinatra/reloader'
 
 require './lib/discuss_it'
+require './lib/subreddit_loader'
 
 module DiscussIt
   class App < Sinatra::Base
@@ -73,6 +74,28 @@ module DiscussIt
       result_response.to_json
     end
 
+    #--------------------------
+    #    Subscriber loader    #
+    #--------------------------
+
+    get '/loader/subreddits' do
+      if confirmed?
+        runtime = perform_load_subs
+        {message: "loaded n subs in #{runtime} seconds!"}.to_json
+      else
+        406
+      end
+    end
+
+    get '/loader/flush' do
+      if confirmed?
+        runtime = perform_flush_db
+        {message: "flushed subs in #{runtime} seconds!"}.to_json
+      else
+        406
+      end
+    end
+
     private
 
     # remove params from base url if requested (default: true)
@@ -125,5 +148,20 @@ module DiscussIt
       results.length || 0
     end
 
+    def confirmed?
+      params[:confirm] == 'true'
+    end
+
+    def perform_load_subs
+      current_time = Time.now
+      SubscriberFetcher.new.perform
+      Time.now - current_time
+    end
+
+    def perform_flush_db
+      current_time = Time.now
+      SubscriberFlush.new.perform
+      Time.now - current_time
+    end
   end
 end

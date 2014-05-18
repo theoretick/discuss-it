@@ -1,4 +1,8 @@
 
+## 0.7.2 (2014-05-18)
+
+ * Added subreddit loader, no integration
+
 ## 0.7.1 (2014-05-18)
 
  * Much more/better logging. Log file, per request, cleaner msgs
