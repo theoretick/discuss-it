@@ -8,9 +8,23 @@ require './lib/discuss_it'
 module DiscussIt
   class App < Sinatra::Base
 
-  configure :development do
-    register Sinatra::Reloader
-  end
+    configure do
+      enable :logging
+      set :root, File.dirname(__FILE__)
+    end
+
+    configure :production, :development do
+      log_path = "#{root}/log"
+      Dir.mkdir(log_path) unless File.exist?(log_path)
+      log_file = File.new("#{log_path}/#{settings.environment}.log", "a+")
+      log_file.sync = true
+      $stdout.reopen(log_file)
+      $stderr.reopen(log_file)
+    end
+
+    configure :development do
+      register Sinatra::Reloader
+    end
 
     get '/' do
       haml :index
