@@ -18,8 +18,8 @@ module DiscussIt
       Dir.mkdir(log_path) unless File.exist?(log_path)
       log_file = File.new("#{log_path}/#{settings.environment}.log", "a+")
       log_file.sync = true
-      $stdout.reopen(log_file)
-      $stderr.reopen(log_file)
+      STDOUT.reopen(log_file)
+      STDERR.reopen(log_file)
     end
 
     configure :development do
@@ -52,7 +52,11 @@ module DiscussIt
       # ALWAYS remove trailing slash before get_response calls
       @query_url.chop! if has_trailing_slash?
 
-      discuss_it = DiscussIt::DiscussItApi.cached_request(@query_url, source: source)
+      if ENV['RACK_ENV'] == 'production' || ENV['CACHING'] == 'true'
+        discuss_it = DiscussIt::DiscussItApi.cached_request(@query_url, source: source)
+      else
+        discuss_it = DiscussIt::DiscussItApi.new(@query_url, source: source)
+      end
 
       top_raw ||= discuss_it.find_top
       all_raw ||= discuss_it.find_all.all

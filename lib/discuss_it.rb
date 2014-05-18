@@ -14,10 +14,6 @@ require_relative 'discuss_it/filter'
 require_relative 'discuss_it/caching'
 require_relative 'discuss_it/version'
 
-require_relative 'discuss_it/listings/reddit_listing'
-require_relative 'discuss_it/listings/hn_listing'
-require_relative 'discuss_it/listings/slashdot_listing'
-
 module DiscussIt
 
   #----------------------------------------------------------------------
