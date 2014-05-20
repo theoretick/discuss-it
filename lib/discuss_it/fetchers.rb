@@ -50,13 +50,14 @@ module DiscussIt
         )
 
         request.on_complete do |response|
+          puts "[fetcher] [#{source_name}] - #{response.code} for '#{query_url}'"
           if response.success?
             # hurrah!
           elsif response.timed_out?
             @errors << DiscussIt::TimeoutError.new("Resource timed out")
           elsif response.code == 0
             # Could not get an http response, something's wrong.
-            @errors << StandardError.new("response.return_message")
+            @errors << StandardError.new(response.return_message)
           elsif [404, 503, 504].include? response.code
             @errors << DiscussIt::SourceDownError.new("#{source_name} appears to be down")
           else

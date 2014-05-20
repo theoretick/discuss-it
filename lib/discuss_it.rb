@@ -7,15 +7,12 @@
 # http://github.com/theoretick/discussit
 #----------------------------------------------------------------------
 
-require 'discuss_it/exceptions'
-require 'discuss_it/listings'
-require 'discuss_it/fetchers'
-require 'discuss_it/filter'
-require 'discuss_it/version'
-
-require 'discuss_it/listings/reddit_listing'
-require 'discuss_it/listings/hn_listing'
-require 'discuss_it/listings/slashdot_listing'
+require_relative 'discuss_it/exceptions'
+require_relative 'discuss_it/listings'
+require_relative 'discuss_it/fetchers'
+require_relative 'discuss_it/filter'
+require_relative 'discuss_it/caching'
+require_relative 'discuss_it/version'
 
 module DiscussIt
 
@@ -27,30 +24,7 @@ module DiscussIt
   class DiscussItApi
 
     attr_accessor :listings
-    attr_accessor :errors
-
-    # Equivalent to DiscussItApi.new but with caching!
-    def self.cached_request(query_url, opts={})
-      opts[:source]      ||= 'all'
-      opts[:api_version] ||= 3
-
-      if Rails.env.development?
-        request_cache_key = "#{query_url}_#{opts[:source]}"
-
-        inst =  Rails.cache.fetch request_cache_key, :expires_in => 12.hours do
-                  puts '*'*80
-                  puts '=== CACHING REQUEST ==='
-                  self.new(query_url, opts)
-                end
-
-        # # Expire the cache if it was a bad request (has errors)
-        # Rails.cache.delete(request_cache_key) unless inst.errors.empty?
-
-        return inst
-      else
-        self.new(query_url, opts)
-      end
-    end
+    attr_reader   :errors
 
     # Public: pulls API listings into local session
     #
@@ -70,21 +44,24 @@ module DiscussIt
     #
     # Returns nothing.
     def initialize(query_string, opts={})
-      opts[:source]      ||= 'all'
+      opts[:source]      ||= ['all']
       opts[:api_version] ||= 3
 
       @query_string = query_string
       @errors = []
+      results = []
 
-      results = case opts[:source]
-                when 'reddit'
-                  get_reddit.listings
-                when 'hackernews', 'hn'
-                  get_hn.listings
-                when 'slashdot'
-                  get_slashdot.listings
-                when 'all'
-                  get_all
+      results = opts[:source].reduce([]) do |arr, src|
+                  arr +=  case src
+                          when 'reddit'
+                            get_reddit.listings
+                          when 'hackernews', 'hn'
+                            get_hn.listings
+                          when 'slashdot'
+                            get_slashdot.listings
+                          when 'all'
+                            get_all
+                          end
                 end
 
       @listings = ListingCollection.new(results)
@@ -99,6 +76,8 @@ module DiscussIt
     def find_top
       return @listings.tops
     end
+
+    private
 
     # fetch listings from all available sources.
     def get_all
