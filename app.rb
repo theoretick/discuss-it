@@ -1,6 +1,4 @@
-require 'rubygems'
 require 'bundler'
-Bundler.require
 require 'sinatra/reloader'
 
 require './lib/discuss_it'
@@ -14,6 +12,7 @@ module DiscussIt
     configure do
       enable :logging
       set :root, File.dirname(__FILE__)
+      set :views, Proc.new { File.join(root, 'app', 'views') }
     end
 
     configure :production, :development do
@@ -27,6 +26,8 @@ module DiscussIt
 
     configure :development do
       register Sinatra::Reloader
+      also_reload 'app/**/*.rb'
+      also_reload 'lib/**/*.rb'
     end
 
 
@@ -56,7 +57,7 @@ module DiscussIt
       # ALWAYS remove trailing slash before get_response calls
       @query_url.chop! if has_trailing_slash?
 
-      if ENV['RACK_ENV'] == 'production' || ENV['CACHING'] == 'true'
+      if caching?
         discuss_it = Caching::Redis.fetch(@query_url, source: source)
       else
         discuss_it = DiscussItApi.new(@query_url, source: source)
@@ -146,6 +147,10 @@ module DiscussIt
 
     def hit_count_of(results)
       results.length || 0
+    end
+
+    def caching?
+      ENV['RACK_ENV'] == 'production' || ENV['CACHING'] == 'true'
     end
 
     def confirmed?
