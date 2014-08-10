@@ -19,6 +19,8 @@ gem 'typhoeus'
 
 gem 'hashie'
 
+gem 'minitest'
+
 # # caching
 # gem 'memcachier'
 # gem 'dalli'
