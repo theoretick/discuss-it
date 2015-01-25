@@ -13,6 +13,7 @@ module DiscussIt
       enable :logging
       set :root, File.dirname(__FILE__)
       set :views, Proc.new { File.join(root, 'app', 'views') }
+      set :protection, :except => [:json_csrf]
     end
 
     configure :production, :development do
