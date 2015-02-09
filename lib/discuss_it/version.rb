@@ -1,8 +1,8 @@
 module DiscussIt
 
   MAJOR   = 0
-  MINOR   = 6
-  PATCH   = 8
+  MINOR   = 7
+  PATCH   = 3
 
   VERSION = ([
     MAJOR,
