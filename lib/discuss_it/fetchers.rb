@@ -233,7 +233,7 @@ module DiscussIt
       end
 
       def api_url
-        return 'http://hn.algolia.io/api/v1/search_by_date?tags=story&minWordSizefor1Typo=1000&minWordSizefor2Typos=1000&query='
+        'http://hn.algolia.com/api/v1/search?restrictSearchableAttributes=url&query='
       end
 
       # Private: selects relevant subarray of raw hash listings
