@@ -1,4 +1,9 @@
 
+## 0.7.3 (2015-01-08)
+
+ * Updated HN URL to fix 301 and perform precise URL match
+ * Minor refactoring
+
 ## 0.7.2 (2014-05-18)
 
  * Added subreddit loader, no integration
