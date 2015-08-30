@@ -38,7 +38,7 @@ module DiscussIt
       #
       # Returns parsed hash of matching discussions from external APIs
       def get_response(api_url, query_string)
-        query_url = ensure_http(query_string)
+        query_url   = ensure_http(query_string)
         fetcher_url = api_url + query_url
 
         request = Typhoeus::Request.new(
@@ -66,7 +66,7 @@ module DiscussIt
         end
         request.run
 
-        return self.parse(request.response.body)
+        parse(request.response.body)
       end
 
       # Private: parses HTTP responses into something usable.
@@ -84,10 +84,9 @@ module DiscussIt
       def parse(response, type='json')
         if type == 'json'
           begin
-            return JSON.parse(response)
-          # rescue for nil response parsing
+            JSON.parse(response)
           rescue JSON::ParserError => e
-            return []
+            []
           end
         end
       end
@@ -113,7 +112,6 @@ module DiscussIt
         valid_url = "http://" + user_string unless user_string.match(/(http|https):\/\//)
         return valid_url
       end
-
     end
 
 
@@ -159,29 +157,25 @@ module DiscussIt
       #
       # Returns Array of Listing instances.
       def listings
-        return @listings ||= build_all_listings
+        @listings ||= build_all_listings
       end
 
       def api_url
-        return 'http://www.reddit.com/api/info.json?url='
+        'http://www.reddit.com/api/info.json?url='
       end
 
       # Private: selects relevant subarray of raw hash listings
       # Returns Array of raw listings
       def pull_out(parent_hash)
-        return parent_hash["data"]["children"]
-      rescue
-        return []
+        parent_hash["data"]["children"] || []
       end
 
       # Private: creates array of listing objects for all responses.
       # returns Array of Listing instances.
       def build_all_listings
-        all_listings = []
-        @raw_master.each do |listing|
-          all_listings << build_listing(listing)
+        @raw_master.reduce([]) do |accum, listing|
+          accum << build_listing(listing)
         end
-        return all_listings
       end
 
       # Private: Takes raw hash and creates Listing instance from it
@@ -197,9 +191,7 @@ module DiscussIt
       def source_name
         'Reddit'
       end
-
     end
-
 
     #----------------------------------------------------------------------
     # - fetches API response from HackerNews
@@ -229,29 +221,25 @@ module DiscussIt
       #
       # Returns Array of Listing instances.
       def listings
-        return @listings ||= build_all_listings
+        @listings ||= build_all_listings
       end
 
       def api_url
-        return 'http://hn.algolia.io/api/v1/search_by_date?tags=story&minWordSizefor1Typo=1000&minWordSizefor2Typos=1000&query='
+        'http://hn.algolia.com/api/v1/search?restrictSearchableAttributes=url&query='
       end
 
       # Private: selects relevant subarray of raw hash listings
       # Returns Array of raw listings
       def pull_out(parent_hash)
-        return parent_hash["hits"]
-      rescue
-        return []
+        parent_hash["hits"] || []
       end
 
       # Private: creates array of listing objects for all responses.
       # returns Array of Listing instances.
       def build_all_listings
-        all_listings = []
-        @raw_master.each do |listing|
-          all_listings << build_listing(listing)
+        @raw_master.reduce([]) do |accum, listing|
+          accum << build_listing(listing)
         end
-        return all_listings
       end
 
       # Private: Takes raw hash and creates Listing instance from it
@@ -269,7 +257,6 @@ module DiscussIt
       end
 
     end
-
 
     #----------------------------------------------------------------------
     # - fetches persistent listings locally from SlashdotPosting,
@@ -299,21 +286,19 @@ module DiscussIt
       #
       # Returns Array of Listing instances.
       def listings
-        return @listings ||= build_all_listings
+        @listings ||= build_all_listings
       end
 
       def api_url
-        return 'https://slashdot-api.herokuapp.com/slashdot_postings/search?url='
+        'https://slashdot-api.herokuapp.com/slashdot_postings/search?url='
       end
 
       # Private: creates array of listing objects for all responses.
       # returns Array of Listing instances.
       def build_all_listings
-        all_listings = []
-        @raw_master.each do |listing|
-          all_listings << build_listing(listing)
+        @raw_master.reduce([]) do |accum, listing|
+          accum << build_listing(listing)
         end
-        return all_listings
       end
 
       # Private: Takes raw hash and creates Listing instance from it
@@ -335,9 +320,6 @@ module DiscussIt
       def source_name
         'Slashdot'
       end
-
     end
-
   end
-
 end
