@@ -2,25 +2,16 @@
 source "https://rubygems.org"
 ruby '2.0.0'
 
-# base gem server requirements
+gem 'capistrano', '~> 3.4.0'
+gem 'capistrano-bundler', '~> 1.1.2'
+gem 'faraday'
+gem 'haml'
+gem 'hashie'
+gem 'json'
+gem 'pry'
+gem 'rack-contrib'
+gem 'redis'
 gem 'sinatra'
 gem 'sinatra-contrib'
-gem 'rack-contrib'
 gem 'thin'
-gem 'json'
-
-gem 'haml'
-
-# for testing/debugging purposes
-gem 'pry'
-
-gem 'faraday'
 gem 'typhoeus'
-
-gem 'hashie'
-
-# # caching
-# gem 'memcachier'
-# gem 'dalli'
-
-gem 'redis'
