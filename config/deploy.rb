@@ -26,6 +26,7 @@ set :deploy_to, '/var/www/discuss_it'
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
+set :default_env, { rvm_bin_path: '~/.rvm/bin' }
 
 # Default value for keep_releases is 5
 set :keep_releases, 3
