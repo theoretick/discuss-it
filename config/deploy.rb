@@ -43,4 +43,4 @@ namespace :deploy do
   end
 end
 
-after :deploy, 'discuss_it:start'
+after :deploy, 'discuss_it:restart'

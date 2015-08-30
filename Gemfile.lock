@@ -48,6 +48,7 @@ GEM
     pry-rescue (1.4.2)
       interception (>= 0.5)
       pry
+    puma (2.13.4)
     rack (1.5.2)
     rack-contrib (1.1.0)
       rack (>= 0.9.1)
@@ -95,6 +96,7 @@ DEPENDENCIES
   pry
   pry-byebug
   pry-rescue
+  puma
   rack-contrib
   redis
   sinatra

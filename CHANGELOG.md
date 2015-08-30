@@ -1,4 +1,8 @@
 
+## 0.7.4 (2015-08-30)
+
+ * Add capistrano and puma for production deploys
+
 ## 0.7.3 (2015-01-08)
 
  * Updated HN URL to fix 301 and perform precise URL match

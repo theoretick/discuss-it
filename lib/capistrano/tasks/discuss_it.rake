@@ -4,7 +4,7 @@ namespace :discuss_it do
     on roles(:app) do
       within "#{current_path}" do
         with rack_env: fetch(:rack_env) do
-          execute :bundle, :exec, "rackup -p 3333"
+          execute "./bin/server"
         end
       end
     end
@@ -15,7 +15,7 @@ namespace :discuss_it do
     on roles(:app) do
       within "#{current_path}" do
         with rack_env: fetch(:rack_env) do
-          execute "ps -ef | grep rackup | grep -v grep | awk '{print $2}' | xargs kill -9"
+          execute :bundle, :exec, "pumactl -P /var/www/discuss_it/shared/pids/puma.pid stop"
         end
       end
     end
@@ -26,8 +26,8 @@ namespace :discuss_it do
     on roles(:app) do
       within "#{current_path}" do
         with rack_env: fetch(:rack_env) do
-          execute "ps -ef | grep rackup | grep -v grep | awk '{print $2}' | xargs kill -9"
-          execute :bundle, :exec, "rackup -p 3333"
+          execute :bundle, :exec, "pumactl -P /var/www/discuss_it/shared/pids/puma.pid stop"
+          execute "./bin/server"
         end
       end
     end
