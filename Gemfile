@@ -4,7 +4,6 @@ ruby '2.0.0'
 
 gem 'capistrano', '~> 3.4.0'
 gem 'capistrano-bundler', '~> 1.1.2'
-gem 'capistrano-rvm'
 gem 'faraday'
 gem 'haml'
 gem 'hashie'
