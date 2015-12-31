@@ -1,3 +1,0 @@
-#!/bin/bash
-
-bundle exec puma ./lib/server.rb -I config -r environment
