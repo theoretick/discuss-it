@@ -1,3 +1,6 @@
+## 0.8.0 (2015-12-31)
+
+ * complete rewrite in Elixir/Phoenix
 
 ## 0.7.4 (2015-08-30)
 

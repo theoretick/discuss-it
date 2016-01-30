@@ -1,0 +1,28 @@
+%html{lang: "en"}
+  %head
+    %meta{charset: "utf-8"}
+      %meta{content: "IE=Edge,chrome=1", http-equiv: "X-UA-Compatible"}
+        %meta{content: "width=device-width, initial-scale=1.0", name: "viewport"}
+          %title= "Discuss-It"
+    %link{rel: "stylesheet", href: "/css/app.css"}
+  %body
+    .navbar.navbar-fluid-top
+      .navbar-inner
+        .container-fluid
+          %a{href: "/", class: "brand"}
+            Discuss It
+          %ul.nav
+            %li
+              %a{href: "/about"}
+                About
+          %ul.nav.pull-right.signin-navbar
+            %li#devlink
+              %a{href: "/api"}
+                developers
+    .container-fluid
+      %br
+      .row-fluid
+        .span9.offset1
+
+          / CONTENT!
+          = render @view_module, @view_template, assigns
