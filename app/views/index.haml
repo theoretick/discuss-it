@@ -1,5 +1,41 @@
+%html
+  %head
+    %meta{charset: "utf-8"}/
+    %meta{content: "IE=edge", "http-equiv" => "X-UA-Compatible"}
 
-%link{:rel => "stylesheet", :href => "/css/application.css"}
+    %title
+      Discuss It
+
+    / searchability
+    %meta{name: "description", content: "Discuss It - Online discussion tracker for finding conversations"}
+    %meta{name: "author", content: "lucas charles"}
+    %meta{name: "robots", content: "index"}
+    %meta{name: "keywords", content: "website, discussions, reddit, slashdot, hackernews, conversations, search"}
+
+    %meta{property: "og:title", content: "Discuss It"}
+    %meta{property: "og:type", content: "Website"}
+    %meta{property: "og:url", content: "http://discussitapp.com"}
+    %meta{property: "og:site_name", content: "Discuss It App"}
+    %meta{property: "og:description", content: "Discuss It - Online discussion tracker for finding conversations"}
+
+    / mobile specific metas
+    %meta{name: "viewport", content: "width=device-width, initial-scale=1"}
+
+    / CSS stylesheets
+    %link{:rel => "stylesheet", :href => "/css/application.css"}
+
+    / Google Search Console
+    %meta{name: "google-site-verification", content: "kMG6lgDLRhhYRIaPnIyu-Zu-Ll8O463w9V6cvzPTDZ4"}
+
+    / Google Analytics
+    %script{:type=>"text/javascript"}
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-29308675-3', 'auto');
+      ga('send', 'pageview');
 
   %body
     .navbar.navbar-fluid-top
