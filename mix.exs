@@ -9,6 +9,9 @@ defmodule DiscussIt.Mixfile do
      compilers: [:phoenix, :gettext] ++ Mix.compilers,
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
+     preferred_cli_env: [
+       vcr: :test, "vcr.delete": :test, "vcr.check": :test, "vcr.show": :test
+     ],
      aliases: aliases,
      deps: deps]
   end
@@ -18,8 +21,8 @@ defmodule DiscussIt.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {DiscussIt, []},
-     applications: [:phoenix, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex]]
+     applications: [:httpoison, :phoenix, :phoenix_html, :cowboy, :logger,
+                    :gettext, :phoenix_ecto, :postgrex, :poison]]
   end
 
   # Specifies which paths to compile per environment.
@@ -30,7 +33,9 @@ defmodule DiscussIt.Mixfile do
   #
   # Type `mix help deps` for examples and options.
   defp deps do
-    [{:phoenix, "~> 1.1.1"},
+    [{:exvcr, "~> 0.7", only: :test},
+     {:httpoison, "~> 0.8.0"},
+     {:phoenix, "~> 1.1.1"},
      {:phoenix_ecto, "~> 2.0"},
      {:postgrex, ">= 0.0.0"},
      {:phoenix_haml, github: "chrismccord/phoenix_haml"},

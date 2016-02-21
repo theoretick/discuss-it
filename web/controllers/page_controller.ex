@@ -9,7 +9,8 @@ defmodule DiscussIt.PageController do
   end
 
   def submit(conn, %{ "url" => query_url }) do
-    render conn, "submit.html", query_url: query_url
+    results = DiscussItApi.call(query_url)
+    render conn, "submit.html", query_url: query_url, results: results
   end
   def submit(conn, _params), do: render(conn, "submit.html", query_url: "")
 

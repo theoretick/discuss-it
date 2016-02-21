@@ -1,0 +1,69 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": [],
+      "method": "get",
+      "options": [],
+      "request_body": "",
+      "url": "http://www.reddit.com/api/info.json?url=https://swift.org/blog/swift-api-transformation"
+    },
+    "response": {
+      "body": "{\"kind\": \"Listing\", \"data\": {\"modhash\": \"\", \"children\": [], \"after\": null, \"before\": null}}",
+      "headers": {
+        "Date": "Sun, 21 Feb 2016 20:40:36 GMT",
+        "Content-Type": "application/json; charset=UTF-8",
+        "Content-Length": "91",
+        "Connection": "keep-alive",
+        "Set-Cookie": "__cfduid=d76e2c473bfa1945543644bd58a9095bf1456087236; expires=Mon, 20-Feb-17 20:40:36 GMT; path=/; domain=.reddit.com; HttpOnly",
+        "x-ua-compatible": "IE=edge",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "x-xss-protection": "1; mode=block",
+        "access-control-allow-origin": "*",
+        "access-control-expose-headers": "X-Reddit-Tracking, X-Moose",
+        "x-reddit-tracking": "https://pixel.redditmedia.com/pixel/of_destiny.png?v=ypVR%2FXxFKGgXlFpE%2B7WRD5jkc2rre6MtEEC9WMARWoJzTkRDM8kJqHeqrkgY%2BIAcjpGtbNyI%2FeU%3D",
+        "cache-control": "max-age=0, must-revalidate",
+        "X-Moose": "majestic",
+        "Server": "cloudflare-nginx",
+        "CF-RAY": "2785446afc550c41-SEA"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  },
+  {
+    "request": {
+      "body": "",
+      "headers": [],
+      "method": "get",
+      "options": [],
+      "request_body": "",
+      "url": "http://www.reddit.com/api/info.json?url=https://swift.org/blog/swift-api-transformation/"
+    },
+    "response": {
+      "body": "{\"kind\": \"Listing\", \"data\": {\"modhash\": \"\", \"children\": [{\"kind\": \"t3\", \"data\": {\"domain\": \"swift.org\", \"banned_by\": null, \"media_embed\": {}, \"subreddit\": \"hackernews\", \"selftext_html\": null, \"selftext\": \"\", \"likes\": null, \"suggested_sort\": null, \"user_reports\": [], \"secure_media\": null, \"link_flair_text\": null, \"id\": \"43fge0\", \"from_kind\": null, \"gilded\": 0, \"archived\": false, \"clicked\": false, \"report_reasons\": null, \"author\": \"qznc_bot\", \"media\": null, \"score\": 1, \"approved_by\": null, \"over_18\": false, \"hidden\": false, \"num_comments\": 1, \"thumbnail\": \"default\", \"subreddit_id\": \"t5_2qhij\", \"hide_score\": false, \"edited\": false, \"link_flair_css_class\": null, \"author_flair_css_class\": null, \"downs\": 0, \"secure_media_embed\": {}, \"saved\": false, \"removal_reason\": null, \"stickied\": false, \"from\": null, \"is_self\": false, \"from_id\": null, \"permalink\": \"/r/hackernews/comments/43fge0/its_coming_the_great_swift_api_transformation/\", \"locked\": false, \"name\": \"t3_43fge0\", \"created\": 1454210171.0, \"url\": \"https://swift.org/blog/swift-api-transformation/\", \"author_flair_text\": null, \"quarantine\": false, \"title\": \"It's Coming: The Great Swift API Transformation\", \"created_utc\": 1454181371.0, \"distinguished\": null, \"mod_reports\": [], \"visited\": false, \"num_reports\": null, \"ups\": 1}}], \"after\": null, \"before\": null}}",
+      "headers": {
+        "Date": "Sun, 21 Feb 2016 20:40:36 GMT",
+        "Content-Type": "application/json; charset=UTF-8",
+        "Transfer-Encoding": "chunked",
+        "Connection": "keep-alive",
+        "Set-Cookie": "__cfduid=d76e2c473bfa1945543644bd58a9095bf1456087236; expires=Mon, 20-Feb-17 20:40:36 GMT; path=/; domain=.reddit.com; HttpOnly",
+        "x-ua-compatible": "IE=edge",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "x-xss-protection": "1; mode=block",
+        "access-control-allow-origin": "*",
+        "access-control-expose-headers": "X-Reddit-Tracking, X-Moose",
+        "x-reddit-tracking": "https://pixel.redditmedia.com/pixel/of_destiny.png?v=rsOQdlAiEXcfmEfMTvDpx%2F0zgdK0UJn0uYq8bDTPGZrcN14l%2B%2F8Kz0ZiyLy%2BYqxahZJxlTCY%2BsM%3D",
+        "Vary": "accept-encoding",
+        "cache-control": "max-age=0, must-revalidate",
+        "X-Moose": "majestic",
+        "Server": "cloudflare-nginx",
+        "CF-RAY": "2785446c4c700c41-SEA"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]

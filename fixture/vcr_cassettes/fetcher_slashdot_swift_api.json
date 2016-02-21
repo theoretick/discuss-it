@@ -1,0 +1,33 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": [],
+      "method": "get",
+      "options": [],
+      "request_body": "",
+      "url": "https://slashdot-api.herokuapp.com/slashdot_postings/search?url=http://www.theguardian.com/world/2013/sep/05/nsa-gchq-encryption-codes-security"
+    },
+    "response": {
+      "body": "[{\"id\":984,\"title\":\"NSA Foils Much Internet Encryption - Slashdot\",\"permalink\":\"http://yro.slashdot.org/story/13/09/05/1951204/nsa-foils-much-internet-encryption\",\"created_at\":\"2013-09-06T04:30:43.183Z\",\"updated_at\":\"2013-11-02T20:05:32.749Z\",\"site\":\"slashdot\",\"author\":\"timothy\",\"comment_count\":387,\"post_date\":\"2013-09-05T17:00:00+00:00\"},{\"id\":15608,\"title\":\"Questioning the Dispute Over Key Escrow - Slashdot\",\"permalink\":\"http://yro.slashdot.org/story/15/07/31/2258237/questioning-the-dispute-over-key-escrow\",\"created_at\":\"2015-08-01T04:30:21.057Z\",\"updated_at\":\"2015-08-01T04:30:21.057Z\",\"site\":\"slashdot\",\"author\":\"timothy\",\"comment_count\":39,\"post_date\":\"2015-07-31T19:38:00+00:00\"}]",
+      "headers": {
+        "Server": "Cowboy",
+        "Date": "Sun, 21 Feb 2016 20:14:09 GMT",
+        "Connection": "keep-alive",
+        "X-Frame-Options": "SAMEORIGIN",
+        "X-Xss-Protection": "1; mode=block",
+        "X-Content-Type-Options": "nosniff",
+        "X-Ua-Compatible": "chrome=1",
+        "Content-Type": "application/json; charset=utf-8",
+        "Etag": "\"c70c9ada2e82ee7f6088d2d69e2374f0\"",
+        "Cache-Control": "max-age=0, private, must-revalidate",
+        "X-Request-Id": "592e5372-d361-421d-ab6e-1dd3b14433ea",
+        "X-Runtime": "0.066197",
+        "Transfer-Encoding": "chunked",
+        "Via": "1.1 vegur"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]

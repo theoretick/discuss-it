@@ -1,0 +1,36 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": [],
+      "method": "get",
+      "options": [],
+      "request_body": "",
+      "url": "http://hn.algolia.com/api/v1/search?restrictSearchableAttributes=url&query=%22https://swift.org/blog/swift-api-transformation/%22"
+    },
+    "response": {
+      "body": "{\"hits\":[{\"created_at\":\"2016-01-30T14:02:49.000Z\",\"title\":\"It's Coming: The Great Swift API Transformation\",\"url\":\"https://swift.org/blog/swift-api-transformation/\",\"author\":\"ceeK\",\"points\":163,\"story_text\":null,\"comment_text\":null,\"num_comments\":25,\"story_id\":null,\"story_title\":null,\"story_url\":null,\"parent_id\":null,\"created_at_i\":1454162569,\"_tags\":[\"story\",\"author_ceeK\",\"story_11001818\"],\"objectID\":\"11001818\",\"_highlightResult\":{\"title\":{\"value\":\"It's Coming: The Great Swift API Transformation\",\"matchLevel\":\"none\",\"matchedWords\":[]},\"url\":{\"value\":\"\\u003Cem\\u003Ehttps\\u003C/em\\u003E://\\u003Cem\\u003Eswift.org\\u003C/em\\u003E/blog/swift-api-transformation/\",\"matchLevel\":\"full\",\"matchedWords\":[\"https\",\"swift\",\"org\",\"blog\",\"swift\",\"api\",\"transformation\"]},\"author\":{\"value\":\"ceeK\",\"matchLevel\":\"none\",\"matchedWords\":[]}}}],\"nbHits\":1,\"page\":0,\"nbPages\":1,\"hitsPerPage\":20,\"processingTimeMS\":1,\"query\":\"\\\"https://swift.org/blog/swift-api-transformation/\\\"\",\"params\":\"advancedSyntax=true\\u0026analytics=false\\u0026query=%22https%3A%2F%2Fswift.org%2Fblog%2Fswift-api-transformation%2F%22\\u0026restrictSearchableAttributes=url\"}",
+      "headers": {
+        "Server": "nginx",
+        "Date": "Sun, 21 Feb 2016 19:42:08 GMT",
+        "Content-Type": "application/json; charset=utf-8",
+        "Transfer-Encoding": "chunked",
+        "Connection": "keep-alive",
+        "X-Frame-Options": "SAMEORIGIN",
+        "X-XSS-Protection": "1; mode=block",
+        "X-Content-Type-Options": "nosniff",
+        "X-UA-Compatible": "chrome=1",
+        "ETag": "\"140f2e224d16fac0d0da0a4142182d69\"",
+        "Cache-Control": "no-cache",
+        "X-Request-Id": "555d1a63-9833-475e-8042-72a8f90a6506",
+        "X-Runtime": "0.005971",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, PUT, DELETE, POST, OPTIONS",
+        "Access-Control-Allow-Headers": "x-algolia-application-id, connection, origin, x-algolia-api-key, content-type, content-length, x-algolia-signature, x-algolia-usertoken, x-algolia-tagfilters, DNT, X-Mx-ReqToken, Keep-Alive, User-Agent, X-Requested-With, If-Modified-Since, Cache-Control, Authorization, Accept",
+        "Access-Control-Allow-Credentials": "false"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]

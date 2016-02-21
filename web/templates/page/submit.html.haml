@@ -12,23 +12,23 @@
     %a{href: @query_url}
       = if (String.starts_with?(@query_url, "http")), do: @query_url, else: "http://#{@query_url}"
 
-  %section#top-discussions
-    %h3 TOP DISCUSSIONS
+  / %section#top-discussions
+  /   %h3 TOP DISCUSSIONS
 
-    #top-results
+  /   #top-results
 
-      %table.table#top-discussions-table
-        %thead
-          %tr
-            %th.listing-metadata
-            %th.listing-link
-            %th.listing-score
-        %tbody
+  /     %table.table#top-discussions-table
+  /       %thead
+  /         %tr
+  /           %th.listing-metadata
+  /           %th.listing-link
+  /           %th.listing-score
+  /       %tbody
 
-  %br
+  / %br
 
   %section#other-discussions
-    %h3 OTHER DISCUSSIONS
+    %h3 DISCUSSIONS
 
     #other-results
 
@@ -39,12 +39,22 @@
             %th.listing-link
             %th.listing-score
         %tbody
-
+          = Enum.map(@results, fn(result) ->
+            %tr
+              %td
+                = result["site"]
+              %td
+                - location = result["location"]
+                %a{href: location}
+                  = result["title"]
+              %td
+                = result["score"]
+          - end)
   %br
 
   %button#filtered-btn.btn.btn-block.btn-large.btn-info{"data-target" => "#filtered-results", "data-toggle" => "collapse", type: "button"}
     %span.caret
-    CLICK TO VIEW FILTERED RESULTS
+    VIEW FILTERED RESULTS
     %span.caret
 
   #filtered-results.collapse
