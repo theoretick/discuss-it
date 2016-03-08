@@ -3,6 +3,6 @@ defmodule DiscussIt.PageControllerTest do
 
   test "GET /", %{conn: conn} do
     conn = get conn, "/"
-    assert html_response(conn, 200) =~ "Welcome to Phoenix!"
+    assert html_response(conn, 200) =~ "Online discussion tracker for finding conversations"
   end
 end

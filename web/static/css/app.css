@@ -76,3 +76,23 @@ form.link, form.button {
     border-bottom: 0;
   }
 }
+
+/* CUSTOM JUNK */
+
+.jumbotron-cta {
+  text-align: left;
+  margin-top: 60px;
+}
+
+body {
+  background-image: -webkit-gradient(linear, 100% 0, 0 0, from(#C1DFCC), to(#0E4B4B));
+  background-image: -webkit-linear-gradient(to right, #0E4B4B, #C1DFCC);
+  background-image: -moz-linear-gradient(to right, #0E4B4B, #C1DFCC);
+  background-image: -o-linear-gradient(to right, #0E4B4B, #C1DFCC);
+  background-image: linear-gradient(to right, #0E4B4B, #C1DFCC);
+  font-family: Futura, Lato, sans-serif;
+}
+
+.app-version {
+  color: rgb(238, 238, 238);
+}

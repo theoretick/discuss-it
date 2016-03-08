@@ -1,20 +1,28 @@
 defmodule DiscussIt.PageController do
   use DiscussIt.Web, :controller
 
-  @mock_results ~S({"total_hits":2,"top_results":{"hits":2,"results":[{"id":112,"title":"Robot Produces Paintings With That 'Imperfect' Human Look - Slashdot","created_at":"2013-08-02T02:58:52.944Z","updated_at":"2013-11-02T20:05:18.034Z","site":"Slashdot","author":"timothy","post_date":"2013-07-28T16:57:00+00:00","location":"http://hardware.slashdot.org/story/13/07/28/2056210/robot-produces-paintings-with-that-imperfect-human-look","num_comments":74,"ranking":74},{"domain":"singularityhub.com","banned_by":null,"media_embed":{},"subreddit":"singularity","selftext_html":null,"selftext":"","likes":null,"suggested_sort":null,"user_reports":[],"secure_media":null,"link_flair_text":null,"id":"1j8h5m","from_kind":null,"gilded":0,"archived":true,"clicked":false,"report_reasons":null,"author":"mepper","media":null,"score":38,"approved_by":null,"over_18":false,"hidden":false,"num_comments":4,"thumbnail":"http://b.thumbs.redditmedia.com/qEhg7nCHIaMtmHAg.jpg","subreddit_id":"t5_2qh8m","hide_score":false,"edited":false,"link_flair_css_class":null,"author_flair_css_class":null,"downs":0,"secure_media_embed":{},"saved":false,"removal_reason":null,"stickied":false,"from":null,"is_self":false,"from_id":null,"permalink":"/r/singularity/comments/1j8h5m/edavid_a_robotic_system_built_by_researchers_at/","locked":false,"name":"t3_1j8h5m","created":1375074692.0,"url":"http://singularityhub.com/2013/07/27/canvas-camera-brush-and-algorithms-enable-robot-artists-beautiful-paintings/","author_flair_text":null,"quarantine":false,"title":"e-David, a robotic system built by researchers at the U of Konstanz, employs a variety of styles to produce paintings remarkably similar to their human counterparts -- \"the final products seem to display that perfectly imperfect quality we generally associate with human works of art\"","created_utc":1375045892.0,"distinguished":null,"mod_reports":[],"visited":false,"num_reports":null,"ups":38,"site":"Reddit","location":"http://www.reddit.com/r/singularity/comments/1j8h5m/edavid_a_robotic_system_built_by_researchers_at/","ranking":42}]},"other_results":{"hits":0,"results":[]},"filtered_results":{"hits":2,"results":[{"domain":"singularityhub.com","banned_by":null,"media_embed":{},"subreddit":"technology","selftext_html":null,"selftext":"","likes":null,"suggested_sort":null,"user_reports":[],"secure_media":null,"link_flair_text":null,"id":"1j8h6p","from_kind":null,"gilded":0,"archived":true,"clicked":false,"report_reasons":null,"author":"mepper","media":null,"score":3,"approved_by":null,"over_18":false,"hidden":false,"num_comments":0,"thumbnail":"","subreddit_id":"t5_2qh16","hide_score":false,"edited":false,"link_flair_css_class":null,"author_flair_css_class":null,"downs":0,"secure_media_embed":{},"saved":false,"removal_reason":null,"stickied":false,"from":null,"is_self":false,"from_id":null,"permalink":"/r/technology/comments/1j8h6p/edavid_a_robotic_system_built_by_researchers_at/","locked":false,"name":"t3_1j8h6p","created":1375074720.0,"url":"http://singularityhub.com/2013/07/27/canvas-camera-brush-and-algorithms-enable-robot-artists-beautiful-paintings/","author_flair_text":null,"quarantine":false,"title":"e-David, a robotic system built by researchers at the U of Konstanz, employs a variety of styles to produce paintings remarkably similar to their human counterparts -- \"the final products seem to display that perfectly imperfect quality we generally associate with human works of art\"","created_utc":1375045920.0,"distinguished":null,"mod_reports":[],"visited":false,"num_reports":null,"ups":3,"site":"Reddit","location":"http://www.reddit.com/r/technology/comments/1j8h6p/edavid_a_robotic_system_built_by_researchers_at/","ranking":3},{"created_at":"2013-07-28T22:58:13.000Z","title":"Robots paint with flaws too, like humans","url":"http://singularityhub.com/2013/07/27/canvas-camera-brush-and-algorithms-enable-robot-artists-beautiful-paintings/","author":"chewxy","points":2,"story_text":"","comment_text":null,"num_comments":0,"story_id":null,"story_title":null,"story_url":null,"parent_id":null,"created_at_i":1375052293,"_tags":["story","author_chewxy","story_6118451"],"objectID":"6118451","_highlightResult":{"title":{"value":"Robots paint with flaws too, like humans","matchLevel":"none","matchedWords":[]},"url":{"value":"<em>http</em>://<em>singularityhub.com</em><em>/2013/07/27/canvas-camera-brush-and-algorithms-enable-robot-artists-beautiful-paintings</em>/","matchLevel":"full","matchedWords":["http","singularityhub","com","2013","07","27","canvas","camera","brush","and","algorithms","enable","robot","artists","beautiful","paintings"]},"author":{"value":"chewxy","matchLevel":"none","matchedWords":[]},"story_text":{"value":"","matchLevel":"none","matchedWords":[]}},"site":"HackerNews","location":"http://news.ycombinator.com/item?id=6118451","ranking":2}]},"errors":[]})
-
-
   def index(conn, _params) do
-    render conn, "index.html"
+    render conn, "index.html", app_version: app_version
   end
 
   def submit(conn, %{ "url" => query_url }) do
-    results = DiscussItApi.call(query_url)
-    render conn, "submit.html", query_url: query_url, results: results
+    all_results = DiscussItApi.call(query_url)
+    {top_results, filtered_results} = DiscussIt.Utils.filter_results(all_results)
+    render conn, "submit.html",
+      query_url: query_url,
+      top_results: top_results,
+      all_results: all_results,
+      filtered_results: filtered_results,
+      app_version: app_version
   end
-  def submit(conn, _params), do: render(conn, "submit.html", query_url: "")
+  def submit(conn, _params), do: render(conn, "submit.html", query_url: "", app_version: app_version)
 
   def about(conn, _params) do
-    render conn, "about.html"
+    render conn, "about.html", app_version: app_version
+  end
+
+  defp app_version do
+    {:ok, vsn} = :application.get_key(:discuss_it, :vsn)
+    vsn
   end
 end

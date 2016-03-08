@@ -6,23 +6,36 @@
           %title= "Discuss-It"
     %link{rel: "stylesheet", href: "/css/app.css"}
   %body
-    .navbar.navbar-fluid-top
-      .navbar-inner
-        .container-fluid
-          %a{href: "/", class: "brand"}
-            Discuss It
-          %ul.nav
+    %nav.navbar.navbar-default.navbar-fixed-top
+      .container-fluid
+        / Brand and toggle get grouped for better mobile display
+        .navbar-header
+          %button.navbar-toggle.collapsed{aria-expanded: "false", data-target: "#navbar-collapsable-1", data-toggle: "collapse", type: "button"}
+            %span.sr-only Toggle navigation
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          %a.navbar-brand{href: "/"} Discuss It!
+        / Collect the nav links, forms, and other content for toggling
+        #navbar-collapsable-1.collapse.navbar-collapse
+          %ul.nav.navbar-nav
             %li
-              %a{href: "/about"}
-                About
-          %ul.nav.pull-right.signin-navbar
-            %li#devlink
-              %a{href: "/api"}
-                developers
-    .container-fluid
-      %br
-      .row-fluid
-        .span9.offset1
+              %a{href: "/about"} About
+          %ul.nav.navbar-nav.navbar-right
+            %li
+              %a{href: "/api"} developers
+        / /.navbar-collapse
+      / /.container-fluid
 
+    .container-fluid
+      .row
+        .col-md-1
+        .col-md-10
           / CONTENT!
           = render @view_module, @view_template, assigns
+
+          %footer
+            %p.app-version
+              Discuss It 2016 -
+              = " v#{@app_version}"
+            %br/

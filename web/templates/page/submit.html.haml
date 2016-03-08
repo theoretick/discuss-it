@@ -1,70 +1,93 @@
-.hero-unit
-  %h1 Discuss It!
-  %p Online link discussion tracker for locating conversations about a given url.
+.row
+  .col-md-11
+    .jumbotron.jumbotron-cta
+      %h1 Discuss It!
+      %p Online discussion tracker for finding conversations
 
-.row-fluid
-  %p.pagination-centered
-    %br
-    %b#discuss-it-errors
-    %br
-    %b.pull-left Discussions about:
-    %br
-    %a{href: @query_url}
-      = if (String.starts_with?(@query_url, "http")), do: @query_url, else: "http://#{@query_url}"
+      %div
+        %p.pagination-centered
+          %br
+          %b#discuss-it-errors
+          %br
+          %b.pull-left Discussions about:
+          %br
+          %a{href: @query_url}
+            = if (String.starts_with?(@query_url, "http")), do: @query_url, else: "http://#{@query_url}"
 
-  / %section#top-discussions
-  /   %h3 TOP DISCUSSIONS
+        %section#top-discussions
+          %h3 TOP DISCUSSIONS
 
-  /   #top-results
+          #top-results
 
-  /     %table.table#top-discussions-table
-  /       %thead
-  /         %tr
-  /           %th.listing-metadata
-  /           %th.listing-link
-  /           %th.listing-score
-  /       %tbody
+            %table.table#top-discussions-table
+              %thead
+                %tr
+                  %th.listing-metadata
+                  %th.listing-link
+                  %th.listing-score
+              %tbody
+                = Enum.map(@top_results, fn(result) ->
+                  %tr
+                    %td
+                      = result["site"]
+                    %td
+                      - location = result["location"]
+                      %a{href: location}
+                        = result["title"]
+                    %td
+                      = result["score"]
+                - end)
+        %br
 
-  / %br
+        %section#other-discussions
+          %h3 All DISCUSSIONS
 
-  %section#other-discussions
-    %h3 DISCUSSIONS
+          #other-results
 
-    #other-results
+            %table.table#other-discussions-table
+              %thead
+                %tr
+                  %th.listing-metadata
+                  %th.listing-link
+                  %th.listing-score
+              %tbody
+                = Enum.map(@all_results, fn(result) ->
+                  %tr
+                    %td
+                      = result["site"]
+                    %td
+                      - location = result["location"]
+                      %a{href: location}
+                        = result["title"]
+                    %td
+                      = result["score"]
+                - end)
+        %br
 
-      %table.table#other-discussions-table
-        %thead
-          %tr
-            %th.listing-metadata
-            %th.listing-link
-            %th.listing-score
-        %tbody
-          = Enum.map(@results, fn(result) ->
-            %tr
-              %td
-                = result["site"]
-              %td
-                - location = result["location"]
-                %a{href: location}
-                  = result["title"]
-              %td
-                = result["score"]
-          - end)
-  %br
+        %button#filtered-btn.btn.btn-block.btn-large.btn-info{data-target: "#filtered-results", data-toggle: "collapse", type: "button"}
+          %span.caret
+          VIEW FILTERED RESULTS
+          %span.caret
 
-  %button#filtered-btn.btn.btn-block.btn-large.btn-info{"data-target" => "#filtered-results", "data-toggle" => "collapse", type: "button"}
-    %span.caret
-    VIEW FILTERED RESULTS
-    %span.caret
+        #filtered-results.collapse
 
-  #filtered-results.collapse
+          %h3.small DISCUSSIONS WITHOUT COMMENTS
 
-    %h3.small DISCUSSIONS WITHOUT COMMENTS
-
-    %table.table#filtered-discussions-table
-      %thead
-        %tr
-          %th.listing-metadata
-          %th.listing-link
-          %th.listing-score
-      %tbody
+          %table.table#filtered-discussions-table
+            %thead
+              %tr
+                %th.listing-metadata
+                %th.listing-link
+                %th.listing-score
+            %tbody
+              = Enum.map(@filtered_results, fn(result) ->
+                %tr
+                  %td
+                    = result["site"]
+                  %td
+                    - location = result["location"]
+                    %a{href: location}
+                      = result["title"]
+                  %td
+                    = result["score"]
+              - end)
