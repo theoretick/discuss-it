@@ -12,9 +12,10 @@ defmodule Fetchers.Hn do
             %{"site" => "HackerNews", "location" => location, "score" => listing_score(listing)})
         end)
       {:ok, %HTTPoison.Response{status_code: 404}} ->
-        IO.puts "Not found :("
+        raise "Not found :("
       {:error, %HTTPoison.Error{reason: reason}} ->
         IO.inspect reason
+        []
     end
   end
 

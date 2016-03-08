@@ -5,6 +5,8 @@ defmodule Fetchers.Reddit do
   @doc """
     Due to some API design insanity, reddit stores URLs separately with and without
     a trailing slash. So we do 2 calls here and combine the results.
+
+    ## HACK: this is super nasty, fix it.
   """
   def call(url) do
     if String.ends_with?(url, "/")  do
@@ -33,9 +35,10 @@ defmodule Fetchers.Reddit do
             %{"site" => "Reddit", "location" => location, "score" => score})
         end)
       {:ok, %HTTPoison.Response{status_code: 404}} ->
-        IO.puts "Not found :("
+        raise "Not found :("
       {:error, %HTTPoison.Error{reason: reason}} ->
         IO.inspect reason
+        []
     end
   end
 
