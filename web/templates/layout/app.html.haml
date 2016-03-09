@@ -1,10 +1,34 @@
 %html{lang: "en"}
   %head
     %meta{charset: "utf-8"}
-      %meta{content: "IE=Edge,chrome=1", http-equiv: "X-UA-Compatible"}
-        %meta{content: "width=device-width, initial-scale=1.0", name: "viewport"}
-          %title= "Discuss-It"
+    %meta{content: "IE=Edge,chrome=1", http-equiv: "X-UA-Compatible"}
+    %meta{content: "width=device-width, initial-scale=1.0", name: "viewport"}
+    %title= "Discuss-It"
+    / searchability
+    %meta{content: "Discuss It - Online discussion tracker for finding conversations", name: "description"}
+    %meta{content: "lucas charles", name: "author"}
+    %meta{content: "index", name: "robots"}
+    %meta{content: "website, discussions, reddit, slashdot, hackernews, conversations, search", name: "keywords"}
+    %meta{content: "Discuss It", property: "og:title"}
+    %meta{content: "Website", property: "og:type"}
+    %meta{content: "http://discussitapp.com", property: "og:url"}
+    %meta{content: "Discuss It App", property: "og:site_name"}
+    %meta{content: "Discuss It - Online discussion tracker for finding conversations", property: "og:description"}
+    / mobile specific metas
+    %meta{content: "width=device-width, initial-scale=1", name: "viewport"}
+    / CSS stylesheets
     %link{rel: "stylesheet", href: "/css/app.css"}
+    / Google Search Console
+    %meta{content: "kMG6lgDLRhhYRIaPnIyu-Zu-Ll8O463w9V6cvzPTDZ4", name: "google-site-verification"}
+    / Google Analytics
+    :javascript
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-29308675-3', 'auto');
+      ga('send', 'pageview');
+
   %body
     %nav.navbar.navbar-default.navbar-fixed-top
       .container-fluid
