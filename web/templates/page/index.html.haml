@@ -1,0 +1,36 @@
+.row
+  .col-md-11
+    .jumbotron.jumbotron-cta
+      %h1 Discuss It!
+      %p Online discussion tracker for finding conversations
+
+      %div
+
+        %form{ action: "/submit", method: "GET"}
+          .form-group
+            %label{for: "url"} Paste your link:
+            %input#url.form-control{placeholder: "http://example.com/article.html", type: "text", autofocus: true, id: "search-field", name: "url"}
+          .checkbox
+            %label
+              %input{type: "checkbox", id: "strip_params", value: "true", name: "strip_params", checked: "checked"}
+              Strip url params?
+          %label.checkbox-inline{for: "source[]", class: "muted", alt_text: "Sources to query for discussions"}
+            %input{type: "checkbox", value: "reddit", name: "source[]", checked: "checked"} Reddit
+          %label.checkbox-inline{for: "source[]", class: "muted", alt_text: "Sources to query for discussions"}
+            %input{type: "checkbox", value: "hn", name: "source[]", checked: "checked"} HackerNews
+          %label.checkbox-inline{for: "source[]", class: "muted", alt_text: "Sources to query for discussions"}
+            %input{type: "checkbox", value: "slashdot", name: "source[]", checked: "checked"} Slashdot
+          .form-group
+            %button.btn.btn-primary{type: "submit"} Discuss This!
+
+    .well
+      %h5 Suggested Searches:
+      %p.suggested
+        %a{href: "/submit?url=http://qualiacomputing.com/2015/05/22/how-to-secretly-communicate-with-people-on-lsd/"}
+          "How to secretly communicate with people on LSD - Qualia Computing"
+      %p.suggested
+        %a{href: "/submit?url=http://www.apple.com/customer-letter"}
+          "A letter from Apple to all customers - apple.com"
+      %p.suggested
+        %a{href: "/submit?url=http://i.imgur.com/gOLvZVO.jpg"}
+          "Photo of all-black house in Germany - imgur.com"
