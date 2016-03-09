@@ -3,7 +3,7 @@ defmodule DiscussIt.Mixfile do
 
   def project do
     [app: :discuss_it,
-     version: "0.0.1",
+     version: "0.8.0",
      elixir: "~> 1.0",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix, :gettext] ++ Mix.compilers,
@@ -22,7 +22,7 @@ defmodule DiscussIt.Mixfile do
   def application do
     [mod: {DiscussIt, []},
      applications: [:httpoison, :phoenix, :phoenix_html, :cowboy, :logger,
-                    :gettext, :phoenix_ecto, :postgrex, :poison]]
+                    :gettext, :phoenix_ecto, :postgrex, :poison, :phoenix_haml]]
   end
 
   # Specifies which paths to compile per environment.
@@ -33,7 +33,8 @@ defmodule DiscussIt.Mixfile do
   #
   # Type `mix help deps` for examples and options.
   defp deps do
-    [{:exvcr, "~> 0.7", only: :test},
+    [{:exrm, "~> 1.0.2"},
+     {:exvcr, "~> 0.7", only: :test},
      {:httpoison, "~> 0.8.0"},
      {:phoenix, "~> 1.1.1"},
      {:phoenix_ecto, "~> 2.0"},
