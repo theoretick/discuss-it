@@ -3,7 +3,7 @@ defmodule Fetchers.Hn do
   # use HTTPoison.base
 
   def call(url) do
-    case HTTPoison.get(api_url <> "%22#{url}%22") do
+    case HTTPoison.get(api_url <> url) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
         listings = Poison.Parser.parse!(body)
         Enum.map(listings["hits"], fn(listing) ->
