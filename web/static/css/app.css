@@ -93,6 +93,10 @@ body {
   font-family: Futura, Lato, sans-serif;
 }
 
+.cta {
+  color: rgb(119, 119, 119);
+}
+
 .app-version {
   color: rgb(238, 238, 238);
 }

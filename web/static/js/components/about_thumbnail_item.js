@@ -9,11 +9,9 @@ const AboutThumbnailItem = ({contributor}) => {
         <img src={imgUrl} />
         <div className="caption text-center">
           <h4>{username}</h4>
-          <p align="center">
-            <a className="btn btn-primary btn-block" href={githubUrl}>
-              Github Profile
-            </a>
-          </p>
+          <a className="btn btn-primary btn-block" href={githubUrl}>
+            Github Profile
+          </a>
         </div>
       </div>
     </li>
