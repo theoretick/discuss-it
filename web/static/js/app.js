@@ -19,8 +19,6 @@ import ReactDOM from 'react-dom'
 //
 // Local files can be imported directly using relative
 // paths "./socket" or full ones "web/static/js/socket".
-
-// import socket from "./socket"
 import AboutThumbnailList from "./components/about_thumbnail_list"
 
 var about_thumbnails_container = document.getElementById("about-thumbnails-container")
