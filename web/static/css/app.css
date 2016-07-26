@@ -96,3 +96,7 @@ body {
 .app-version {
   color: rgb(238, 238, 238);
 }
+
+.about-thumbnails {
+  list-style: none;
+}

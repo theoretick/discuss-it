@@ -12,6 +12,8 @@
 // If you no longer want to use a dependency, remember
 // to also remove its path from "config.paths.watched".
 import 'phoenix_html'
+import React from 'react'
+import ReactDOM from 'react-dom'
 
 // Import local files
 //
@@ -19,3 +21,10 @@ import 'phoenix_html'
 // paths "./socket" or full ones "web/static/js/socket".
 
 // import socket from "./socket"
+import AboutThumbnailList from "./components/about_thumbnail_list"
+
+var about_thumbnails_container = document.getElementById("about-thumbnails-container")
+
+if (about_thumbnails_container) {
+  ReactDOM.render(<AboutThumbnailList/>, about_thumbnails_container)
+}
