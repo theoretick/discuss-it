@@ -4,7 +4,7 @@ defmodule DiscussIt.Mixfile do
   def project do
     [app: :discuss_it,
      version: "0.8.0",
-     elixir: "~> 1.0",
+     elixir: "~> 1.2",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix, :gettext] ++ Mix.compilers,
      build_embedded: Mix.env == :prod,
@@ -33,16 +33,16 @@ defmodule DiscussIt.Mixfile do
   #
   # Type `mix help deps` for examples and options.
   defp deps do
-    [{:exrm, "~> 1.0.2"},
+    [{:exrm, "~> 1.0.8"},
      {:exvcr, "~> 0.7", only: :test},
-     {:httpoison, "~> 0.8.0"},
-     {:phoenix, "~> 1.1.1"},
-     {:phoenix_ecto, "~> 2.0"},
+     {:httpoison, "~> 0.9.0"},
+     {:phoenix, "~> 1.2.0"},
+     {:phoenix_ecto, "~> 3.0"},
      {:postgrex, ">= 0.0.0"},
      {:phoenix_haml, github: "chrismccord/phoenix_haml"},
-     {:phoenix_html, "~> 2.3.0"},
+     {:phoenix_html, "~> 2.6"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
-     {:gettext, "~> 0.9"},
+     {:gettext, "~> 0.11"},
      {:cowboy, "~> 1.0"}]
   end
 

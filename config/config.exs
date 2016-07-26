@@ -5,10 +5,12 @@
 # is restricted to this project.
 use Mix.Config
 
+config :discuss_it,
+  ecto_repos: [DiscussIt.Repo]
+
 # Configures the endpoint
 config :discuss_it, DiscussIt.Endpoint,
   url: [host: "localhost"],
-  root: Path.dirname(__DIR__),
   secret_key_base: "Um6PC9bBtgx9IvHbMNSPdV8o/zD8k4mCvOEH8eyoUq5PBNZVCj8Hdof01IQkQzir",
   render_errors: [accepts: ~w(html json)],
   pubsub: [name: DiscussIt.PubSub,
@@ -22,11 +24,6 @@ config :logger, :console,
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"
-
-# Configure phoenix generators
-config :phoenix, :generators,
-  migration: true,
-  binary_id: false
 
 config :phoenix, :template_engines,
   haml: PhoenixHaml.Engine
