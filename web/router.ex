@@ -21,8 +21,10 @@ defmodule DiscussIt.Router do
     get "/submit", PageController, :submit
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", DiscussIt do
-  #   pipe_through :api
-  # end
+  scope "/api", DiscussIt do
+    pipe_through :api
+
+    get "/",       ApiController, :index
+    get "/submit",       ApiController, :submit
+  end
 end
