@@ -52,6 +52,6 @@ defmodule Fetchers.Reddit do
   end
 
   def api_url do
-    "http://www.reddit.com/api/info.json?url="
+    "https://www.reddit.com/api/info.json?url="
   end
 end
