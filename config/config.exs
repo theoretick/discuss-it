@@ -5,9 +5,6 @@
 # is restricted to this project.
 use Mix.Config
 
-config :discuss_it,
-  ecto_repos: [DiscussIt.Repo]
-
 # Configures the endpoint
 config :discuss_it, DiscussIt.Endpoint,
   url: [host: "localhost"],
