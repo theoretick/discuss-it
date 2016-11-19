@@ -14,11 +14,27 @@
 import 'phoenix_html'
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
+import { createStore, applyMiddleware } from 'redux'
+import ReduxPromise from 'redux-promise'
 
+import App from './components/app'
 import AboutThumbnailList from './components/about_thumbnail_list'
+import reducers from './reducers'
 
-var about_thumbnails_container = document.getElementById('about-thumbnails-container');
+var about_thumbnails_container = document.getElementById('about-thumbnails-container'),
+    search_container = document.getElementById('search-container');
 
 if (about_thumbnails_container) {
   ReactDOM.render(<AboutThumbnailList/>, about_thumbnails_container)
+}
+
+if (search_container) {
+  const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
+
+  ReactDOM.render(
+    <Provider store={createStoreWithMiddleware(reducers)}>
+      <App />
+    </Provider>
+    , document.getElementById('search-container'))
 }

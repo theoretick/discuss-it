@@ -19,12 +19,13 @@ defmodule DiscussIt.Router do
     get "/",       PageController, :index
     get "/about",  PageController, :about
     get "/submit", PageController, :submit
+    get "/search", PageController, :search
   end
 
   scope "/api", DiscussIt do
     pipe_through :api
 
     get "/",       ApiController, :index
-    get "/submit",       ApiController, :submit
+    get "/submit", ApiController, :submit
   end
 end
