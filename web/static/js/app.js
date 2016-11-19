@@ -15,13 +15,9 @@ import 'phoenix_html'
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-// Import local files
-//
-// Local files can be imported directly using relative
-// paths "./socket" or full ones "web/static/js/socket".
-import AboutThumbnailList from "./components/about_thumbnail_list"
+import AboutThumbnailList from './components/about_thumbnail_list'
 
-var about_thumbnails_container = document.getElementById("about-thumbnails-container")
+var about_thumbnails_container = document.getElementById('about-thumbnails-container');
 
 if (about_thumbnails_container) {
   ReactDOM.render(<AboutThumbnailList/>, about_thumbnails_container)
