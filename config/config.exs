@@ -9,7 +9,7 @@ use Mix.Config
 config :discuss_it, DiscussIt.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "Um6PC9bBtgx9IvHbMNSPdV8o/zD8k4mCvOEH8eyoUq5PBNZVCj8Hdof01IQkQzir",
-  render_errors: [accepts: ~w(html json)],
+  render_errors: [view: DiscussIt.ErrorView, accepts: ~w(html json)],
   pubsub: [name: DiscussIt.PubSub,
            adapter: Phoenix.PubSub.PG2]
 

@@ -2,7 +2,7 @@ defmodule DiscussIt.ErrorHelpers do
   @moduledoc """
   Conveniences for translating and building error messages.
   """
-  
+
   use Phoenix.HTML
 
   @doc """
@@ -13,7 +13,7 @@ defmodule DiscussIt.ErrorHelpers do
       content_tag :span, translate_error(error), class: "help-block"
     end
   end
-  
+
   @doc """
   Translates an error message using gettext.
   """
@@ -21,15 +21,20 @@ defmodule DiscussIt.ErrorHelpers do
     # Because error messages were defined within Ecto, we must
     # call the Gettext module passing our Gettext backend. We
     # also use the "errors" domain as translations are placed
-    # in the errors.po file. On your own code and templates,
-    # this could be written simply as:
+    # in the errors.po file.
+    # Ecto will pass the :count keyword if the error message is
+    # meant to be pluralized.
+    # On your own code and templates, depending on whether you
+    # need the message to be pluralized or not, this could be
+    # written simply as:
     #
     #     dngettext "errors", "1 file", "%{count} files", count
+    #     dgettext "errors", "is invalid"
     #
-    Gettext.dngettext(DiscussIt.Gettext, "errors", msg, msg, opts[:count], opts)
-  end
-
-  def translate_error(msg) do
-    Gettext.dgettext(DiscussIt.Gettext, "errors", msg)
+    if count = opts[:count] do
+      Gettext.dngettext(DiscussIt.Gettext, "errors", msg, msg, count, opts)
+    else
+      Gettext.dgettext(DiscussIt.Gettext, "errors", msg, opts)
+    end
   end
 end

@@ -48,7 +48,7 @@ config :logger, level: :info
 # If you are doing OTP releases, you need to instruct Phoenix
 # to start the server for all endpoints:
 #
-    config :phoenix, :serve_endpoints, true
+#     config :phoenix, :serve_endpoints, true
 #
 # Alternatively, you can configure exactly which server to
 # start per endpoint:
@@ -59,3 +59,7 @@ config :logger, level: :info
 # for the new static assets to be served after a hot upgrade:
 #
 #     config :discuss_it, DiscussIt.Endpoint, root: "."
+
+# Finally import the config/prod.secret.exs
+# which should be versioned separately.
+import_config "prod.secret.exs"

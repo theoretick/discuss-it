@@ -1,17 +1,18 @@
 defmodule DiscussIt do
   use Application
 
-  @version "0.8.0"
+  @version "0.8.1"
 
   # See http://elixir-lang.org/docs/stable/elixir/Application.html
   # for more information on OTP Applications
   def start(_type, _args) do
-    import Supervisor.Spec, warn: false
+    import Supervisor.Spec
 
+    # Define workers and child supervisors to be supervised
     children = [
       # Start the endpoint when the application starts
       supervisor(DiscussIt.Endpoint, []),
-      # Here you could define other workers and supervisors as children
+      # Start your own worker by calling: DiscussIt.Worker.start_link(arg1, arg2, arg3)
       # worker(DiscussIt.Worker, [arg1, arg2, arg3]),
     ]
 
