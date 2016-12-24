@@ -30,6 +30,10 @@ defmodule DiscussIt.Web do
     quote do
       use Phoenix.Controller
 
+      alias DiscussIt.Repo
+      import Ecto
+      import Ecto.Query
+
       import DiscussIt.Router.Helpers
       import DiscussIt.Gettext
     end

@@ -16,11 +16,22 @@ defmodule DiscussIt.ServiceCase do
 
   using do
     quote do
+      alias DiscussIt.Repo
+
+      import Ecto
+      import Ecto.Changeset
+      import Ecto.Query
       import DiscussIt.ModelCase
     end
   end
 
   setup tags do
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(DiscussIt.Repo)
+
+    unless tags[:async] do
+      Ecto.Adapters.SQL.Sandbox.mode(DiscussIt.Repo, {:shared, self()})
+    end
+
     :ok
   end
 

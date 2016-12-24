@@ -20,6 +20,11 @@ defmodule DiscussIt.ConnCase do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
 
+      alias DiscussIt.Repo
+      import Ecto
+      import Ecto.Changeset
+      import Ecto.Query
+
       import DiscussIt.Router.Helpers
 
       # The default endpoint for testing
@@ -28,6 +33,12 @@ defmodule DiscussIt.ConnCase do
   end
 
   setup tags do
-    {:ok, conn: Phoenix.ConnTest.conn()}
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(DiscussIt.Repo)
+
+    unless tags[:async] do
+      Ecto.Adapters.SQL.Sandbox.mode(DiscussIt.Repo, {:shared, self()})
+    end
+
+    {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
 end

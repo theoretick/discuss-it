@@ -20,12 +20,24 @@ defmodule DiscussIt.ChannelCase do
       # Import conveniences for testing with channels
       use Phoenix.ChannelTest
 
+      alias DiscussIt.Repo
+      import Ecto
+      import Ecto.Changeset
+      import Ecto.Query
+
+
       # The default endpoint for testing
       @endpoint DiscussIt.Endpoint
     end
   end
 
   setup tags do
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(DiscussIt.Repo)
+
+    unless tags[:async] do
+      Ecto.Adapters.SQL.Sandbox.mode(DiscussIt.Repo, {:shared, self()})
+    end
+
     :ok
   end
 end

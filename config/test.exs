@@ -8,3 +8,12 @@ config :discuss_it, DiscussIt.Endpoint,
 
 # Print only warnings and errors during test
 config :logger, level: :warn
+
+# Configure your database
+config :discuss_it, DiscussIt.Repo,
+  adapter: Ecto.Adapters.Postgres,
+  username: "postgres",
+  password: "postgres",
+  database: "discuss_it_test",
+  hostname: "localhost",
+  pool: Ecto.Adapters.SQL.Sandbox
