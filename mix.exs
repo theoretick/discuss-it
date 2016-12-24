@@ -21,7 +21,7 @@ defmodule DiscussIt.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {DiscussIt, []},
-     applications: [:httpoison, :phoenix, :phoenix_html, :cowboy, :logger,
+     applications: [:httpoison, :phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger,
                     :gettext, :phoenix_ecto, :postgrex, :poison, :phoenix_haml]]
   end
 
@@ -37,6 +37,7 @@ defmodule DiscussIt.Mixfile do
      {:exvcr, "~> 0.7", only: :test},
      {:httpoison, "~> 0.9.0"},
      {:phoenix, "~> 1.2.0"},
+     {:phoenix_pubsub, "~> 1.0"},
      {:phoenix_ecto, "~> 3.0"},
      {:postgrex, ">= 0.0.0"},
      {:phoenix_haml, github: "chrismccord/phoenix_haml"},
