@@ -53,11 +53,6 @@
               <a href="/about">About</a>
             </li>
           </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li>
-              <a href="#">developers</a>
-            </li>
-          </ul>
         </div>
         <!--.navbar-collapse>  <![endif]-->
       </div>
@@ -68,7 +63,6 @@
         <div class="col-md-1">
         </div>
         <div class="col-md-10">
-          <!-- CONTENT! -->
           <%= render @view_module, @view_template, assigns %>
         </div>
       </div>
@@ -77,7 +71,6 @@
       <p class="app-version">Discuss It 2016 - v0.8.0</p>
       <!-- <br> -->
     </footer>
-    <script src="<%= "#{static_path(@conn, "/js/app.js")}" %>">
-    </script>
+    <script src="<%= "#{static_path(@conn, "/js/app.js")}" %>"></script>
   </body>
 </html>
