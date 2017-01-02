@@ -7,13 +7,19 @@ const INITIAL_STATE = {
 
 export default function(state = INITIAL_STATE, action) {
   switch(action.type) {
-  case 'REQUEST_RESULTS':
+  case 'REQUEST_RESULTS_SUBMIT':
     return {
       status: "pending",
       error: null,
       results: []
     }
-  case 'RECEIVE_RESULTS':
+  case 'FAIL_RESULTS_SUBMIT':
+    return {
+      status: "fail",
+      error: action.payload.data,
+      results: []
+    }
+  case 'RECEIVE_RESULTS_SUBMIT':
     return {
       status: "done",
       error: null,

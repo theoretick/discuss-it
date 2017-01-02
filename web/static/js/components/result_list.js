@@ -64,9 +64,6 @@ class ResultList extends Component {
 }
 
 function mapStateToProps({ search }) {
-  console.log("mapStateToProps");
-  console.log(search);
-
   const results = search.results
 
   return {
