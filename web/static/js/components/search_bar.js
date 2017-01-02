@@ -34,7 +34,7 @@ class SearchBar extends Component {
             <input
             className="form-control"
             placeholder="http://example.com/article.html"
-            value={this.state.term}
+            value={this.state.search_term}
             onChange={this.onInputChange}
             required='true' />
           </div>
