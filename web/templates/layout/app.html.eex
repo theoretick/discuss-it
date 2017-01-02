@@ -68,7 +68,7 @@
       </div>
     </div>
     <footer>
-      <p class="app-version">Discuss It 2016 - v0.8.0</p>
+      <p class="col-sm-offset-1 app-version">Discuss It 2016 - v<%= @app_version %></p>
       <!-- <br> -->
     </footer>
     <script src="<%= "#{static_path(@conn, "/js/app.js")}" %>"></script>
