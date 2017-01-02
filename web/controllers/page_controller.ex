@@ -5,10 +5,6 @@ defmodule DiscussIt.PageController do
     render conn, "index.html", app_version: app_version
   end
 
-  def search(conn, _params) do
-    render conn, "search.html", app_version: app_version
-  end
-
   def submit(conn, %{ "url" => query_url }) do
     all_results = DiscussItApi.call(query_url)
     {top_results, filtered_results} = DiscussIt.Utils.filter_results(all_results)
