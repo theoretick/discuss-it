@@ -1,9 +1,8 @@
 # Discuss-it
+
 #### Online link discussion tracker
 
-## Version 0.8.0
-
-[![Code Climate](https://codeclimate.com/github/theoretick/discuss-it.png)](https://codeclimate.com/github/theoretick/discuss-it)
+## Version 0.8.1
 
 Website for locating online discussions about a given article on Reddit, Hacker News, and Slashdot.
 
@@ -32,17 +31,6 @@ into similar listing objects that can be manipulated and sorted easily.
 Slashdot does not have an API so results from Slashdot are aggregated
 by our custom API which scrapes the most recent postings and stores them
 as listings in a database.
-
-## Developer API
-
-__See more info on our [Developer Portal](http://www.discussitapp.com/api)__
-
-Want to use our app for easy searching?
-
-Discuss It results can be conveniently accessed via our submit page:
-```
-http://www.discussitapp.com/submit.json?url=http://example.com/
-```
 
 ## Bookmarklet
 

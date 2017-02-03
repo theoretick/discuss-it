@@ -1,3 +1,10 @@
+## 0.8.1 (2016-01-02)
+
+ * Render pages with react/redux
+ * Swap deploys from exrm/edeliver to distillery
+ * convert layouts from haml to eex
+ * Remove dead developers portal
+
 ## 0.8.0 (2016-03-08)
 
  * complete rewrite in Elixir/Phoenix
