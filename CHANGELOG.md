@@ -1,3 +1,7 @@
+## 0.8.3
+
+## 0.8.2
+
 ## 0.8.1 (2016-01-02)
 
  * Render pages with react/redux
