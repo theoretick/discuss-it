@@ -1,7 +1,7 @@
 defmodule DiscussIt do
   use Application
 
-  @version "0.8.1"
+  @version "0.8.2"
 
   # See http://elixir-lang.org/docs/stable/elixir/Application.html
   # for more information on OTP Applications

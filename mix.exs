@@ -3,7 +3,7 @@ defmodule DiscussIt.Mixfile do
 
   def project do
     [app: :discuss_it,
-     version: "0.8.1",
+     version: "0.8.2",
      elixir: "~> 1.2",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix, :gettext] ++ Mix.compilers,
