@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "babel-preset-stage-3": "^6.24.1"
+  }
+}

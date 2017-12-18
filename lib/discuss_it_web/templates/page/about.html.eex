@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="jumbotron jumbotron-cta">
+      <h1>Discuss It!</h1>
+      <p class="cta">Online discussion tracker for finding conversations</p>
+
+      <div>
+        <div class="row">
+          <h4 class="lead">How often do you find an article online and want to track down a discussion about it?</h4>
+          <p>Discuss-It allows you to paste in a given URL and we'll find you the best discussion thread across the web, aggregating results from Reddit, HackerNews, and Slashdot.</p>
+        </div>
+
+        <div id="about-thumbnails-container"></div>
+      </div>
+    </div>
+  </div>
+</div>

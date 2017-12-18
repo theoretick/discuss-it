@@ -1,0 +1,87 @@
+/* This file is for your main application css. */
+
+.jumbotron-cta {
+  text-align: left;
+  margin-top: 60px;
+}
+
+body {
+  background-image: -webkit-gradient(linear, 100% 0, 0 0, from(#C1DFCC), to(#0E4B4B));
+  background-image: -webkit-linear-gradient(to right, #0E4B4B, #C1DFCC);
+  background-image: -moz-linear-gradient(to right, #0E4B4B, #C1DFCC);
+  background-image: -o-linear-gradient(to right, #0E4B4B, #C1DFCC);
+  background-image: linear-gradient(to right, #0E4B4B, #C1DFCC);
+  font-family: Futura, Lato, sans-serif;
+}
+
+.cta {
+  color: rgb(119, 119, 119);
+}
+
+.app-version {
+  color: rgb(238, 238, 238);
+}
+
+.about-thumbnails {
+  list-style: none;
+}
+
+.loader,
+.loader:before,
+.loader:after {
+  background: #ffffff;
+  -webkit-animation: load1 1s infinite ease-in-out;
+  animation: load1 1s infinite ease-in-out;
+  width: 1em;
+  height: 4em;
+}
+.loader {
+  color: #ffffff;
+  text-indent: -9999em;
+  margin: 88px auto;
+  position: relative;
+  font-size: 11px;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+.loader:before,
+.loader:after {
+  position: absolute;
+  top: 0;
+  content: '';
+}
+.loader:before {
+  left: -1.5em;
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+.loader:after {
+  left: 1.5em;
+}
+@-webkit-keyframes load1 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 0;
+    height: 4em;
+  }
+  40% {
+    box-shadow: 0 -2em;
+    height: 5em;
+  }
+}
+@keyframes load1 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 0;
+    height: 4em;
+  }
+  40% {
+    box-shadow: 0 -2em;
+    height: 5em;
+  }
+}
