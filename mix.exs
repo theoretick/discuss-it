@@ -33,6 +33,7 @@ defmodule DiscussIt.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:distillery, "~> 1.5", runtime: false},
       {:httpoison, "~> 0.13.0"},
       {:mock, "~> 0.3.0", only: :test},
       {:phoenix, "~> 1.3.0"},
