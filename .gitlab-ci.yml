@@ -1,0 +1,19 @@
+test:
+  image: trenpixster/elixir:latest
+  services:
+    - postgres:9.6
+  variables:
+    POSTGRES_DB: nice_marmot
+    POSTGRES_USER: runner
+    POSTGRES_PASSWORD: ""
+    POSTGRES_HOST: postgres
+    MIX_ENV: "test"
+
+  before_script:
+    - apt-get update && apt-get -y install postgresql-client
+    - mix deps.get
+    - mix ecto.create
+    - mix ecto.migrate
+
+  script:
+    - mix test
