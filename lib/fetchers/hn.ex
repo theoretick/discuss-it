@@ -29,6 +29,6 @@ defmodule Fetchers.Hn do
   end
 
   def api_url do
-    "http://hn.algolia.com/api/v1/search?restrictSearchableAttributes=url&query="
+    "https://hn.algolia.com/api/v1/search?restrictSearchableAttributes=url&query="
   end
 end
