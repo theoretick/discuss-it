@@ -34,9 +34,10 @@ class SearchBar extends Component {
             <input
             className="form-control"
             placeholder="http://example.com/article.html"
+            autofocus="autofocus"
             value={this.state.search_term}
             onChange={this.onInputChange}
-            required='true' />
+            required="true" />
           </div>
         </div>
         <div className="form-group">
