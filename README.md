@@ -2,6 +2,8 @@
 
 #### Online link discussion tracker
 
+This repo has been deprecated but is here for archival purposes. Please see https://gitlab.com/theoretick/discuss_it for current version.
+
 ## Version 0.8.1
 
 Website for locating online discussions about a given article on Reddit, Hacker News, and Slashdot.
